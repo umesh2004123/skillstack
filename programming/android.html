@@ -1,0 +1,822 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	 <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/63c50dd3d1.js" crossorigin="anonymous"></script>
+    <!-- Google Fonts -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Android Development Roadmap - Interactive Guide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a40 50%, #2d1b69 100%);
+            color: #ffffff;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            padding: 60px 0;
+            position: relative;
+        }
+
+        h1 {
+            font-size: 4rem;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 4s ease-in-out infinite;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            color: #a0a0a0;
+            margin-bottom: 40px;
+        }
+
+        .roadmap {
+            position: relative;
+            padding: 40px 0;
+        }
+
+        .roadmap-section {
+            margin-bottom: 80px;
+            position: relative;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 50px;
+            color: #4ecdc4;
+            position: relative;
+        }
+		.section-title img{
+            font-size: 2.5rem;
+			width: 100px;
+            text-align: center;
+            margin-bottom: 50px;
+            color: #4ecdc4;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            border-radius: 2px;
+        }
+
+        .roadmap-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .roadmap-item {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 30px;
+            position: relative;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            overflow: hidden;
+        }
+
+        .roadmap-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(255, 107, 107, 0.1), rgba(78, 205, 196, 0.1));
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            z-index: -1;
+        }
+
+        .roadmap-item:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(78, 205, 196, 0.3);
+        }
+
+        .roadmap-item:hover::before {
+            opacity: 1;
+        }
+
+        .item-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .item-icon {
+            width: 50px;
+            height: 50px;
+           /* background: linear-gradient(45deg, #ff6b6b, #4ecdc4);*/
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 24px;
+        }
+.item-icon img {
+            width: 50px;
+            height: 50px;
+          
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 24px;
+        }
+
+        .item-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        .item-description {
+            color: #b0b0b0;
+            margin-bottom: 20px;
+            font-size: 1rem;
+
+        }
+         .item-description ul{
+            color: #b0b0b0;
+            margin-bottom: 20px;
+            font-size: 1rem;
+            text-align: center;
+            
+        }
+        .item-description ul li{
+            color: #b0b0b0;
+            margin-bottom: 20px;
+            font-size: 1rem;
+            text-align: center;
+            list-style-type: none;
+            
+        }
+
+        .fa-solid.fa-arrow-right.fa-beat{
+            margin-right: 10px;
+            color: white;
+        }
+
+        .item-topics {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .topic-tag {
+            background: rgba(78, 205, 196, 0.2);
+            color: #4ecdc4;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            border: 1px solid rgba(78, 205, 196, 0.3);
+            transition: all 0.3s ease;
+        }
+
+          .topic-tag a{
+            
+           color: white;
+           
+        }
+
+        .topic-tag:hover {
+            background: rgba(78, 205, 196, 0.3);
+            transform: scale(1.05);
+        }
+
+        .connecting-line {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 3px;
+            height: 50px;
+            background: linear-gradient(to bottom, #4ecdc4, #45b7d1);
+            margin: 20px 0;
+            border-radius: 2px;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .progress-indicator {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            z-index: 1000;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #ff6b6b, #4ecdc4, #45b7d1);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .floating-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(78, 205, 196, 0.6);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .difficulty-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            padding: 5px 10px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .difficulty-beginner {
+            background: rgba(76, 175, 80, 0.2);
+            color: #4caf50;
+            border: 1px solid rgba(76, 175, 80, 0.3);
+        }
+
+        .difficulty-intermediate {
+            background: rgba(255, 193, 7, 0.2);
+            color: #ffc107;
+            border: 1px solid rgba(255, 193, 7, 0.3);
+        }
+
+        .difficulty-advanced {
+            background: rgba(244, 67, 54, 0.2);
+            color: #f44336;
+            border: 1px solid rgba(244, 67, 54, 0.3);
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.6; transform: translateX(-50%) scaleY(1); }
+            50% { opacity: 1; transform: translateX(-50%) scaleY(1.2); }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.4; }
+            33% { transform: translateY(-30px) rotate(120deg); opacity: 0.8; }
+            66% { transform: translateY(-60px) rotate(240deg); opacity: 0.6; }
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            .subtitle { font-size: 1.2rem; }
+            .section-title { font-size: 2rem; }
+            .roadmap-grid { grid-template-columns: 1fr; }
+            .container { padding: 10px; }
+        }
+
+        .cta-section {
+            text-align: center;
+            padding: 80px 0;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 30px;
+            margin: 60px 0;
+            backdrop-filter: blur(10px);
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 15px 40px;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(78, 205, 196, 0.4);
+        }
+		.footerimg{
+			width: 100%;
+			height: 50%;
+			 background: linear-gradient(135deg, #0f0f23 0%, #1a1a40 50%, #2d1b69 100%);
+		}
+		.footerimg img{
+			width: 100%;
+			height: 50%;
+			
+		}
+		.footer{
+			display: flex;
+			align-items: center;
+			justify-content: center;
+
+		}
+		.footer li{
+			list-style: none;
+			margin: 10px;
+		}
+		.socialmedia{
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+		.socialmedia li{
+				list-style-type: none;
+		}
+		#botomlogo{
+		font-size: 20px;
+		font-family: cursive;
+		color: black;
+		}
+    </style>
+</head>
+<body>
+    <div class="progress-indicator">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <div class="floating-particles" id="particles"></div>
+
+    <div class="container">
+        <header>
+            <h1>Android Roadmap</h1>
+            <p class="subtitle">Your comprehensive guide to becoming an Android developer</p>
+        </header>
+
+        <div class="roadmap">
+            <!-- Programming Fundamentals -->
+            <div class="roadmap-section">
+                <h2 class="section-title">🚀 Programming Fundamentals</h2>
+                <div class="roadmap-grid">
+                    <div class="roadmap-item">
+                        <div class="difficulty-badge difficulty-beginner">Beginner</div>
+                        <div class="item-header">
+                            <div class="item-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" id="java">
+  <path fill="#0074BD" d="M47.617 98.12s-4.767 2.774 3.397 3.71c9.892 1.13 14.947.968 25.845-1.092 0 0 2.871 1.795 6.873 3.351-24.439 10.47-55.308-.607-36.115-5.969zM44.629 84.455s-5.348 3.959 2.823 4.805c10.567 1.091 18.91 1.18 33.354-1.6 0 0 1.993 2.025 5.132 3.131-29.542 8.64-62.446.68-41.309-6.336z"></path>
+  <path fill="#EA2D2E" d="M69.802 61.271c6.025 6.935-1.58 13.17-1.58 13.17s15.289-7.891 8.269-17.777c-6.559-9.215-11.587-13.792 15.635-29.58 0 .001-42.731 10.67-22.324 34.187z"></path>
+  <path fill="#0074BD" d="M102.123 108.229s3.529 2.91-3.888 5.159c-14.102 4.272-58.706 5.56-71.094.171-4.451-1.938 3.899-4.625 6.526-5.192 2.739-.593 4.303-.485 4.303-.485-4.953-3.487-32.013 6.85-13.743 9.815 49.821 8.076 90.817-3.637 77.896-9.468zM49.912 70.294s-22.686 5.389-8.033 7.348c6.188.828 18.518.638 30.011-.326 9.39-.789 18.813-2.474 18.813-2.474s-3.308 1.419-5.704 3.053c-23.042 6.061-67.544 3.238-54.731-2.958 10.832-5.239 19.644-4.643 19.644-4.643zM90.609 93.041c23.421-12.167 12.591-23.86 5.032-22.285-1.848.385-2.677.72-2.677.72s.688-1.079 2-1.543c14.953-5.255 26.451 15.503-4.823 23.725 0-.002.359-.327.468-.617z"></path>
+     12.303 32.923c-20.266 16.006-4.621 25.13-.007 35.559-11.831-10.673-20.509-20.07-14.688-28.815 8.548-12.834 32.229-19.059 26.998-39.667z"></path>
+  <path fill="#0074BD" d="M52.214 126.021c22.476 1.437 57-.8 57.817-11.436 0 0-1.571 4.032-18.577 7.231-19.186 3.612-42.854 3.191-56.887.874 0 .001 2.875 2.381 17.647 3.331z"></path>
+</svg></div>
+                            <div class="item-title">Java Basics</div>
+                        </div>
+                        <div class="item-description"><ul>
+                            <li> <i class="fa-solid fa-arrow-right fa-beat"></i>Variables & Data Types</li>
+                            <li> <i class="fa-solid fa-arrow-right fa-beat"></i>Operators & Expressions</li>
+                            <li> <i class="fa-solid fa-arrow-right fa-beat"></i>Input/Output (System.out, Scanner)</li>
+                            <li> <i class="fa-solid fa-arrow-right fa-beat"></i>Comments & JavaDoc</li>
+                        </ul></div>
+                        <div class="item-topics">
+                            <span class="topic-tag">Variables & Data Types</span>
+                            <span class="topic-tag">Operators & Expressions</span>
+                            <span class="topic-tag">Input/Output</span>
+                            <span class="topic-tag">Comments & JavaDoc</span>
+                        </div>
+                    </div>
+                    <div class="roadmap-item">
+                        <div class="difficulty-badge difficulty-beginner">Beginner</div>
+                        <div class="item-header">
+                            <div class="item-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="kotlin">
+  <linearGradient id="a" x1="-125.602" x2="-124.485" y1="61.11" y2="62.227" gradientTransform="matrix(20 0 0 -20 2508 1244.27)" gradientUnits="userSpaceOnUse">
+    <stop offset=".108" stop-color="#c757bc"></stop>
+    <stop offset=".173" stop-color="#cd5ca9"></stop>
+    <stop offset=".492" stop-color="#e8744f"></stop>
+    <stop offset=".716" stop-color="#f88316"></stop>
+    <stop offset=".823" stop-color="#ff8900"></stop>
+  </linearGradient>
+  <path fill="url(#a)" d="M12.05 0 0 12.672V24l12.032-12.054L24 0H12.05z"></path>
+  <linearGradient id="b" x1="-125.017" x2="-124.473" y1="60.797" y2="61.341" gradientTransform="matrix(20 0 0 -20 2508 1244.27)" gradientUnits="userSpaceOnUse">
+    <stop offset=".296" stop-color="#00afff"></stop>
+    <stop offset=".694" stop-color="#5282ff"></stop>
+    <stop offset="1" stop-color="#945dff"></stop>
+  </linearGradient>
+  <path fill="url(#b)" d="m0 24 12.032-12.053L24 24H0z"></path>
+  <linearGradient id="c" x1="-125.414" x2="-125.033" y1="61.882" y2="62.264" gradientTransform="matrix(20 0 0 -20 2508 1244.27)" gradientUnits="userSpaceOnUse">
+    <stop offset=".296" stop-color="#00afff"></stop>
+    <stop offset=".694" stop-color="#5282ff"></stop>
+    <stop offset="1" stop-color="#945dff"></stop>
+  </linearGradient>
+  <path fill="url(#c)" d="M0 0h12.05L0 12.672V0z"></path>
+</svg></div>
+                            <div class="item-title">Kotlin</div>
+                        </div>
+                        <div class="item-description">Learn Kotlin as the preferred language for Android development.</div>
+                        <div class="item-topics">
+                            <span class="topic-tag">Syntax & Basics</span>
+                            <span class="topic-tag">Null Safety</span>
+                            <span class="topic-tag">Extensions</span>
+                            <span class="topic-tag">Coroutines</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="connecting-line"><i class="fa-solid fa-arrow-down"></i></div>
+            </div>
+
+            <!-- Android Basics -->
+            <div class="roadmap-section">
+                <h2 class="section-title"> Android Basics</h2>
+                <div class="roadmap-grid">
+                    <div class="roadmap-item">
+                        <div class="difficulty-badge difficulty-beginner">Beginner</div>
+                        <div class="item-header">
+                            <div class="item-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" id="android-studio">
+  <circle cx="16" cy="16" r="11" fill="#94C856"></circle>
+  <path fill="#6E6E6E" d="M16 28C9.383 28 4 22.617 4 16S9.383 4 16 4s12 5.383 12 12-5.383 12-12 12zm0-22C10.486 6 6 10.486 6 16s4.486 10 10 10 10-4.486 10-10S21.514 6 16 6z"></path>
+  <path fill="#F2F2F2" d="m24.857 26.763-3.12-5.2A7.97 7.97 0 0 0 24 16a1 1 0 0 0-2 0 5.973 5.973 0 0 1-1.338 3.77L19 17l-2 1 1.936 3.227A5.957 5.957 0 0 1 16 22a5.948 5.948 0 0 1-2.931-.782L15 18l-2-1-5.857 9.763a.991.991 0 0 0-.143.514v.914a.5.5 0 0 0 .724.447l1.016-.508c.17-.085.312-.217.41-.38l2.893-4.822A7.931 7.931 0 0 0 16 24a7.941 7.941 0 0 0 3.964-1.06l2.886 4.811c.098.163.24.295.41.38l1.016.508a.5.5 0 0 0 .724-.448v-.914a.991.991 0 0 0-.143-.514z"></path>
+  <path fill="#6E6E6E" d="M19 11h-1V9a1 1 0 0 0-1-1h-2a1 1 0 0 0-1 1v2h-1a1 1 0 0 0-1 1v4c0 .334.167.646.445.832l3 2a1 1 0 0 0 1.11 0l3-2c.278-.186.445-.498.445-.832v-4a1 1 0 0 0-1-1zm-3 5a2 2 0 1 1-.001-3.999A2 2 0 0 1 16 16z"></path>
+</svg></div>
+                            <div class="item-title">Android Studio</div>
+                        </div>
+                        <div class="item-description">Get familiar with the official IDE for Android development.</div>
+                        <div class="item-topics">
+                            <span class="topic-tag">Setup & Configuration</span>
+                            <span class="topic-tag">Project Structure</span>
+                            <span class="topic-tag">Debugging Tools</span>
+                            <span class="topic-tag">Emulator</span>
+                        </div>
+                    </div>
+                    <div class="roadmap-item">
+                        <div class="difficulty-badge difficulty-beginner">Beginner</div>
+                        <div class="item-header">
+                            <div class="item-icon"><img src="components.png" alt=""></div>
+                            <div class="item-title">App Components</div>
+                        </div>
+                        <div class="item-description">Understand the fundamental building blocks of Android apps.</div>
+                        <div class="item-topics">
+                            <span class="topic-tag">Activities</span>
+                            <span class="topic-tag">Services</span>
+                            <span class="topic-tag">Broadcast Receivers</span>
+                            <span class="topic-tag">Content Providers</span>
+                        </div>
+                    </div>
+                    <div class="roadmap-item">
+                        <div class="difficulty-badge difficulty-intermediate">Intermediate</div>
+                        <div class="item-header">
+                            <div class="item-icon"><img src="document.png" alt=""></div>
+                            <div class="item-title">Manifest & Permissions</div>
+                        </div>
+                        <div class="item-description">Learn about app configuration and permission management.</div>
+                        <div class="item-topics">
+                            <span class="topic-tag">AndroidManifest.xml</span>
+                            <span class="topic-tag">Runtime Permissions</span>
+                            <span class="topic-tag">App Components Declaration</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="connecting-line"></div>
+            </div>
+
+            <!-- UI Development -->
+            <div class="roadmap-section">
+                <h2 class="section-title"><img src="app-development.png" alt=""> UI Development</h2>
+                <div class="roadmap-grid">
+                    <div class="roadmap-item">
+                        <div class="difficulty-badge difficulty-beginner">Beginner</div>
+                        <div class="item-header">
+                            <div class="item-icon"><img src="layout.png" alt=""></div>
+                            <div class="item-title">Layouts & Views</div>
+                        </div>
+                        <div class="item-description">Master different layout types and view components.</div>
+                        <div class="item-topics">
+                            <span class="topic-tag">LinearLayout</span>
+                            <span class="topic-tag">RelativeLayout</span>
+                            <span class="topic-tag">ConstraintLayout</span>
+                            <span class="topic-tag">RecyclerView</span>
+                        </div>
+                    </div>
+                    <div class="roadmap-item">
+                        <div class="difficulty-badge difficulty-intermediate">Intermediate</div>
+                        <div class="item-header">
+                            <div class="item-icon"><img src="design-process.png" alt=""></div>
+                            <div class="item-title">Material Design</div>
+                        </div>
+                        <div class="item-description">Implement Google's Material Design principles.</div>
+                        <div class="item-topics">
+                            <span class="topic-tag">Material Components</span>
+                            <span class="topic-tag">Theming</span>
+                            <span class="topic-tag">Animations</span>
+                            <span class="topic-tag">Dark Theme</span>
+                        </div>
+                    </div>
+                    <div class="roadmap-item">
+                        <div class="difficulty-badge difficulty-advanced">Advanced</div>
+                        <div class="item-header">
+                            <div class="item-icon"><img src="download__2_-removebg-preview (1).png" alt=""></div>
+                            <div class="item-title">Jetpack Compose</div>
+                        </div>
+                        <div class="item-description">Modern toolkit for building native Android UI.</div>
+                        <div class="item-topics">
+                            <span class="topic-tag">Composables</span>
+                            <span class="topic-tag">State Management</span>
+                            <span class="topic-tag">Navigation</span>
+                            <span class="topic-tag">Theming</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="connecting-line"></div>
+            </div>
+
+            <!-- Data Management -->
+            <div class="roadmap-section">
+                <h2 class="section-title">💾 Data Management</h2>
+                <div class="roadmap-grid">
+                    <div class="roadmap-item">
+                        <div class="difficulty-badge difficulty-beginner">Beginner</div>
+                        <div class="item-header">
+                            <div class="item-icon"><img src="local-area-network.png" alt=""></div>
+                            <div class="item-title">Local Storage</div>
+                        </div>
+                        <div class="item-description">Store data locally on the device.</div>
+                        <div class="item-topics">
+                            <span class="topic-tag">SharedPreferences</span>
+                            <span class="topic-tag">Internal Storage</span>
+                            <span class="topic-tag">External Storage</span>
+                            <span class="topic-tag">Files & Directories</span>
+                        </div>
+                    </div>
+                    <div class="roadmap-item">
+                        <div class="difficulty-badge difficulty-intermediate">Intermediate</div>
+                        <div class="item-header">
+                            <div class="item-icon"><img src="data-management.png" alt=""></div>
+                            <div class="item-title">Databases</div>
+                        </div>
+                        <div class="item-description">Work with local databases for complex data storage.</div>
+                        <div class="item-topics">
+                            <span class="topic-tag">SQLite</span>
+                            <span class="topic-tag">Room Database</span>
+                            <span class="topic-tag">Entity & DAO</span>
+                            <span class="topic-tag">Database Migrations</span>
+                        </div>
+                    </div>
+                    <div class="roadmap-item">
+                        <div class="difficulty-badge difficulty-intermediate">Intermediate</div>
+                        <div class="item-header">
+                            <div class="item-icon"><img src="computer.png" alt=""></div>
+                            <div class="item-title">Networking</div>
+                        </div>
+                        <div class="item-description">Communicate with remote servers and APIs.</div>
+                        <div class="item-topics">
+                            <span class="topic-tag">HTTP Requests</span>
+                            <span class="topic-tag">Retrofit</span>
+                            <span class="topic-tag">JSON Parsing</span>
+                            <span class="topic-tag">Authentication</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="connecting-line"></div>
+            </div>
+
+            <!-- Advanced Topics -->
+            <div class="roadmap-section">
+                <h2 class="section-title">⚡ Advanced Topics</h2>
+                <div class="roadmap-grid">
+                    <div class="roadmap-item">
+                        <div class="difficulty-badge difficulty-advanced">Advanced</div>
+                        <div class="item-header">
+                            <div class="item-icon"><img src="architecture.png" alt=""></div>
+                            <div class="item-title">Architecture Patterns</div>
+                        </div>
+                        <div class="item-description">Implement clean and maintainable app architecture.</div>
+                        <div class="item-topics">
+                            <span class="topic-tag">MVVM</span>
+                            <span class="topic-tag">MVP</span>
+                            <span class="topic-tag">Clean Architecture</span>
+                            <span class="topic-tag">Repository Pattern</span>
+                        </div>
+                    </div>
+                    <div class="roadmap-item">
+                        <div class="difficulty-badge difficulty-advanced">Advanced</div>
+                        <div class="item-header">
+                            <div class="item-icon"><img src="testing.png" alt=""></div>
+                            <div class="item-title">Testing</div>
+                        </div>
+                        <div class="item-description">Ensure code quality through comprehensive testing.</div>
+                        <div class="item-topics">
+                            <span class="topic-tag">Unit Testing</span>
+                            <span class="topic-tag">Instrumentation Tests</span>
+                            <span class="topic-tag">UI Testing</span>
+                            <span class="topic-tag">Mockito</span>
+                        </div>
+                    </div>
+                    <div class="roadmap-item">
+                        <div class="difficulty-badge difficulty-advanced">Advanced</div>
+                        <div class="item-header">
+                            <div class="item-icon"><img src="performance.png" alt=""></div>
+                            <div class="item-title">Performance</div>
+                        </div>
+                        <div class="item-description">Optimize app performance and user experience.</div>
+                        <div class="item-topics">
+                            <span class="topic-tag">Memory Management</span>
+                            <span class="topic-tag">Battery Optimization</span>
+                            <span class="topic-tag">App Profiling</span>
+                            <span class="topic-tag">ANR Prevention</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="cta-section">
+            <h2>Ready to Start Your Android Journey?</h2>
+            <p>Follow this roadmap step by step and become a skilled Android developer!</p>
+            <a href="#" class="cta-button">Get Started Today</a>
+        </div>
+    </div>
+
+	<div class="footerimg">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 283.5 27.8" preserveAspectRatio="none">
+	<path class="elementor-shape-fill" d="M283.5,9.7c0,0-7.3,4.3-14,4.6c-6.8,0.3-12.6,0-20.9-1.5c-11.3-2-33.1-10.1-44.7-5.7	s-12.1,4.6-18,7.4c-6.6,3.2-20,9.6-36.6,9.3C131.6,23.5,99.5,7.2,86.3,8c-1.4,0.1-6.6,0.8-10.5,2c-3.8,1.2-9.4,3.8-17,4.7	c-3.2,0.4-8.3,1.1-14.2,0.9c-1.5-0.1-6.3-0.4-12-1.6c-5.7-1.2-11-3.1-15.8-3.7C6.5,9.2,0,10.8,0,10.8V0h283.5V9.7z M260.8,11.3	c-0.7-1-2-0.4-4.3-0.4c-2.3,0-6.1-1.2-5.8-1.1c0.3,0.1,3.1,1.5,6,1.9C259.7,12.2,261.4,12.3,260.8,11.3z M242.4,8.6	c0,0-2.4-0.2-5.6-0.9c-3.2-0.8-10.3-2.8-15.1-3.5c-8.2-1.1-15.8,0-15.1,0.1c0.8,0.1,9.6-0.6,17.6,1.1c3.3,0.7,9.3,2.2,12.4,2.7	C239.9,8.7,242.4,8.6,242.4,8.6z M185.2,8.5c1.7-0.7-13.3,4.7-18.5,6.1c-2.1,0.6-6.2,1.6-10,2c-3.9,0.4-8.9,0.4-8.8,0.5	c0,0.2,5.8,0.8,11.2,0c5.4-0.8,5.2-1.1,7.6-1.6C170.5,14.7,183.5,9.2,185.2,8.5z M199.1,6.9c0.2,0-0.8-0.4-4.8,1.1	c-4,1.5-6.7,3.5-6.9,3.7c-0.2,0.1,3.5-1.8,6.6-3C197,7.5,199,6.9,199.1,6.9z M283,6c-0.1,0.1-1.9,1.1-4.8,2.5s-6.9,2.8-6.7,2.7	c0.2,0,3.5-0.6,7.4-2.5C282.8,6.8,283.1,5.9,283,6z M31.3,11.6c0.1-0.2-1.9-0.2-4.5-1.2s-5.4-1.6-7.8-2C15,7.6,7.3,8.5,7.7,8.6	C8,8.7,15.9,8.3,20.2,9.3c2.2,0.5,2.4,0.5,5.7,1.6S31.2,11.9,31.3,11.6z M73,9.2c0.4-0.1,3.5-1.6,8.4-2.6c4.9-1.1,8.9-0.5,8.9-0.8	c0-0.3-1-0.9-6.2-0.3S72.6,9.3,73,9.2z M71.6,6.7C71.8,6.8,75,5.4,77.3,5c2.3-0.3,1.9-0.5,1.9-0.6c0-0.1-1.1-0.2-2.7,0.2	C74.8,5.1,71.4,6.6,71.6,6.7z M93.6,4.4c0.1,0.2,3.5,0.8,5.6,1.8c2.1,1,1.8,0.6,1.9,0.5c0.1-0.1-0.8-0.8-2.4-1.3	C97.1,4.8,93.5,4.2,93.6,4.4z M65.4,11.1c-0.1,0.3,0.3,0.5,1.9-0.2s2.6-1.3,2.2-1.2s-0.9,0.4-2.5,0.8C65.3,10.9,65.5,10.8,65.4,11.1	z M34.5,12.4c-0.2,0,2.1,0.8,3.3,0.9c1.2,0.1,2,0.1,2-0.2c0-0.3-0.1-0.5-1.6-0.4C36.6,12.8,34.7,12.4,34.5,12.4z M152.2,21.1	c-0.1,0.1-2.4-0.3-7.5-0.3c-5,0-13.6-2.4-17.2-3.5c-3.6-1.1,10,3.9,16.5,4.1C150.5,21.6,152.3,21,152.2,21.1z"></path>
+	<path class="elementor-shape-fill" d="M269.6,18c-0.1-0.1-4.6,0.3-7.2,0c-7.3-0.7-17-3.2-16.6-2.9c0.4,0.3,13.7,3.1,17,3.3	C267.7,18.8,269.7,18,269.6,18z"></path>
+	<path class="elementor-shape-fill" d="M227.4,9.8c-0.2-0.1-4.5-1-9.5-1.2c-5-0.2-12.7,0.6-12.3,0.5c0.3-0.1,5.9-1.8,13.3-1.2	S227.6,9.9,227.4,9.8z"></path>
+	<path class="elementor-shape-fill" d="M204.5,13.4c-0.1-0.1,2-1,3.2-1.1c1.2-0.1,2,0,2,0.3c0,0.3-0.1,0.5-1.6,0.4	C206.4,12.9,204.6,13.5,204.5,13.4z"></path>
+	<path class="elementor-shape-fill" d="M201,10.6c0-0.1-4.4,1.2-6.3,2.2c-1.9,0.9-6.2,3.1-6.1,3.1c0.1,0.1,4.2-1.6,6.3-2.6	S201,10.7,201,10.6z"></path>
+	<path class="elementor-shape-fill" d="M154.5,26.7c-0.1-0.1-4.6,0.3-7.2,0c-7.3-0.7-17-3.2-16.6-2.9c0.4,0.3,13.7,3.1,17,3.3	C152.6,27.5,154.6,26.8,154.5,26.7z"></path>
+	<path class="elementor-shape-fill" d="M41.9,19.3c0,0,1.2-0.3,2.9-0.1c1.7,0.2,5.8,0.9,8.2,0.7c4.2-0.4,7.4-2.7,7-2.6	c-0.4,0-4.3,2.2-8.6,1.9c-1.8-0.1-5.1-0.5-6.7-0.4S41.9,19.3,41.9,19.3z"></path>
+	<path class="elementor-shape-fill" d="M75.5,12.6c0.2,0.1,2-0.8,4.3-1.1c2.3-0.2,2.1-0.3,2.1-0.5c0-0.1-1.8-0.4-3.4,0	C76.9,11.5,75.3,12.5,75.5,12.6z"></path>
+	<path class="elementor-shape-fill" d="M15.6,13.2c0-0.1,4.3,0,6.7,0.5c2.4,0.5,5,1.9,5,2c0,0.1-2.7-0.8-5.1-1.4	C19.9,13.7,15.7,13.3,15.6,13.2z"></path>
+</svg>
+
+<div class="footer">
+		<ul>
+			<li id="botomlogo">SkillStack</li>
+			<li>Home</li>
+			<li>Contact</li>
+			<li>Roadmaps</li>
+		
+		</ul>
+	</div>
+	<div class="socialmedia">
+		<ul>
+		
+			<li id="botomlogo">Social Links</li>
+			<li>Instagram</li>
+			<li>Telegram</li>
+			<li>Youtbe</li>
+		
+		</ul>
+	</div>
+	</div>
+	
+
+    <script>
+        // Progress bar animation
+        function updateProgressBar() {
+            const scrollTop = window.pageYOffset;
+            const docHeight = document.body.offsetHeight - window.innerHeight;
+            const scrollPercent = (scrollTop / docHeight) * 100;
+            document.getElementById('progressBar').style.width = scrollPercent + '%';
+        }
+
+        // Create floating particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 50;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 6 + 's';
+                particle.style.animationDuration = (Math.random() * 3 + 3) + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // Smooth scroll for anchor links
+        function smoothScroll() {
+            const links = document.querySelectorAll('a[href^="#"]');
+            links.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth' });
+                    }
+                });
+            });
+        }
+
+        // Add hover effects to roadmap items
+        function addHoverEffects() {
+            const items = document.querySelectorAll('.roadmap-item');
+            items.forEach(item => {
+                item.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-10px) scale(1.02)';
+                });
+                
+                item.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) scale(1)';
+                });
+            });
+        }
+
+        // Intersection Observer for animations
+        function addScrollAnimations() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            const items = document.querySelectorAll('.roadmap-item');
+            items.forEach(item => {
+                item.style.opacity = '0';
+                item.style.transform = 'translateY(50px)';
+                item.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(item);
+            });
+        }
+
+        // Initialize everything when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            createParticles();
+            smoothScroll();
+            addHoverEffects();
+            addScrollAnimations();
+        });
+
+        // Update progress bar on scroll
+        window.addEventListener('scroll', updateProgressBar);
+
+        // Add click effects to topic tags
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('topic-tag')) {
+                e.target.style.transform = 'scale(1.1)';
+                setTimeout(() => {
+                    e.target.style.transform = 'scale(1)';
+                }, 150);
+            }
+        });
+
+        // Add keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+                const items = document.querySelectorAll('.roadmap-item');
+                const currentFocus = document.activeElement;
+                const currentIndex = Array.from(items).indexOf(currentFocus);
+                
+                if (e.key === 'ArrowDown' && currentIndex < items.length - 1) {
+                    items[currentIndex + 1].focus();
+                } else if (e.key === 'ArrowUp' && currentIndex > 0) {
+                    items[currentIndex - 1].focus();
+                }
+            }
+        });
+    </script>
+</body>
+</html>

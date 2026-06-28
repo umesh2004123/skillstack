@@ -1,0 +1,1631 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C++ Tutorial | Learn C++ Programming</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --light-bg: #f9f9f9;
+            --dark-text: #2c3e50;
+            --light-text: #ecf0f1;
+            --sidebar-width: 280px;
+            --header-height: 80px;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--dark-text);
+            background-color: var(--light-bg);
+            overflow-x: hidden;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: var(--primary-color);
+            color: var(--light-text);
+            padding: 15px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--box-shadow);
+            height: var(--header-height);
+            display: flex;
+            align-items: center;
+        }
+
+        .header-container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo i {
+            font-size: 1.5rem;
+        }
+
+        .last-updated {
+            font-style: italic;
+            color: #bdc3c7;
+            font-size: 0.9rem;
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            width: var(--sidebar-width);
+            height: calc(100vh - var(--header-height));
+            background-color: var(--primary-color);
+            position: fixed;
+            top: var(--header-height);
+            left: 0;
+            overflow-y: auto;
+            transform: translateX(-100%);
+            transition: var(--transition);
+            z-index: 90;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .sidebar.open {
+            transform: translateX(0);
+        }
+
+        .sidebar-header {
+            color: var(--light-text);
+            padding: 15px 20px;
+            font-size: 1.2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+        }
+
+        .sidebar-menu li {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .sidebar-menu a {
+            display: flex;
+            align-items: center;
+            color: var(--light-text);
+            padding: 12px 20px;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .sidebar-menu a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding-left: 25px;
+        }
+
+        .sidebar-menu a.active {
+            background-color: var(--secondary-color);
+            font-weight: bold;
+        }
+
+        .sidebar-menu i {
+            width: 24px;
+            text-align: center;
+            margin-right: 10px;
+        }
+
+        /* Toggle Button */
+        .sidebar-toggle {
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .sidebar-toggle:hover {
+            background-color: #2980b9;
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-top: var(--header-height);
+            padding: 30px;
+            transition: var(--transition);
+        }
+
+        .sidebar.open ~ .main-content {
+            margin-left: var(--sidebar-width);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Content Sections */
+        .section {
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 25px;
+            margin-bottom: 30px;
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        .section h2 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--secondary-color);
+        }
+
+        .section h3 {
+            color: var(--secondary-color);
+            margin: 20px 0 15px;
+        }
+
+        .section p {
+            margin-bottom: 15px;
+            line-height: 1.7;
+        }
+
+        .section ul, .section ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+
+        .section li {
+            margin-bottom: 10px;
+        }
+
+        /* Code Examples */
+        .code-container {
+            position: relative;
+            margin: 20px 0;
+        }
+
+        .code-box {
+            background-color: #282c34;
+            color: #abb2bf;
+            border-radius: var(--border-radius);
+            padding: 20px;
+            overflow-x: auto;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: var(--transition);
+        }
+
+        .copy-btn:hover {
+            background-color: #2980b9;
+        }
+
+        .output {
+            background-color: #f0f0f0;
+            padding: 15px;
+            border-left: 4px solid var(--accent-color);
+            margin: 10px 0 25px;
+            font-family: 'Courier New', Courier, monospace;
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
+        }
+
+        /* Tables */
+        .table-container {
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        /* Slider */
+        .slider-container {
+            position: relative;
+            margin: 30px 0;
+            overflow: hidden;
+            border-radius: var(--border-radius);
+        }
+
+        .slider {
+            display: flex;
+            transition: var(--transition);
+        }
+
+        .slide {
+            min-width: 100%;
+            padding: 20px;
+        }
+
+        .topic-card {
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 20px;
+        }
+
+        .topic-card h3 {
+            color: var(--secondary-color);
+            margin-top: 0;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--secondary-color);
+        }
+
+        .topic-card ul {
+            list-style-type: none;
+            columns: 2;
+            column-gap: 20px;
+        }
+
+        .topic-card li {
+            margin-bottom: 8px;
+            break-inside: avoid;
+        }
+
+        .topic-card a {
+            color: var(--dark-text);
+            text-decoration: none;
+            transition: var(--transition);
+            display: block;
+            padding: 5px 0;
+        }
+
+        .topic-card a:hover {
+            color: var(--accent-color);
+            text-decoration: underline;
+        }
+
+        .slider-nav {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .slider-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: #ccc;
+            margin: 0 5px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .slider-dot.active {
+            background-color: var(--secondary-color);
+        }
+
+        .slider-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: var(--transition);
+            z-index: 10;
+        }
+
+        .slider-arrow:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        .slider-arrow.left {
+            left: 10px;
+        }
+
+        .slider-arrow.right {
+            right: 10px;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--primary-color);
+            color: var(--light-text);
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .topic-card ul {
+                columns: 1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+            }
+            
+            .sidebar.open ~ .main-content {
+                margin-left: 0;
+            }
+            
+            .main-content {
+                padding: 20px 15px;
+            }
+            
+            .section {
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .header-container {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            
+            .last-updated {
+                align-self: flex-end;
+            }
+        }
+        /* Add to your existing CSS */
+.menu-header {
+    color: var(--light-text);
+    padding: 15px 20px;
+    font-weight: bold;
+    background-color: rgba(0, 0, 0, 0.2);
+    cursor: default;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.menu-header i {
+    font-size: 1rem;
+}
+
+.sidebar-menu a {
+    padding-left: 40px; /* Indent nested items */
+}
+
+.sidebar-menu .menu-header + a {
+    padding-left: 20px; /* First item after header not indented */
+}
+
+/* Breadcrumb */
+.breadcrumb {
+    padding: 10px 0;
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+    color: #7f8c8d;
+}
+
+.breadcrumb a {
+    color: var(--secondary-color);
+    text-decoration: none;
+}
+
+.breadcrumb a:hover {
+    text-decoration: underline;
+}
+
+.breadcrumb span {
+    margin: 0 5px;
+    color: #95a5a6;
+}
+
+/* Topic Navigation */
+.topic-nav {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #ddd;
+}
+
+.topic-nav a {
+    color: var(--secondary-color);
+    text-decoration: none;
+    font-weight: bold;
+    padding: 8px 15px;
+    border-radius: var(--border-radius);
+    transition: var(--transition);
+}
+
+.topic-nav a:hover {
+    background-color: #e1f0fa;
+}
+
+.topic-nav a i {
+    margin: 0 5px;
+}
+
+/* Quiz Section */
+.quiz {
+    background-color: #f8f9fa;
+    border-left: 4px solid var(--secondary-color);
+    padding: 20px;
+    margin: 25px 0;
+    border-radius: 0 var(--border-radius) var(--border-radius) 0;
+}
+
+.quiz h4 {
+    color: var(--primary-color);
+    margin-bottom: 15px;
+}
+
+.quiz-question {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.quiz-options {
+    margin-left: 20px;
+}
+
+.quiz-option {
+    margin-bottom: 8px;
+    cursor: pointer;
+    padding: 5px 10px;
+    border-radius: 4px;
+    transition: var(--transition);
+}
+
+.quiz-option:hover {
+    background-color: #e1f0fa;
+}
+
+.quiz-option.correct {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.quiz-option.incorrect {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+.quiz-feedback {
+    margin-top: 15px;
+    padding: 10px;
+    border-radius: var(--border-radius);
+    display: none;
+}
+
+.quiz-feedback.show {
+    display: block;
+}
+
+/* Syntax Highlighting */
+.keyword {
+    color: #c678dd;
+}
+
+.type {
+    color: #e5c07b;
+}
+
+.string {
+    color: #98c379;
+}
+
+.comment {
+    color: #5c6370;
+    font-style: italic;
+}
+
+.number {
+    color: #d19a66;
+}
+
+.preprocessor {
+    color: #c678dd;
+}
+#cpptutorialimg{
+
+    width: 100%;
+    height: 300PX;
+     display: flex;
+    align-items: center;
+    justify-content: center;
+}#cpptutorialimg img{
+ 
+    width: 50%;
+    height: 200PX;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px;
+}
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <button class="sidebar-toggle" id="sidebarToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <h1><i class="fas fa-code"></i> C++ Tutorial</h1>
+            </div>
+            <div class="last-updated">Learning quit</div>
+        </div>
+    </header>
+
+    <!-- Sidebar Navigation -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <i class="fas fa-book"></i>
+            <span>C++ Concepts</span>
+        </div>
+        <ul class="sidebar-menu">
+            <li><a href="#" class="active" data-section="home"><i class="fas fa-home"></i> Home</a></li>
+            
+            <!-- C++ Basics Section -->
+            <li class="menu-header"><i class="fas fa-cube"></i> C++ Basics</li>
+            <li><a href="#" data-section="overview"><i class="fas fa-info-circle"></i> Overview</a></li>
+            <li><a href="#" data-section="environment"><i class="fas fa-cog"></i> Environment Setup</a></li>
+            <li><a href="#" data-section="syntax"><i class="fas fa-code"></i> Basic Syntax</a></li>
+            <li><a href="#" data-section="comments"><i class="fas fa-comment"></i> Comments</a></li>
+            <li><a href="#" data-section="hello-world"><i class="fas fa-laptop-code"></i> Hello World</a></li>
+            <li><a href="#" data-section="tokens"><i class="fas fa-tags"></i> Tokens</a></li>
+            <li><a href="#" data-section="constants"><i class="fas fa-hashtag"></i> Constants/Literals</a></li>
+            <li><a href="#" data-section="keywords"><i class="fas fa-key"></i> Keywords</a></li>
+            <li><a href="#" data-section="identifiers"><i class="fas fa-id-card"></i> Identifiers</a></li>
+            
+            <!-- Data Types Section -->
+            <li class="menu-header"><i class="fas fa-database"></i> Data Types</li>
+            <li><a href="#" data-section="numeric-types"><i class="fas fa-list-ol"></i> Numeric Types</a></li>
+            <li><a href="#" data-section="char-types"><i class="fas fa-font"></i> Character Type</a></li>
+            <li><a href="#" data-section="bool-types"><i class="fas fa-toggle-on"></i> Boolean Type</a></li>
+            <li><a href="#" data-section="variable-types"><i class="fas fa-code-branch"></i> Variable Types</a></li>
+            <li><a href="#" data-section="variable-scope"><i class="fas fa-expand"></i> Variable Scope</a></li>
+            
+            <!-- Operators Section -->
+            <li class="menu-header"><i class="fas fa-calculator"></i> Operators</li>
+            <li><a href="#" data-section="arithmetic-ops"><i class="fas fa-plus-circle"></i> Arithmetic</a></li>
+            <li><a href="#" data-section="relational-ops"><i class="fas fa-equals"></i> Relational</a></li>
+            <li><a href="#" data-section="logical-ops"><i class="fas fa-project-diagram"></i> Logical</a></li>
+            <li><a href="#" data-section="bitwise-ops"><i class="fas fa-memory"></i> Bitwise</a></li>
+            
+            <!-- Control Statements Section -->
+            <li class="menu-header"><i class="fas fa-code-branch"></i> Control Statements</li>
+            <li><a href="#" data-section="if-statement"><i class="fas fa-check"></i> if Statement</a></li>
+            <li><a href="#" data-section="if-else"><i class="fas fa-check-double"></i> if-else</a></li>
+            <li><a href="#" data-section="switch-statement"><i class="fas fa-random"></i> switch</a></li>
+            <li><a href="#" data-section="while-loop"><i class="fas fa-sync"></i> while Loop</a></li>
+            <li><a href="#" data-section="for-loop"><i class="fas fa-undo"></i> for Loop</a></li>
+            
+            <!-- Strings Section -->
+            <li class="menu-header"><i class="fas fa-font"></i> Strings</li>
+            <li><a href="#" data-section="strings"><i class="fas fa-text-width"></i> Strings</a></li>
+            
+            <!-- Functions Section -->
+            <li class="menu-header"><i class="fas fa-functions"></i> Functions</li>
+            <li><a href="#" data-section="functions"><i class="fas fa-square-root-alt"></i> Functions</a></li>
+            
+            <!-- Advanced Topics Section -->
+            <li class="menu-header"><i class="fas fa-rocket"></i> Advanced</li>
+            <li><a href="#" data-section="pointers"><i class="fas fa-bullseye"></i> Pointers</a></li>
+            <li><a href="#" data-section="oop"><i class="fas fa-object-group"></i> OOP Concepts</a></li>
+            
+            <!-- Resources Section -->
+            <li class="menu-header"><i class="fas fa-book"></i> Resources</li>
+            <li><a href="#" data-section="qa"><i class="fas fa-question-circle"></i> Q&A</a></li>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content" id="mainContent">
+        <div class="container">
+            <!-- Home Section (Default) -->
+            <section class="section active" id="home-section">
+                <h2>What is C++?</h2>
+                <p>
+                    C++ is a middle-level programming language developed by Bjarne Stroustrup starting in 1979 at Bell Labs. 
+                    C++ runs on a variety of platforms, such as Windows, Mac OS, and the various versions of UNIX. 
+                    C++ is an extension of the C programming language with object-oriented programming concepts. 
+                    Or, we can say, "C++ is a superset of C programming with additional implementation of object-oriented concepts".
+                </p>
+                
+                <h3>Why Learn C++?</h3>
+                <p>
+                    C++ is a powerful programming language that is essential for students and professionals who want to become skilled software developers. 
+                    Here are some key reasons why learning C++ is valuable:
+                </p>
+                <ul>
+                    <li><strong>Close to Hardware:</strong> C++ allows direct interaction with hardware, providing better control over memory management and performance optimization.</li>
+                    <li><strong>Strong Object-Oriented Programming (OOP) Concepts:</strong> Helps in understanding OOP fundamentals like polymorphism, inheritance, and encapsulation.</li>
+                    <li><strong>High Demand & Job Security:</strong> C++ is a widely used language, and skilled developers are highly paid.</li>
+                    <li><strong>Used in System & Application Development:</strong> Essential for game development, operating systems, and high-performance applications.</li>
+                    <li><strong>Deep Understanding of Core Programming Concepts:</strong> Covers compilers, linkers, loaders, data types, and storage classes.</li>
+                </ul>
+                
+                <div class="code-container">
+                    <button class="copy-btn" onclick="copyCode('home-code')">
+                        <i class="far fa-copy"></i> Copy
+                    </button>
+                    <pre class="code-box" id="home-code">#include &lt;iostream&gt;
+using namespace std;
+
+// main() is where program execution begins.
+int main() {
+    cout << "Hello, World!"; // prints Hello, World!
+    return 0;
+}</pre>
+                </div>
+                <div id="cpptutorialimg">
+                    <img src="65954eb33396f_what_is_c_02.webp" alt="">
+                </div>
+                <div class="output">
+                    <strong>Output:</strong> Hello, World!
+                </div>
+                
+                <h3>C++ Compilers</h3>
+                <div class="table-container">
+                    <table>
+                        <tr>
+                            <th>Compiler</th>
+                            <th>Platform</th>
+                        </tr>
+                        <tr>
+                            <td>Apple C++ (Xcode)</td>
+                            <td>macOS</td>
+                        </tr>
+                        <tr>
+                            <td>Microsoft Visual C++</td>
+                            <td>Windows</td>
+                        </tr>
+                        <tr>
+                            <td>GNU GCC/G++</td>
+                            <td>Linux/Unix</td>
+                        </tr>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Overview Section -->
+            <section class="section" id="overview-section">
+                <div class="breadcrumb">
+                    <a href="#" data-section="home">Home</a>
+                    <span>/</span>
+                    <a href="#">C++ Basics</a>
+                    <span>/</span>
+                    <span>Overview</span>
+                </div>
+                
+                <h2>C++ Overview</h2>
+                <p>C++ is a statically typed, compiled, general-purpose, case-sensitive, free-form programming language that supports procedural, object-oriented, and generic programming.</p>
+                
+                <h3>Key Features of C++</h3>
+                <ul>
+                    <li><strong>Object-Oriented:</strong> C++ supports OOP concepts like classes, objects, inheritance, polymorphism, and encapsulation.</li>
+                    <li><strong>Portable:</strong> C++ programs can run on different platforms with little or no modification.</li>
+                    <li><strong>Mid-level Language:</strong> Combines features of both high-level and low-level languages.</li>
+                    <li><strong>Structured Programming Language:</strong> Supports breaking down programs into functions and modules.</li>
+                    <li><strong>Rich Library Support:</strong> Comes with a rich set of libraries (Standard Template Library).</li>
+                    <li><strong>Memory Management:</strong> Provides direct control over memory through pointers.</li>
+                </ul>
+                
+                <h3>C++ vs C Comparison</h3>
+                <div class="table-container">
+                    <table>
+                        <tr>
+                            <th>Feature</th>
+                            <th>C</th>
+                            <th>C++</th>
+                        </tr>
+                        <tr>
+                            <td>Programming Paradigm</td>
+                            <td>Procedural</td>
+                            <td>Multi-paradigm</td>
+                        </tr>
+                        <tr>
+                            <td>OOP Support</td>
+                            <td>No</td>
+                            <td>Yes</td>
+                        </tr>
+                        <tr>
+                            <td>Standard Library</td>
+                            <td>Limited</td>
+                            <td>Extensive (STL)</td>
+                        </tr>
+                    </table>
+                </div>
+                
+                <div class="topic-nav">
+                    <a href="#" data-section="home"><i class="fas fa-arrow-left"></i> Previous: Home</a>
+                    <a href="#" data-section="environment">Next: Environment Setup <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </section>
+
+              <!-- Overview Section -->
+            <section class="section" id="environment">
+                <div class="breadcrumb">
+                    <a href="#" data-section="home">Home</a>
+                    <span>/</span>
+                    <a href="#">C++ Basics</a>
+                    <span>/</span>
+                    <span>Overview</span>
+                </div>
+                
+                <h2>C++ Overview</h2>
+                <p>C++ is a statically typed, compiled, general-purpose, case-sensitive, free-form programming language that supports procedural, object-oriented, and generic programming.</p>
+                
+                <h3>Key Features of C++</h3>
+                <ul>
+                    <li><strong>Object-Oriented:</strong> C++ supports OOP concepts like classes, objects, inheritance, polymorphism, and encapsulation.</li>
+                    <li><strong>Portable:</strong> C++ programs can run on different platforms with little or no modification.</li>
+                    <li><strong>Mid-level Language:</strong> Combines features of both high-level and low-level languages.</li>
+                    <li><strong>Structured Programming Language:</strong> Supports breaking down programs into functions and modules.</li>
+                    <li><strong>Rich Library Support:</strong> Comes with a rich set of libraries (Standard Template Library).</li>
+                    <li><strong>Memory Management:</strong> Provides direct control over memory through pointers.</li>
+                </ul>
+                
+                <h3>C++ vs C Comparison</h3>
+                <div class="table-container">
+                    <table>
+                        <tr>
+                            <th>Feature</th>
+                            <th>C</th>
+                            <th>C++</th>
+                        </tr>
+                        <tr>
+                            <td>Programming Paradigm</td>
+                            <td>Procedural</td>
+                            <td>Multi-paradigm</td>
+                        </tr>
+                        <tr>
+                            <td>OOP Support</td>
+                            <td>No</td>
+                            <td>Yes</td>
+                        </tr>
+                        <tr>
+                            <td>Standard Library</td>
+                            <td>Limited</td>
+                            <td>Extensive (STL)</td>
+                        </tr>
+                    </table>
+                </div>
+                
+                <div class="topic-nav">
+                    <a href="#" data-section="home"><i class="fas fa-arrow-left"></i> Previous: Home</a>
+                    <a href="#" data-section="environment">Next: Environment Setup <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </section>
+            
+              <!-- comments Section -->
+            <section class="section" id="comments-section">
+                <div class="breadcrumb">
+                    <a href="#" data-section="home">Home</a>
+                    <span>/</span>
+                    <a href="#">C++ Basics</a>
+                    <span>/</span>
+                    <span>Comments</span>
+                </div>
+                
+                <h2>C++ Overview</h2>
+                <p>Comments in C++ are meant to explain the code as well as to make it more readable.<br> Their purpose is to provide information about code lines. When testing alternative code, they can also be used to prevent execution of some part of the code. Programmers commonly use comments to document their work.</p>
+                
+                <h3>Types of Comments in C++</h3>
+                <ul>
+                    <li><strong>Single Line Comment
+</strong> </li>
+                    <li><strong>
+Multi-Line Comment</strong></li>
+                   
+                </ul>
+                
+                <h3>C++ vs C Comparison</h3>
+                <div class="table-container">
+                    <table>
+                        <tr>
+                            <th>Feature</th>
+                            <th>C</th>
+                            <th>C++</th>
+                        </tr>
+                        <tr>
+                            <td>Programming Paradigm</td>
+                            <td>Procedural</td>
+                            <td>Multi-paradigm</td>
+                        </tr>
+                        <tr>
+                            <td>OOP Support</td>
+                            <td>No</td>
+                            <td>Yes</td>
+                        </tr>
+                        <tr>
+                            <td>Standard Library</td>
+                            <td>Limited</td>
+                            <td>Extensive (STL)</td>
+                        </tr>
+                    </table>
+                </div>
+                
+                <div class="topic-nav">
+                    <a href="#" data-section="syntax"><i class="fas fa-arrow-left"></i> Previous: syntax</a>
+                    <a href="#" data-section="environment">Next: Environment Setup <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </section>
+
+
+            <!-- Hello World Section -->
+            <section class="section" id="hello-world-section">
+                <div class="breadcrumb">
+                    <a href="#" data-section="home">Home</a>
+                    <span>/</span>
+                    <a href="#">C++ Basics</a>
+                    <span>/</span>
+                    <span>Hello World</span>
+                </div>
+                
+                <h2>Your First C++ Program</h2>
+                <p>Let's write and understand a simple "Hello, World!" program in C++.</p>
+                
+                <div class="code-container">
+                    <button class="copy-btn" onclick="copyCode('hello-code')">
+                        <i class="far fa-copy"></i> Copy
+                    </button>
+                    <pre class="code-box" id="hello-code"><span class="preprocessor">#include</span> &lt;iostream&gt;
+<span class="keyword">using</span> <span class="keyword">namespace</span> std;
+
+<span class="comment">// main() is where program execution begins</span>
+<span class="type">int</span> <span class="keyword">main</span>() {
+    cout &lt;&lt; <span class="string">"Hello, World!"</span>; <span class="comment">// prints Hello, World!</span>
+    <span class="keyword">return</span> <span class="number">0</span>;
+}</pre>
+                </div>
+                
+                <h3>Code Explanation</h3>
+                <ul>
+                    <li><strong>#include &lt;iostream&gt;:</strong> This is a header file library that lets us work with input and output objects.</li>
+                    <li><strong>using namespace std:</strong> Means we can use names for objects and variables from the standard library.</li>
+                    <li><strong>int main():</strong> This is called a function. Any code inside its curly brackets {} will be executed.</li>
+                    <li><strong>cout:</strong> (pronounced "see-out") is an object used to output/print text.</li>
+                    <li><strong>return 0:</strong> Ends the main() function and returns the value 0 to the calling process.</li>
+                </ul>
+                
+                <div class="quiz">
+                    <h4>Quick Quiz</h4>
+                    <div class="quiz-question">What is the purpose of the #include directive?</div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="checkAnswer(this, 'correct')">To include header files</div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'incorrect')">To define variables</div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'incorrect')">To create functions</div>
+                    </div>
+                    <div class="quiz-feedback correct-feedback">
+                        <strong>Correct!</strong> The #include directive is used to include header files that contain declarations of functions and objects.
+                    </div>
+                </div>
+                
+                <div class="topic-nav">
+                    <a href="#" data-section="comments"><i class="fas fa-arrow-left"></i> Previous: Comments</a>
+                    <a href="#" data-section="tokens">Next: Tokens <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </section>
+               <!-- Hello World Section -->
+            <section class="section" id="environment-section">
+                <div class="breadcrumb">
+                    <a href="#" data-section="home">Home</a>
+                    <span>/</span>
+                    <a href="#">C++ Basics</a>
+                    <span>/</span>
+                    <span>Hello World</span>
+                </div>
+                
+                <h2>Your First C++ Program</h2>
+                <p>Let's write and understand a simple "Hello, World!" program in C++.</p>
+                
+                <div class="code-container">
+                    <button class="copy-btn" onclick="copyCode('hello-code')">
+                        <i class="far fa-copy"></i> Copy
+                    </button>
+                    <pre class="code-box" id="hello-code"><span class="preprocessor">#include</span> &lt;iostream&gt;
+<span class="keyword">using</span> <span class="keyword">namespace</span> std;
+
+<span class="comment">// main() is where program execution begins</span>
+<span class="type">int</span> <span class="keyword">main</span>() {
+    cout &lt;&lt; <span class="string">"Hello, World!"</span>; <span class="comment">// prints Hello, World!</span>
+    <span class="keyword">return</span> <span class="number">0</span>;
+}</pre>
+                </div>
+                
+                <h3>Code Explanation</h3>
+                <ul>
+                    <li><strong>#include &lt;iostream&gt;:</strong> This is a header file library that lets us work with input and output objects.</li>
+                    <li><strong>using namespace std:</strong> Means we can use names for objects and variables from the standard library.</li>
+                    <li><strong>int main():</strong> This is called a function. Any code inside its curly brackets {} will be executed.</li>
+                    <li><strong>cout:</strong> (pronounced "see-out") is an object used to output/print text.</li>
+                    <li><strong>return 0:</strong> Ends the main() function and returns the value 0 to the calling process.</li>
+                </ul>
+                
+                <div class="quiz">
+                    <h4>Quick Quiz</h4>
+                    <div class="quiz-question">What is the purpose of the #include directive?</div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="checkAnswer(this, 'correct')">To include header files</div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'incorrect')">To define variables</div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'incorrect')">To create functions</div>
+                    </div>
+                    <div class="quiz-feedback correct-feedback">
+                        <strong>Correct!</strong> The #include directive is used to include header files that contain declarations of functions and objects.
+                    </div>
+                </div>
+                
+                <div class="topic-nav">
+                    <a href="#" data-section="comments"><i class="fas fa-arrow-left"></i> Previous: Comments</a>
+                    <a href="#" data-section="tokens">Next: Tokens <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </section>
+ <!--syntaxSection -->
+            <section class="section" id="syntax-section">
+                <div class="breadcrumb">
+                    <a href="#" data-section="home">Home</a>
+                    <span>/</span>
+                    <a href="#">C++ Basics</a>
+                    <span>/</span>
+                    <span>Hello World</span>
+                </div>
+                
+                <h2>Your First C++ Program</h2>
+                <p>Let's write and understand a simple "Hello, World!" program in C++.</p>
+                
+                <div class="code-container">
+                    <button class="copy-btn" onclick="copyCode('hello-code')">
+                        <i class="far fa-copy"></i> Copy
+                    </button>
+                    <pre class="code-box" id="hello-code"><span class="preprocessor">#include</span> &lt;iostream&gt;
+<span class="keyword">using</span> <span class="keyword">namespace</span> std;
+
+<span class="comment">// main() is where program execution begins</span>
+<span class="type">int</span> <span class="keyword">main</span>() {
+    cout &lt;&lt; <span class="string">"Hello, World!"</span>; <span class="comment">// prints Hello, World!</span>
+    <span class="keyword">return</span> <span class="number">0</span>;
+}</pre>
+                </div>
+                
+                <h3>Code Explanation</h3>
+                <ul>
+                    <li><strong>#include &lt;iostream&gt;:</strong> This is a header file library that lets us work with input and output objects.</li>
+                    <li><strong>using namespace std:</strong> Means we can use names for objects and variables from the standard library.</li>
+                    <li><strong>int main():</strong> This is called a function. Any code inside its curly brackets {} will be executed.</li>
+                    <li><strong>cout:</strong> (pronounced "see-out") is an object used to output/print text.</li>
+                    <li><strong>return 0:</strong> Ends the main() function and returns the value 0 to the calling process.</li>
+                </ul>
+                
+                <div class="quiz">
+                    <h4>Quick Quiz</h4>
+                    <div class="quiz-question">What is the purpose of the #include directive?</div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="checkAnswer(this, 'correct')">To include header files</div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'incorrect')">To define variables</div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'incorrect')">To create functions</div>
+                    </div>
+                    <div class="quiz-feedback correct-feedback">
+                        <strong>Correct!</strong> The #include directive is used to include header files that contain declarations of functions and objects.
+                    </div>
+                </div>
+                
+                <div class="topic-nav">
+                    <a href="#" data-section="comments"><i class="fas fa-arrow-left"></i> Previous: Comments</a>
+                    <a href="#" data-section="tokens">Next: Tokens <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </section>
+            <!-- Data Types Section -->
+            <section class="section" id="numeric-types-section">
+                <div class="breadcrumb">
+                    <a href="#" data-section="home">Home</a>
+                    <span>/</span>
+                    <a href="#">Data Types</a>
+                    <span>/</span>
+                    <span>Numeric Types</span>
+                </div>
+                
+                <h2>C++ Numeric Data Types</h2>
+                <p>C++ provides various numeric data types to represent numbers in different forms and sizes.</p>
+                
+                <h3>Fundamental Numeric Types</h3>
+                <div class="table-container">
+                    <table>
+                        <tr>
+                            <th>Data Type</th>
+                            <th>Size (bytes)</th>
+                            <th>Description</th>
+                        </tr>
+                        <tr>
+                            <td>int</td>
+                            <td>4</td>
+                            <td>Stores whole numbers without decimals</td>
+                        </tr>
+                        <tr>
+                            <td>float</td>
+                            <td>4</td>
+                            <td>Stores fractional numbers (6-7 decimal digits)</td>
+                        </tr>
+                        <tr>
+                            <td>double</td>
+                            <td>8</td>
+                            <td>Stores fractional numbers (15 decimal digits)</td>
+                        </tr>
+                        <tr>
+                            <td>short</td>
+                            <td>2</td>
+                            <td>Small integer (-32,768 to 32,767)</td>
+                        </tr>
+                        <tr>
+                            <td>long</td>
+                            <td>4 or 8</td>
+                            <td>Larger version of int</td>
+                        </tr>
+                    </table>
+                </div>
+                
+                <h3>Example Code</h3>
+                <div class="code-container">
+                    <button class="copy-btn" onclick="copyCode('numeric-code')">
+                        <i class="far fa-copy"></i> Copy
+                    </button>
+                    <pre class="code-box" id="numeric-code"><span class="preprocessor">#include</span> &lt;iostream&gt;
+<span class="keyword">using</span> <span class="keyword">namespace</span> std;
+
+<span class="type">int</span> <span class="keyword">main</span>() {
+    <span class="comment">// Integer types</span>
+    <span class="type">int</span> myNum = <span class="number">1000</span>;
+    <span class="type">short</span> myShort = <span class="number">500</span>;
+    <span class="type">long</span> myLong = <span class="number">150000</span>;
+    
+    <span class="comment">// Floating point types</span>
+    <span class="type">float</span> myFloat = <span class="number">5.75</span>;
+    <span class="type">double</span> myDouble = <span class="number">19.99</span>;
+    
+    cout &lt;&lt; <span class="string">"int: "</span> &lt;&lt; myNum &lt;&lt; endl;
+    cout &lt;&lt; <span class="string">"short: "</span> &lt;&lt; myShort &lt;&lt; endl;
+    cout &lt;&lt; <span class="string">"long: "</span> &lt;&lt; myLong &lt;&lt; endl;
+    cout &lt;&lt; <span class="string">"float: "</span> &lt;&lt; myFloat &lt;&lt; endl;
+    cout &lt;&lt; <span class="string">"double: "</span> &lt;&lt; myDouble &lt;&lt; endl;
+    
+    <span class="keyword">return</span> <span class="number">0</span>;
+}</pre>
+                </div>
+                
+                <div class="output">
+                    <strong>Output:</strong><br>
+                    int: 1000<br>
+                    short: 500<br>
+                    long: 150000<br>
+                    float: 5.75<br>
+                    double: 19.99
+                </div>
+                
+                <div class="quiz">
+                    <h4>Quick Quiz</h4>
+                    <div class="quiz-question">Which data type would you use to store a number like 3.141592653589793?</div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="checkAnswer(this, 'incorrect')">float</div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'correct')">double</div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'incorrect')">int</div>
+                    </div>
+                    <div class="quiz-feedback correct-feedback">
+                        <strong>Correct!</strong> The double type has about 15 decimal digits of precision, making it suitable for this value.
+                    </div>
+                </div>
+                
+                <div class="topic-nav">
+                    <a href="#" data-section="bool-types"><i class="fas fa-arrow-left"></i> Previous: Boolean Type</a>
+                    <a href="#" data-section="char-types">Next: Character Type <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </section>
+
+            <!-- If Statement Section -->
+            <section class="section" id="if-statement-section">
+                <div class="breadcrumb">
+                    <a href="#" data-section="home">Home</a>
+                    <span>/</span>
+                    <a href="#">Control Statements</a>
+                    <span>/</span>
+                    <span>if Statement</span>
+                </div>
+                
+                <h2>C++ if Statement</h2>
+                <p>The if statement is used to specify a block of code to be executed if a condition is true.</p>
+                
+                <h3>Syntax</h3>
+                <div class="code-container">
+                    <pre class="code-box"><span class="keyword">if</span> (condition) {
+    <span class="comment">// code to be executed if condition is true</span>
+}</pre>
+                </div>
+                
+                <h3>Example</h3>
+                <div class="code-container">
+                    <button class="copy-btn" onclick="copyCode('if-code')">
+                        <i class="far fa-copy"></i> Copy
+                    </button>
+                    <pre class="code-box" id="if-code"><span class="preprocessor">#include</span> &lt;iostream&gt;
+<span class="keyword">using</span> <span class="keyword">namespace</span> std;
+
+<span class="type">int</span> <span class="keyword">main</span>() {
+    <span class="type">int</span> time = <span class="number">20</span>;
+    
+    <span class="keyword">if</span> (time &lt; <span class="number">18</span>) {
+        cout &lt;&lt; <span class="string">"Good day."</span>;
+    }
+    
+    cout &lt;&lt; <span class="string">"Program continues..."</span>;
+    <span class="keyword">return</span> <span class="number">0</span>;
+}</pre>
+                </div>
+                
+                <div class="output">
+                    <strong>Output:</strong> Program continues...
+                </div>
+                
+                <h3>Flowchart</h3>
+                <p>The if statement can be visualized with this simple flowchart:</p>
+                <div style="text-align: center; margin: 20px 0;">
+                    <img src="https://www.tutorialspoint.com/cplusplus/images/decision_making.jpg" alt="If statement flowchart" style="max-width: 300px; border: 1px solid #ddd; border-radius: 4px;">
+                </div>
+                
+                <div class="quiz">
+                    <h4>Quick Quiz</h4>
+                    <div class="quiz-question">What will be the output if we change time to 15 in the above example?</div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="checkAnswer(this, 'correct')">Good day.Program continues...</div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'incorrect')">Program continues...</div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'incorrect')">Good day.</div>
+                    </div>
+                    <div class="quiz-feedback correct-feedback">
+                        <strong>Correct!</strong> When time is 15, both the if block and the following cout statement will execute.
+                    </div>
+                </div>
+                
+                <div class="topic-nav">
+                    <a href="#" data-section="switch-statement"><i class="fas fa-arrow-left"></i> Previous: switch Statement</a>
+                    <a href="#" data-section="if-else">Next: if-else Statement <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </section>
+
+            <!-- For Loop Section -->
+            <section class="section" id="for-loop-section">
+                <div class="breadcrumb">
+                    <a href="#" data-section="home">Home</a>
+                    <span>/</span>
+                    <a href="#">Control Statements</a>
+                    <span>/</span>
+                    <span>for Loop</span>
+                </div>
+                
+                <h2>C++ for Loop</h2>
+                <p>The for loop is used when you know exactly how many times you want to loop through a block of code.</p>
+                
+                <h3>Syntax</h3>
+                <div class="code-container">
+                    <pre class="code-box"><span class="keyword">for</span> (initialization; condition; increment) {
+    <span class="comment">// code block to be executed</span>
+}</pre>
+                </div>
+                
+                <h3>Example</h3>
+                <div class="code-container">
+                    <button class="copy-btn" onclick="copyCode('for-code')">
+                        <i class="far fa-copy"></i> Copy
+                    </button>
+                    <pre class="code-box" id="for-code"><span class="preprocessor">#include</span> &lt;iostream&gt;
+<span class="keyword">using</span> <span class="keyword">namespace</span> std;
+
+<span class="type">int</span> <span class="keyword">main</span>() {
+    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++) {
+        cout &lt;&lt; i &lt;&lt; endl;
+    }
+    <span class="keyword">return</span> <span class="number">0</span>;
+}</pre>
+                </div>
+                
+                <div class="output">
+                    <strong>Output:</strong><br>
+                    0<br>
+                    1<br>
+                    2<br>
+                    3<br>
+                    4
+                </div>
+                
+                <h3>Nested for Loop</h3>
+                <p>You can place a loop inside another loop to create nested loops.</p>
+                <div class="code-container">
+                    <pre class="code-box"><span class="preprocessor">#include</span> &lt;iostream&gt;
+<span class="keyword">using</span> <span class="keyword">namespace</span> std;
+
+<span class="type">int</span> <span class="keyword">main</span>() {
+    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= <span class="number">3</span>; i++) {
+        <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">1</span>; j &lt;= <span class="number">3</span>; j++) {
+            cout &lt;&lt; <span class="string">"i="</span> &lt;&lt; i &lt;&lt; <span class="string">", j="</span> &lt;&lt; j &lt;&lt; endl;
+        }
+    }
+    <span class="keyword">return</span> <span class="number">0</span>;
+}</pre>
+                </div>
+                
+                <div class="quiz">
+                    <h4>Quick Quiz</h4>
+                    <div class="quiz-question">How many times will the inner loop execute in the nested example above?</div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="checkAnswer(this, 'incorrect')">3</div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'correct')">9</div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'incorrect')">6</div>
+                    </div>
+                    <div class="quiz-feedback correct-feedback">
+                        <strong>Correct!</strong> The inner loop runs 3 times for each of the 3 iterations of the outer loop, totaling 9 executions.
+                    </div>
+                </div>
+                
+                <div class="topic-nav">
+                    <a href="#" data-section="while-loop"><i class="fas fa-arrow-left"></i> Previous: while Loop</a>
+                    <a href="#" data-section="strings">Next: Strings <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </section>
+
+            <!-- OOP Section -->
+            <section class="section" id="oop-section">
+                <div class="breadcrumb">
+                    <a href="#" data-section="home">Home</a>
+                    <span>/</span>
+                    <a href="#">Advanced</a>
+                    <span>/</span>
+                    <span>OOP Concepts</span>
+                </div>
+                
+                <h2>Object-Oriented Programming in C++</h2>
+                <p>OOP is a programming paradigm that uses objects and classes to organize code. C++ supports these OOP concepts:</p>
+                
+                <h3>1. Classes and Objects</h3>
+                <p>A class is a blueprint for creating objects (a particular data structure).</p>
+                <div class="code-container">
+                    <button class="copy-btn" onclick="copyCode('class-code')">
+                        <i class="far fa-copy"></i> Copy
+                    </button>
+                    <pre class="code-box" id="class-code"><span class="keyword">class</span> <span class="type">MyClass</span> {       <span class="comment">// The class</span>
+  <span class="keyword">public</span>:             <span class="comment">// Access specifier</span>
+    <span class="type">int</span> myNum;        <span class="comment">// Attribute (int variable)</span>
+    <span class="type">string</span> myString;  <span class="comment">// Attribute (string variable)</span>
+};
+
+<span class="type">int</span> <span class="keyword">main</span>() {
+    <span class="type">MyClass</span> myObj;  <span class="comment">// Create an object of MyClass</span>
+    
+    <span class="comment">// Access attributes and set values</span>
+    myObj.myNum = <span class="number">15</span>;
+    myObj.myString = <span class="string">"Some text"</span>;
+    
+    cout &lt;&lt; myObj.myNum &lt;&lt; endl;
+    cout &lt;&lt; myObj.myString &lt;&lt; endl;
+    <span class="keyword">return</span> <span class="number">0</span>;
+}</pre>
+                </div>
+                
+                <h3>2. Inheritance</h3>
+                <p>Inheritance allows us to define a class in terms of another class.</p>
+                <div class="code-container">
+                    <pre class="code-box"><span class="comment">// Base class</span>
+<span class="keyword">class</span> <span class="type">Vehicle</span> {
+  <span class="keyword">public</span>:
+    <span class="type">string</span> brand = <span class="string">"Ford"</span>;
+    <span class="type">void</span> <span class="keyword">honk</span>() {
+        cout &lt;&lt; <span class="string">"Tuut, tuut!"</span> &lt;&lt; endl;
+    }
+};
+
+<span class="comment">// Derived class</span>
+<span class="keyword">class</span> <span class="type">Car</span>: <span class="keyword">public</span> <span class="type">Vehicle</span> {
+  <span class="keyword">public</span>:
+    <span class="type">string</span> model = <span class="string">"Mustang"</span>;
+};
+
+<span class="type">int</span> <span class="keyword">main</span>() {
+    <span class="type">Car</span> myCar;
+    myCar.honk();
+    cout &lt;&lt; myCar.brand + <span class="string">" "</span> + myCar.model &lt;&lt; endl;
+    <span class="keyword">return</span> <span class="number">0</span>;
+}</pre>
+                </div>
+                
+                <h3>3. Polymorphism</h3>
+                <p>Polymorphism allows methods to do different things based on the object that is acting upon them.</p>
+                <div class="code-container">
+                    <pre class="code-box"><span class="keyword">class</span> <span class="type">Animal</span> {
+  <span class="keyword">public</span>:
+    <span class="type">void</span> <span class="keyword">animalSound</span>() {
+        cout &lt;&lt; <span class="string">"The animal makes a sound"</span> &lt;&lt; endl;
+    }
+};
+
+<span class="keyword">class</span> <span class="type">Pig</span> : <span class="keyword">public</span> <span class="type">Animal</span> {
+  <span class="keyword">public</span>:
+    <span class="type">void</span> <span class="keyword">animalSound</span>() {
+        cout &lt;&lt; <span class="string">"The pig says: wee wee"</span> &lt;&lt; endl;
+    }
+};
+
+<span class="keyword">class</span> <span class="type">Dog</span> : <span class="keyword">public</span> <span class="type">Animal</span> {
+  <span class="keyword">public</span>:
+    <span class="type">void</span> <span class="keyword">animalSound</span>() {
+        cout &lt;&lt; <span class="string">"The dog says: bow wow"</span> &lt;&lt; endl;
+    }
+};
+
+<span class="type">int</span> <span class="keyword">main</span>() {
+    <span class="type">Animal</span> myAnimal;
+    <span class="type">Pig</span> myPig;
+    <span class="type">Dog</span> myDog;
+    
+    myAnimal.animalSound();
+    myPig.animalSound();
+    myDog.animalSound();
+    <span class="keyword">return</span> <span class="number">0</span>;
+}</pre>
+                </div>
+                
+                <div class="quiz">
+                    <h4>Quick Quiz</h4>
+                    <div class="quiz-question">Which OOP concept allows a class to inherit properties from another class?</div>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="checkAnswer(this, 'correct')">Inheritance</div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'incorrect')">Polymorphism</div>
+                        <div class="quiz-option" onclick="checkAnswer(this, 'incorrect')">Encapsulation</div>
+                    </div>
+                    <div class="quiz-feedback correct-feedback">
+                        <strong>Correct!</strong> Inheritance allows a class to inherit properties and methods from another class.
+                    </div>
+                </div>
+                
+                <div class="topic-nav">
+                    <a href="#" data-section="pointers"><i class="fas fa-arrow-left"></i> Previous: Pointers</a>
+                    <a href="#" data-section="qa">Next: Q&A <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </section>
+
+            <!-- More sections would go here -->
+             <!-- Pointers Section -->
+<section class="section" id="pointers-section">
+    <div class="breadcrumb">
+        <a href="#" data-section="home">Home</a>
+        <span>/</span>
+        <a href="#">Advanced</a>
+        <span>/</span>
+        <span>Pointers</span>
+    </div>
+    
+    <h2>C++ Pointers</h2>
+    <p>Pointers are variables that store memory addresses...</p>
+    
+    <div class="code-container">
+        <button class="copy-btn" onclick="copyCode('pointer-code')">
+            <i class="far fa-copy"></i> Copy
+        </button>
+        <pre class="code-box" id="pointer-code"><span class="preprocessor">#include</span> &lt;iostream&gt;
+<span class="keyword">using</span> <span class="keyword">namespace</span> std;
+
+<span class="type">int</span> <span class="keyword">main</span>() {
+    <span class="type">int</span> var = <span class="number">5</span>;
+    <span class="type">int</span>* ptr = &var;
+    
+    cout &lt;&lt; <span class="string">"Value: "</span> &lt;&lt; *ptr &lt;&lt; endl;
+    cout &lt;&lt; <span class="string">"Address: "</span> &lt;&lt; ptr &lt;&lt; endl;
+    <span class="keyword">return</span> <span class="number">0</span>;
+}</pre>
+    </div>
+    
+    <div class="topic-nav">
+        <a href="#" data-section="numeric-types"><i class="fas fa-arrow-left"></i> Previous: Numeric Types</a>
+        <a href="#" data-section="oop">Next: OOP Concepts <i class="fas fa-arrow-right"></i></a>
+    </div>
+</section>
+        </div>
+
+        <!-- Footer -->
+        <footer>
+            <div class="container">
+                <p>&copy; 2023 C++ Tutorial. All rights reserved.</p>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Sidebar toggle functionality
+        const sidebar = document.getElementById('sidebar');
+        const sidebarToggle = document.getElementById('sidebarToggle');
+        const mainContent = document.getElementById('mainContent');
+
+        sidebarToggle.addEventListener('click', () => {
+            sidebar.classList.toggle('open');
+            const icon = sidebarToggle.querySelector('i');
+            icon.classList.toggle('fa-bars');
+            icon.classList.toggle('fa-times');
+        });
+
+        // Navigation functionality
+        const navLinks = document.querySelectorAll('.sidebar-menu a, .topic-nav a, .topic-card a');
+        const sections = document.querySelectorAll('.section');
+        
+        // Set home as active by default
+        document.querySelector('.sidebar-menu a[data-section="home"]').classList.add('active');
+        
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const sectionId = link.getAttribute('data-section');
+                
+                // Update active link in sidebar
+                document.querySelector('.sidebar-menu a.active')?.classList.remove('active');
+                document.querySelector(`.sidebar-menu a[data-section="${sectionId}"]`).classList.add('active');
+                
+                // Show the selected section
+                sections.forEach(section => {
+                    section.classList.remove('active');
+                });
+                document.getElementById(`${sectionId}-section`).classList.add('active');
+                
+                // Close sidebar on mobile
+                if (window.innerWidth <= 768) {
+                    sidebar.classList.remove('open');
+                    const icon = sidebarToggle.querySelector('i');
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                }
+                
+                // Scroll to top
+                window.scrollTo(0, 0);
+            });
+        });
+
+        // Copy code functionality
+        function copyCode(id) {
+            const codeText = document.getElementById(id).textContent;
+            navigator.clipboard.writeText(codeText).then(() => {
+                const copyBtn = document.querySelector(`button[onclick="copyCode('${id}')]`);
+                copyBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                setTimeout(() => {
+                    copyBtn.innerHTML = '<i class="far fa-copy"></i> Copy';
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+            });
+        }
+
+        // Quiz functionality
+        function checkAnswer(option, result) {
+            const options = option.parentElement.querySelectorAll('.quiz-option');
+            options.forEach(opt => {
+                opt.classList.remove('correct', 'incorrect');
+            });
+            
+            option.classList.add(result);
+            
+            const feedback = option.parentElement.nextElementSibling;
+            feedback.classList.add('show');
+        }
+
+        // Slider functionality
+        const slider = document.getElementById('slider');
+        const slides = document.querySelectorAll('.slide');
+        const dots = document.querySelectorAll('.slider-dot');
+        const prevBtn = document.getElementById('prev-slide');
+        const nextBtn = document.getElementById('next-slide');
+        
+        let currentSlide = 0;
+        const slideCount = slides.length;
+        
+        function updateSlider() {
+            slider.style.transform = `translateX(-${currentSlide * 100}%)`;
+            
+            // Update dots
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentSlide);
+            });
+        }
+        
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % slideCount;
+            updateSlider();
+        }
+        
+        function prevSlide() {
+            currentSlide = (currentSlide - 1 + slideCount) % slideCount;
+            updateSlider();
+        }
+        
+        // Button events
+        if (nextBtn && prevBtn) {
+            nextBtn.addEventListener('click', nextSlide);
+            prevBtn.addEventListener('click', prevSlide);
+        }
+        
+        // Dot navigation
+        if (dots) {
+            dots.forEach((dot, index) => {
+                dot.addEventListener('click', () => {
+                    currentSlide = index;
+                    updateSlider();
+                });
+            });
+        }
+        
+        // Keyboard navigation for slider
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') {
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                prevSlide();
+            }
+        });
+    </script>
+</body>
+</html>

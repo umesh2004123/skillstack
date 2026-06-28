@@ -1,0 +1,1071 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Tutorial | Learn Python Programming</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --light-bg: #f9f9f9;
+            --dark-text: #2c3e50;
+            --light-text: #ecf0f1;
+            --sidebar-width: 280px;
+            --header-height: 80px;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--dark-text);
+            background-color: var(--light-bg);
+            overflow-x: hidden;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: var(--primary-color);
+            color: var(--light-text);
+            padding: 15px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--box-shadow);
+            height: var(--header-height);
+            display: flex;
+            align-items: center;
+        }
+
+        .header-container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo i {
+            font-size: 1.5rem;
+        }
+
+        .last-updated {
+            font-style: italic;
+            color: #bdc3c7;
+            font-size: 0.9rem;
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            width: var(--sidebar-width);
+            height: calc(100vh - var(--header-height));
+            background-color: var(--primary-color);
+            position: fixed;
+            top: var(--header-height);
+            left: 0;
+            overflow-y: auto;
+            transform: translateX(-100%);
+            transition: var(--transition);
+            z-index: 90;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .sidebar.open {
+            transform: translateX(0);
+        }
+
+        .sidebar-header {
+            color: var(--light-text);
+            padding: 15px 20px;
+            font-size: 1.2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+        }
+
+        .sidebar-menu li {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .sidebar-menu a {
+            display: flex;
+            align-items: center;
+            color: var(--light-text);
+            padding: 12px 20px;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .sidebar-menu a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding-left: 25px;
+        }
+
+        .sidebar-menu a.active {
+            background-color: var(--secondary-color);
+            font-weight: bold;
+        }
+
+        .sidebar-menu i {
+            width: 24px;
+            text-align: center;
+            margin-right: 10px;
+        }
+
+        /* Toggle Button */
+        .sidebar-toggle {
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .sidebar-toggle:hover {
+            background-color: #2980b9;
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-top: var(--header-height);
+            padding: 30px;
+            transition: var(--transition);
+        }
+
+        .sidebar.open ~ .main-content {
+            margin-left: var(--sidebar-width);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Content Sections */
+        .section {
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+
+        .section h2 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--secondary-color);
+        }
+
+        .section h3 {
+            color: var(--secondary-color);
+            margin: 20px 0 15px;
+        }
+
+        .section p {
+            margin-bottom: 15px;
+            line-height: 1.7;
+        }
+
+        .section ul, .section ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+
+        .section li {
+            margin-bottom: 10px;
+        }
+
+        /* Code Examples */
+        .code-container {
+            position: relative;
+            margin: 20px 0;
+        }
+
+        .code-box {
+            background-color: #282c34;
+            color: #abb2bf;
+            border-radius: var(--border-radius);
+            padding: 20px;
+            overflow-x: auto;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: var(--transition);
+        }
+
+        .copy-btn:hover {
+            background-color: #2980b9;
+        }
+
+        .output {
+            background-color: #f0f0f0;
+            padding: 15px;
+            border-left: 4px solid var(--accent-color);
+            margin: 10px 0 25px;
+            font-family: 'Courier New', Courier, monospace;
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
+        }
+
+        /* Navigation Buttons */
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .nav-btn {
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .nav-btn:hover {
+            background-color: #2980b9;
+        }
+
+        .nav-btn:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--primary-color);
+            color: var(--light-text);
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .topic-card ul {
+                columns: 1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+            }
+            
+            .sidebar.open ~ .main-content {
+                margin-left: 0;
+            }
+            
+            .main-content {
+                padding: 20px 15px;
+            }
+            
+            .section {
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .header-container {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            
+            .last-updated {
+                align-self: flex-end;
+            }
+        }
+
+        /* Table Styles */
+        .table-container {
+            margin: 20px 0;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            box-shadow: 0 2px 3px rgba(0,0,0,0.1);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        th {
+            background-color: var(--secondary-color);
+            color: white;
+            font-weight: 600;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        /* Responsive tables */
+        @media (max-width: 768px) {
+            table {
+                display: block;
+            }
+            
+            th, td {
+                padding: 8px 10px;
+            }
+        }
+
+        /* Code block inside table cells */
+        td code {
+            background-color: #f5f5f5;
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+
+        /* Menu Header Styles */
+        .menu-header {
+            color: var(--light-text);
+            padding: 15px 20px;
+            font-weight: bold;
+            background-color: rgba(0, 0, 0, 0.2);
+            cursor: default;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .menu-header i {
+            font-size: 1rem;
+        }
+
+        .sidebar-menu a {
+            padding-left: 40px;
+        }
+
+        .sidebar-menu .menu-header + a {
+            padding-left: 20px;
+        }
+
+        /* Home Section */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 20px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-card i {
+            font-size: 2rem;
+            color: var(--secondary-color);
+            margin-bottom: 15px;
+        }
+
+        .feature-card h3 {
+            color: var(--primary-color);
+            margin: 10px 0;
+        }
+
+        .cta-box {
+            text-align: center;
+            padding: 30px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8eb 100%);
+            border-radius: var(--border-radius);
+        }
+
+        .start-btn {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .start-btn:hover {
+            background-color: #d62c1a;
+            transform: scale(1.05);
+        }
+
+        .img-container {
+            width: 70%;
+            margin: 1rem auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .img-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+            max-width: 100%;
+            object-fit: contain;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 1024px) {
+            .img-container {
+                width: 80%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .img-container {
+                width: 90%;
+                margin: 0.75rem auto;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .img-container {
+                width: 100%;
+                margin: 0.5rem 0;
+                border-radius: 4px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <button class="sidebar-toggle" id="sidebarToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <h1><i class="fas fa-code"></i> Python Tutorial</h1>
+            </div>
+            <div class="last-updated">Last Updated: June 2025</div>
+        </div>
+    </header>
+
+    <!-- Sidebar Navigation -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <i class="fas fa-book"></i>
+            <span>Python Concepts</span>
+        </div>
+        <ul class="sidebar-menu">
+            <li><a href="#" data-topic="home" class="active"><i class="fas fa-home"></i> Home</a></li>
+            
+            <!-- Python Basics Section -->
+            <li class="menu-header"><i class="fas fa-cube"></i> Python Basics</li>
+            <li><a href="#" data-topic="overview"><i class="fas fa-info-circle"></i> Overview</a></li>
+            <li><a href="#" data-topic="environment-setup"><i class="fas fa-cog"></i> Environment Setup</a></li>
+            <li><a href="#" data-topic="basic-syntax"><i class="fas fa-code"></i> Basic Syntax</a></li>
+            <li><a href="#" data-topic="comments"><i class="fas fa-comment"></i> Comments</a></li>
+            <li><a href="#" data-topic="hello-world"><i class="fas fa-laptop-code"></i> Hello World</a></li>
+            <li><a href="#" data-topic="variables"><i class="fas fa-id-card"></i> Variables</a></li>
+            <li><a href="#" data-topic="keywords"><i class="fas fa-key"></i> Keywords</a></li>
+            
+            <!-- Data Types Section -->
+            <li class="menu-header"><i class="fas fa-database"></i> Data Types</li>
+            <li><a href="#" data-topic="numeric-types"><i class="fas fa-list-ol"></i> Numeric Types</a></li>
+            <li><a href="#" data-topic="strings"><i class="fas fa-font"></i> Strings</a></li>
+            <li><a href="#" data-topic="lists"><i class="fas fa-list"></i> Lists</a></li>
+            <li><a href="#" data-topic="tuples"><i class="fas fa-layer-group"></i> Tuples</a></li>
+            <li><a href="#" data-topic="dictionaries"><i class="fas fa-book"></i> Dictionaries</a></li>
+            <li><a href="#" data-topic="sets"><i class="fas fa-object-group"></i> Sets</a></li>
+            <li><a href="#" data-topic="boolean"><i class="fas fa-toggle-on"></i> Boolean</a></li>
+            
+            <!-- Operators Section -->
+            <li class="menu-header"><i class="fas fa-calculator"></i> Operators</li>
+            <li><a href="#" data-topic="arithmetic"><i class="fas fa-plus-circle"></i> Arithmetic</a></li>
+            <li><a href="#" data-topic="comparison"><i class="fas fa-equals"></i> Comparison</a></li>
+            <li><a href="#" data-topic="logical"><i class="fas fa-project-diagram"></i> Logical</a></li>
+            <li><a href="#" data-topic="bitwise"><i class="fas fa-memory"></i> Bitwise</a></li>
+            <li><a href="#" data-topic="assignment"><i class="fas fa-arrow-right"></i> Assignment</a></li>
+            <li><a href="#" data-topic="membership"><i class="fas fa-user-check"></i> Membership</a></li>
+            <li><a href="#" data-topic="identity"><i class="fas fa-id-badge"></i> Identity</a></li>
+            
+            <!-- Control Statements Section -->
+            <li class="menu-header"><i class="fas fa-code-branch"></i> Control Statements</li>
+            <li><a href="#" data-topic="if-statement"><i class="fas fa-check"></i> if Statement</a></li>
+            <li><a href="#" data-topic="if-else"><i class="fas fa-check-double"></i> if-else</a></li>
+            <li><a href="#" data-topic="elif"><i class="fas fa-sitemap"></i> elif</a></li>
+            <li><a href="#" data-topic="while-loop"><i class="fas fa-sync"></i> while Loop</a></li>
+            <li><a href="#" data-topic="for-loop"><i class="fas fa-undo"></i> for Loop</a></li>
+            <li><a href="#" data-topic="break"><i class="fas fa-stop"></i> break</a></li>
+            <li><a href="#" data-topic="continue"><i class="fas fa-step-forward"></i> continue</a></li>
+            
+            <!-- Strings Section -->
+            <li class="menu-header"><i class="fas fa-font"></i> Strings</li>
+            <li><a href="#" data-topic="string-methods"><i class="fas fa-text-width"></i> String Methods</a></li>
+            <li><a href="#" data-topic="string-formatting"><i class="fas fa-align-left"></i> String Formatting</a></li>
+            <li><a href="#" data-topic="loop-through-strings"><i class="fas fa-repeat"></i> Loop Through</a></li>
+            
+            <!-- Advanced Topics Section -->
+            <li class="menu-header"><i class="fas fa-rocket"></i> Advanced</li>
+            <li><a href="#" data-topic="functions"><i class="fas fa-cogs"></i> Functions</a></li>
+            <li><a href="#" data-topic="lambda"><i class="fas fa-lambda"></i> Lambda Functions</a></li>
+            <li><a href="#" data-topic="exception-handling"><i class="fas fa-bug"></i> Exception Handling</a></li>
+            <li><a href="#" data-topic="modules"><i class="fas fa-box"></i> Modules</a></li>
+            <li><a href="#" data-topic="file-handling"><i class="fas fa-file"></i> File Handling</a></li>
+            <li><a href="#" data-topic="classes"><i class="fas fa-cubes"></i> Classes & Objects</a></li>
+            <li><a href="#" data-topic="multithreading"><i class="fas fa-tasks"></i> Multithreading</a></li>
+            
+            <!-- Resources Section -->
+            <li class="menu-header"><i class="fas fa-book"></i> Resources</li>
+            <li><a href="#" data-topic="qa"><i class="fas fa-question-circle"></i> Q&A</a></li>
+            <li><a href="#" data-topic="quick-guide"><i class="fas fa-lightbulb"></i> Quick Guide</a></li>
+            <li><a href="#" data-topic="cheatsheet"><i class="fas fa-clipboard-list"></i> Cheatsheet</a></li>
+            <li><a href="#" data-topic="standard-library"><i class="fas fa-book-open"></i> Standard Library</a></li>
+            <li><a href="#" data-topic="online-interpreter"><i class="fas fa-laptop"></i> Online Interpreter</a></li>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content" id="mainContent">
+        <div class="container" id="contentContainer">
+            <!-- Dynamic content will be loaded here -->
+        </div>
+        <footer>
+            <div class="container">
+                <p>© 2025 Python Tutorial. All rights reserved.</p>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Content map for topics
+        const contentMap = {
+            'home': {
+                title: 'Welcome to Python Tutorial',
+                content: `
+                    <section class="section">
+                        <h2>What is Python?</h2>
+                        <p>
+                            Python is a high-level, interpreted programming language created by Guido van Rossum and first released in 1991. Known for its readability and simplicity, Python is widely used in web development, data science, automation, and more.
+                        </p>
+                        <div class="img-container">
+                            <img src="https://www.python.org/static/community_logos/python-logo.png" alt="Python logo">
+                        </div>
+                        <p>
+                            Python runs on all major platforms, including Windows, macOS, and Linux, and supports multiple programming paradigms like object-oriented, functional, and procedural programming.
+                        </p>
+                    </section>
+
+                    <section class="section">
+                        <h2>Why Learn Python?</h2>
+                        <div class="features-grid">
+                            <div class="feature-card">
+                                <i class="fas fa-book"></i>
+                                <h3>Easy to Learn</h3>
+                                <p>
+                                    Python's clear syntax and readability make it ideal for beginners and professionals alike.
+                                </p>
+                            </div>
+                            <div class="feature-card">
+                                <i class="fas fa-cube"></i>
+                                <h3>Versatile</h3>
+                                <p>
+                                    Used in web apps, data analysis, machine learning, automation, and more.
+                                </p>
+                            </div>
+                            <div class="feature-card">
+                                <i class="fas fa-bolt"></i>
+                                <h3>High Demand</h3>
+                                <p>
+                                    Popular in industries like tech, finance, and academia for rapid development.
+                                </p>
+                            </div>
+                            <div class="feature-card">
+                                <i class="fas fa-community"></i>
+                                <h3>Large Community</h3>
+                                <p>
+                                    Extensive libraries and frameworks with strong community support.
+                                </p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="section">
+                        <h2>Getting Started</h2>
+                        <div class="cta-box">
+                            <p>Ready to begin your Python journey?</p>
+                            <button class="start-btn" onclick="loadContent('environment-setup')">
+                                <i class="fas fa-rocket"></i> Setup Your Environment
+                            </button>
+                        </div>
+                    </section>
+                `
+            },
+            'overview': {
+                title: 'Python Overview',
+                content: `
+                    <section class="section">
+                        <h2>Python Overview</h2>
+                        <p>Python is a versatile, interpreted language that emphasizes code readability with its use of indentation. It supports multiple programming paradigms and has a vast standard library.</p>
+                        <h3>Key Features</h3>
+                        <ul>
+                            <li>Simple and readable syntax</li>
+                            <li>Dynamic typing and garbage collection</li>
+                            <li>Extensive standard library and third-party packages</li>
+                            <li>Cross-platform compatibility</li>
+                        </ul>
+                    </section>
+                `
+            },
+            'hello-world': {
+                title: 'Hello World Program',
+                content: `
+                    <section class="section">
+                        <h2>Hello, World! Program</h2>
+                        <p>This is a simple Python program that prints "Hello, World!" to the console.</p>
+                        <div class="code-container">
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                            <pre class="code-box">print("Hello, World!")</pre>
+                        </div>
+                        <div class="output">
+                            <strong>Output:</strong> Hello, World!
+                        </div>
+                    </section>
+                `
+            },
+            'basic-syntax': {
+                title: 'Basic Syntax',
+                content: `
+                    <section class="section">
+                        <h2>Basic Syntax</h2>
+                        <p>Python uses indentation to define blocks of code. It avoids semicolons and curly braces, making code cleaner.</p>
+                        <div class="code-container">
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                            <pre class="code-box">x = 10
+if x > 5:
+    print("x is greater than 5")
+else:
+    print("x is 5 or less")
+</pre>
+                        </div>
+                        <div class="output">
+                            <strong>Output:</strong> x is greater than 5
+                        </div>
+                    </section>
+                `
+            },
+            'environment-setup': {
+                title: 'Environment Setup',
+                content: `
+                    <section class="section">
+                        <h2>Python Environment Setup</h2>
+                        <p>Setting up a Python development environment is straightforward. This section guides you through installing Python and necessary tools.</p>
+                        
+                        <h3>Components Needed</h3>
+                        <ul>
+                            <li><strong>Text Editor/IDE:</strong> For writing code</li>
+                            <li><strong>Python Interpreter:</strong> To run Python code</li>
+                            <li><strong>Package Manager:</strong> For installing libraries</li>
+                        </ul>
+                        
+                        <h3>1. Choosing a Text Editor or IDE</h3>
+                        <div class="table-container">
+                            <table>
+                                <tr>
+                                    <th>Option</th>
+                                    <th>Description</th>
+                                    <th>Platform</th>
+                                </tr>
+                                <tr>
+                                    <td>VS Code</td>
+                                    <td>Lightweight editor with Python extensions</td>
+                                    <td>Windows, Mac, Linux</td>
+                                </tr>
+                                <tr>
+                                    <td>PyCharm</td>
+                                    <td>Powerful IDE for Python development</td>
+                                    <td>Windows, Mac, Linux</td>
+                                </tr>
+                                <tr>
+                                    <td>IDLE</td>
+                                    <td>Python's built-in IDE</td>
+                                    <td>Windows, Mac, Linux</td>
+                                </tr>
+                                <tr>
+                                    <td>Jupyter Notebook</td>
+                                    <td>Interactive environment for data science</td>
+                                    <td>Windows, Mac, Linux</td>
+                                </tr>
+                            </table>
+                        </div>
+                        
+                        <h3>2. Installing Python</h3>
+                        <h4>Windows</h4>
+                        <ul>
+                            <li>Download from <a href="https://www.python.org/downloads/" target="_blank">python.org</a></li>
+                            <li>Run installer, check "Add Python to PATH"</li>
+                            <li>Verify: <code>python --version</code></li>
+                        </ul>
+                        
+                        <h4>MacOS</h4>
+                        <div class="code-container">
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                            <pre class="code-box"># Install via Homebrew
+brew install python
+
+# Verify installation
+python3 --version
+</pre>
+                        </div>
+                        
+                        <h4>Linux</h4>
+                        <div class="code-container">
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                            <pre class="code-box"># For Ubuntu/Debian
+sudo apt update
+sudo apt install python3 python3-pip
+
+# Verify
+python3 --version
+pip3 --version
+</pre>
+                        </div>
+                        
+                        <h3>3. Configuring VS Code for Python</h3>
+                        <ol>
+                            <li>Install VS Code from <a href="https://code.visualstudio.com/" target="_blank">code.visualstudio.com</a></li>
+                            <li>Install Python extension by Microsoft</li>
+                            <li>Select Python interpreter (Ctrl+Shift+P, "Python: Select Interpreter")</li>
+                        </ol>
+                        
+                        <h3>4. Creating Your First Program</h3>
+                        <p>Create a file named <code>hello.py</code>:</p>
+                        <div class="code-container">
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                            <pre class="code-box">print("Hello, World!")</pre>
+                        </div>
+                        
+                        <h3>5. Running the Program</h3>
+                        <div class="code-container">
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                            <pre class="code-box"># Command line
+python3 hello.py
+
+# VS Code: Run with Python extension
+</pre>
+                        </div>
+                        
+                        <h3>Online Interpreters</h3>
+                        <ul>
+                            <li><a href="https://replit.com/languages/python3" target="_blank">Replit</a></li>
+                            <li><a href="https://www.programiz.com/python-programming/online-compiler/" target="_blank">Programiz</a></li>
+                            <li><a href="https://jupyter.org/try" target="_blank">Jupyter Notebook</a></li>
+                        </ul>
+                    </section>
+                `
+            },
+            'comments': {
+                title: 'Comments',
+                content: `
+                    <section class="section">
+                        <h2>Comments</h2>
+                        <p>Comments in Python are used to explain code and are ignored by the interpreter. Use # for single-line comments and triple quotes (''' or """) for multi-line comments.</p>
+                        <div class="code-container">
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                            <pre class="code-box"># This is a single-line comment
+"""
+This is a
+multi-line comment
+"""
+print("Comments example")
+</pre>
+                        </div>
+                        <div class="output">
+                            <strong>Output:</strong> Comments example
+                        </div>
+                    </section>
+                `
+            },
+            'arithmetic': {
+                title: 'Arithmetic Operators',
+                content: `
+                    <section class="section">
+                        <h2>Arithmetic Operators</h2>
+                        <p>Python supports arithmetic operators like +, -, *, /, //, %, and ** for mathematical operations.</p>
+                        <div class="code-container">
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                            <pre class="code-box">a = 10
+b = 3
+print("Addition:", a + b)
+print("Subtraction:", a - b)
+print("Multiplication:", a * b)
+print("Division:", a / b)
+print("Floor Division:", a // b)
+print("Modulus:", a % b)
+print("Exponent:", a ** b)
+</pre>
+                        </div>
+                        <div class="output">
+                            <strong>Output:</strong><br>
+                            Addition: 13<br>
+                            Subtraction: 7<br>
+                            Multiplication: 30<br>
+                            Division: 3.3333333333333335<br>
+                            Floor Division: 3<br>
+                            Modulus: 1<br>
+                            Exponent: 1000
+                        </div>
+                    </section>
+                `
+            },
+            'if-statement': {
+                title: 'if Statement',
+                content: `
+                    <section class="section">
+                        <h2>if Statement</h2>
+                        <p>The if statement executes a block of code if a condition is true.</p>
+                        <div class="code-container">
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                            <pre class="code-box">x = 20
+if x > 10:
+    print("x is greater than 10")
+</pre>
+                        </div>
+                        <div class="output">
+                            <strong>Output:</strong> x is greater than 10
+                        </div>
+                    </section>
+                `
+            },
+            'strings': {
+                title: 'Strings',
+                content: `
+                    <section class="section">
+                        <h2>Strings</h2>
+                        <p>Strings in Python are sequences of characters enclosed in single (') or double (") quotes.</p>
+                        <div class="code-container">
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                            <pre class="code-box">greeting = "Hello, Python!"
+print(greeting)
+</pre>
+                        </div>
+                        <div class="output">
+                            <strong>Output:</strong> Hello, Python!
+                        </div>
+                    </section>
+                `
+            },
+            'exception-handling': {
+                title: 'Exception Handling',
+                content: `
+                    <section class="section">
+                        <h2>Exception Handling</h2>
+                        <p>Python uses try, except, else, and finally to handle exceptions.</p>
+                        <div class="code-container">
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                            <pre class="code-box">try:
+    num = int(input("Enter a number: "))
+    result = 10 / num
+except ZeroDivisionError:
+    print("Cannot divide by zero!")
+except ValueError:
+    print("Invalid input! Please enter a number.")
+else:
+    print("Result:", result)
+finally:
+    print("Execution complete.")
+</pre>
+                        </div>
+                        <div class="output">
+                            <strong>Output (if input is 0):</strong><br>
+                            Cannot divide by zero!<br>
+                            Execution complete.
+                        </div>
+                    </section>
+                `
+            },
+            'lists': {
+                title: 'Python Lists',
+                content: `
+                    <section class="section">
+                        <h2>Python Lists</h2>
+                        <p>Lists in Python are ordered, mutable collections of items, which can hold different data types.</p>
+                        <div class="code-container">
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                            <pre class="code-box">fruits = ["apple", "banana", "cherry"]
+print(fruits)
+fruits.append("orange")
+print("After append:", fruits)
+fruits[1] = "blueberry"
+print("After update:", fruits)
+</pre>
+                        </div>
+                        <div class="output">
+                            <strong>Output:</strong><br>
+                            ['apple', 'banana', 'cherry']<br>
+                            After append: ['apple', 'banana', 'cherry', 'orange']<br>
+                            After update: ['apple', 'blueberry', 'cherry', 'orange']
+                        </div>
+                    </section>
+                `
+            }
+            // Add more topics as needed
+        };
+
+        // List of topics in order for navigation
+        const topicOrder = [
+            'home', 'overview', 'environment-setup', 'basic-syntax', 'comments', 'hello-world',
+            'variables', 'keywords', 'numeric-types', 'strings', 'lists', 'tuples',
+            'dictionaries', 'sets', 'boolean', 'arithmetic', 'comparison', 'logical',
+            'bitwise', 'assignment', 'membership', 'identity', 'if-statement', 'if-else',
+            'elif', 'while-loop', 'for-loop', 'break', 'continue', 'string-methods',
+            'string-formatting', 'loop-through-strings', 'functions', 'lambda',
+            'exception-handling', 'modules', 'file-handling', 'classes', 'multithreading',
+            'qa', 'quick-guide', 'cheatsheet', 'standard-library', 'online-interpreter'
+        ];
+
+        // Sidebar toggle functionality
+        const sidebar = document.getElementById('sidebar');
+        const sidebarToggle = document.getElementById('sidebarToggle');
+        const mainContent = document.getElementById('mainContent');
+        const contentContainer = document.getElementById('contentContainer');
+
+        sidebarToggle.addEventListener('click', () => {
+            sidebar.classList.toggle('open');
+            const icon = sidebarToggle.querySelector('i');
+            icon.classList.toggle('fa-bars');
+            icon.classList.toggle('fa-times');
+        });
+
+        // Function to load content
+        function loadContent(topic) {
+            const content = contentMap[topic] || {
+                title: 'Content Not Available',
+                content: `<section class="section"><h2>Content Not Available</h2><p>Content for this topic is under development.</p></section>`
+            };
+            
+            const currentIndex = topicOrder.indexOf(topic);
+            const prevTopic = currentIndex > 0 ? topicOrder[currentIndex - 1] : null;
+            const nextTopic = currentIndex < topicOrder.length - 1 ? topicOrder[currentIndex + 1] : null;
+
+            contentContainer.innerHTML = `
+                ${content.content}
+                <div class="nav-buttons">
+                    <button class="nav-btn" ${!prevTopic ? 'disabled' : ''} onclick="loadContent('${prevTopic}')">Previous Topic</button>
+                    <button class="nav-btn" ${!nextTopic ? 'disabled' : ''} onclick="loadContent('${nextTopic}')">Next Topic</button>
+                </div>
+            `;
+
+            // Update active link
+            document.querySelectorAll('.sidebar-menu a').forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('data-topic') === topic) {
+                    link.classList.add('active');
+                }
+            });
+
+            // Scroll to top
+            window.scrollTo(0, 0);
+
+            // Update document title
+            document.title = `${content.title} | Python Tutorial`;
+        }
+
+        // Sidebar link click handler
+        document.querySelectorAll('.sidebar-menu a[data-topic]').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const topic = link.getAttribute('data-topic');
+                loadContent(topic);
+                
+                // Close sidebar on mobile
+                if (window.innerWidth <= 768) {
+                    sidebar.classList.remove('open');
+                    const icon = sidebarToggle.querySelector('i');
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                }
+            });
+        });
+
+        // Copy code functionality
+        function copyCode(button) {
+            const codeText = button.parentElement.querySelector('.code-box').textContent;
+            navigator.clipboard.writeText(codeText).then(() => {
+                button.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                setTimeout(() => {
+                    button.innerHTML = '<i class="far fa-copy"></i> Copy';
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+            });
+        }
+
+        // Load initial content
+        loadContent('home');
+    </script>
+</body>
+</html>

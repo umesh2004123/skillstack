@@ -1,0 +1,98 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 225 15% 8%;
+    --foreground: 210 20% 92%;
+
+    --card: 225 14% 12%;
+    --card-foreground: 210 20% 92%;
+
+    --popover: 225 14% 14%;
+    --popover-foreground: 210 20% 92%;
+
+    --primary: 142 60% 50%;
+    --primary-foreground: 225 15% 8%;
+
+    --secondary: 225 14% 16%;
+    --secondary-foreground: 210 20% 82%;
+
+    --muted: 225 12% 18%;
+    --muted-foreground: 215 12% 55%;
+
+    --accent: 200 80% 55%;
+    --accent-foreground: 225 15% 8%;
+
+    --destructive: 0 72% 55%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 225 12% 20%;
+    --input: 225 12% 22%;
+    --ring: 142 60% 50%;
+
+    --radius: 0.625rem;
+
+    --warning: 38 92% 55%;
+    --warning-foreground: 225 15% 8%;
+
+    --node-basics: 142 60% 50%;
+    --node-commands: 200 80% 55%;
+    --node-joins: 280 65% 60%;
+    --node-indexes: 38 92% 55%;
+    --node-transactions: 0 72% 55%;
+    --node-normalization: 320 70% 55%;
+    --node-advanced: 170 65% 45%;
+
+    --sidebar-background: 225 14% 10%;
+    --sidebar-foreground: 210 20% 82%;
+    --sidebar-primary: 142 60% 50%;
+    --sidebar-primary-foreground: 225 15% 8%;
+    --sidebar-accent: 225 14% 16%;
+    --sidebar-accent-foreground: 210 20% 82%;
+    --sidebar-border: 225 12% 20%;
+    --sidebar-ring: 142 60% 50%;
+
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+  }
+}
+
+@layer utilities {
+  .font-mono {
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .font-display {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-weight: 800;
+  }
+}
+
+/* React Flow overrides */
+.react-flow__background {
+  background-color: hsl(225 15% 8%) !important;
+}
+.react-flow__controls button {
+  background-color: hsl(225 14% 16%) !important;
+  color: hsl(210 20% 82%) !important;
+  border-color: hsl(225 12% 20%) !important;
+}
+.react-flow__controls button:hover {
+  background-color: hsl(225 14% 22%) !important;
+}
+.react-flow__minimap {
+  background-color: hsl(225 14% 10%) !important;
+  border: 1px solid hsl(225 12% 20%) !important;
+  border-radius: 0.5rem !important;
+}
