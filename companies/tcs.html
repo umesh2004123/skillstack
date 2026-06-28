@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TCS Prep Guide - SkillStack</title>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary-bg: #ffffff;
+            --text-dark: #1d1d1d;
+            --text-light: #5d5d5d;
+            --accent-pink: #FF4597;
+            --accent-pink-light: #fff0f5;
+            --border-color: #ebedf0;
+            --font-main: 'Inter', sans-serif;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: var(--font-main);
+            background: var(--primary-bg);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        /* Navbar */
+        .navbar {
+            height: 70px;
+            border-bottom: 1px solid var(--border-color);
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 40px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            text-decoration: none;
+            color: #000;
+        }
+
+        .logo span {
+            color: var(--accent-pink);
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--text-light);
+            font-weight: 600;
+            font-size: 0.95rem;
+            margin-left: 20px;
+            transition: color 0.2s;
+        }
+
+        .nav-link:hover {
+            color: var(--accent-pink);
+        }
+
+        /* Container */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        /* Hero */
+        .hero-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .hero-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+            background: -webkit-linear-gradient(45deg, #FF4597, #ff9a9e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-subtitle {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Sections */
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-card {
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+            margin-bottom: 40px;
+        }
+
+        /* Tables */
+        .styled-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 0.95rem;
+        }
+
+        .styled-table th,
+        .styled-table td {
+            padding: 15px;
+            border-bottom: 1px solid #ebedf0;
+            text-align: left;
+        }
+
+        .styled-table th {
+            background-color: var(--accent-pink-light);
+            color: var(--accent-pink);
+            font-weight: 700;
+        }
+
+        /* Pattern Grid */
+        .pattern-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .check-icon {
+            color: var(--accent-pink);
+            margin-top: 5px;
+        }
+
+        /* Resources Grid */
+        .resource-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .resource-card {
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 20px;
+            transition: transform 0.2s;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .resource-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-pink);
+        }
+
+        .res-icon {
+            font-size: 2rem;
+            color: var(--accent-pink);
+            margin-bottom: 10px;
+        }
+
+        .res-title {
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+        }
+
+        .res-desc {
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        /* Buttons */
+        .btn-primary {
+            display: inline-block;
+            background: var(--accent-pink);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: opacity 0.2s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary:hover {
+            opacity: 0.9;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <a href="../index.html" class="logo">SkillStack <span>Company Prep</span></a>
+        <div>
+            <a href="../index.html" class="nav-link">Home</a>
+            <a href="#syllabus" class="nav-link">Syllabus</a>
+            <a href="#resources" class="nav-link">Resources</a>
+        </div>
+    </nav>
+
+    <div class="container">
+
+        <div class="hero-header">
+            <h1 class="hero-title">TCS NQT 2025 Preparation</h1>
+            <p class="hero-subtitle">The ultimate guide to cracking the TCS National Qualifier Test. Foundation,
+                Advanced Coding, and Interview tips.</p>
+        </div>
+
+        <!-- Pattern Section -->
+        <div class="section-card">
+            <h2 class="section-title"><i class="fas fa-chart-pie" style="color: var(--accent-pink);"></i> Exam Pattern
+            </h2>
+            <p style="color: var(--text-light); margin-bottom: 20px;">The exam is divided into two major sections:
+                Foundation and Advanced. There is <strong>no negative marking</strong>.</p>
+
+            <table class="styled-table">
+                <thead>
+                    <tr>
+                        <th>Section</th>
+                        <th>Duration</th>
+                        <th>Question Type</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Foundation</strong> (Numerical, Verbal, Reasoning)</td>
+                        <td>75 Mins</td>
+                        <td>Easy / Medium</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Advanced</strong> (Quant, Reasoning, Coding)</td>
+                        <td>90 Mins</td>
+                        <td>Hard / Advanced</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Syllabus Section -->
+        <div class="pattern-grid" id="syllabus">
+            <!-- Col 1 -->
+            <div class="section-card">
+                <h3 class="section-title" style="font-size: 1.2rem;">Foundation Syllabus</h3>
+                <div class="feature-item"><i class="fas fa-check-circle check-icon"></i>
+                    <div><strong>Numerical:</strong> LCM/HCF, Divisibility, Probability, Statistics</div>
+                </div>
+                <div class="feature-item"><i class="fas fa-check-circle check-icon"></i>
+                    <div><strong>Verbal:</strong> Reading Comprehension, Sentence Completion, Errors</div>
+                </div>
+                <div class="feature-item"><i class="fas fa-check-circle check-icon"></i>
+                    <div><strong>Reasoning:</strong> Blood Relations, Coding-Decoding, Series</div>
+                </div>
+            </div>
+
+            <!-- Col 2 -->
+            <div class="section-card">
+                <h3 class="section-title" style="font-size: 1.2rem;">Advanced Syllabus</h3>
+                <div class="feature-item"><i class="fas fa-code check-icon"></i>
+                    <div><strong>Coding:</strong> Arrays, Strings, Matrices, Trees (Hard)</div>
+                </div>
+                <div class="feature-item"><i class="fas fa-brain check-icon"></i>
+                    <div><strong>Adv. Quant:</strong> Permutations, Geometry, Trigonometry</div>
+                </div>
+                <div class="feature-item"><i class="fas fa-clock check-icon"></i>
+                    <div><strong>Time Limit:</strong> Strict timing for coding questions.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Resources Section -->
+        <h2 class="section-title" id="resources"><i class="fas fa-download" style="color: var(--accent-pink);"></i> Free
+            Resources</h2>
+        <div class="resource-grid">
+
+            <a href="#" class="resource-card">
+                <div class="res-icon"><i class="fas fa-file-pdf"></i></div>
+                <div class="res-title">TCS Previous Papers</div>
+                <div class="res-desc">Download last 5 years solved papers PDF.</div>
+            </a>
+
+            <a href="#" class="resource-card">
+                <div class="res-icon"><i class="fas fa-laptop-code"></i></div>
+                <div class="res-title">Coding Sheet</div>
+                <div class="res-desc">Top 100 NQT Coding Questions (Java/Python).</div>
+            </a>
+
+            <a href="#" class="resource-card">
+                <div class="res-icon"><i class="fab fa-youtube"></i></div>
+                <div class="res-title">Video Lectures</div>
+                <div class="res-desc">Curated YouTube playlist for NQT Prep.</div>
+            </a>
+
+            <a href="#" class="resource-card">
+                <div class="res-icon"><i class="fas fa-comments"></i></div>
+                <div class="res-title">Interview Exp</div>
+                <div class="res-desc">Real interview questions asked in TCS.</div>
+            </a>
+
+        </div>
+
+        <div style="text-align: center; margin-top: 50px;">
+            <a href="../index.html" class="btn-primary">Back to Dashboard</a>
+        </div>
+
+    </div>
+
+</body>
+
+</html>

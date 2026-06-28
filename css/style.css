@@ -1,0 +1,224 @@
+:root {
+    --bg-main: #ffffff;
+    --bg-secondary: #f8f9fa;
+    --text-primary: #1d1d1d;
+    --text-secondary: #6c757d;
+    --primary-color: #FF4597;
+    /* The requested Pink */
+    --primary-light: #fff0f5;
+    /* Light pink background */
+    --border-color: #e9ecef;
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+    --font-heading: 'Poppins', sans-serif;
+    --font-body: 'Poppins', sans-serif;
+}
+
+body {
+    font-family: var(--font-body);
+    background: var(--bg-main);
+    color: var(--text-primary);
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+}
+
+/* Typography */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: var(--font-heading);
+    color: var(--text-primary);
+    font-weight: 700;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.2s ease;
+}
+
+/* Buttons */
+.btn-primary {
+    background-color: var(--primary-color) !important;
+    border-color: var(--primary-color) !important;
+    color: white !important;
+    border-radius: 8px;
+    padding: 8px 20px;
+    font-weight: 600;
+}
+
+.btn-primary:hover {
+    filter: brightness(0.9);
+}
+
+.btn-outline-primary {
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+    background: transparent;
+    border-radius: 8px;
+}
+
+.btn-outline-primary:hover {
+    background: var(--primary-light);
+}
+
+/* Navbar */
+.navbar {
+    background: #ffffff !important;
+    border-bottom: 1px solid var(--border-color);
+    box-shadow: none;
+    padding: 1rem 2rem;
+}
+
+.navbar-brand {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--text-primary) !important;
+}
+
+.navbar-brand span {
+    color: var(--primary-color);
+}
+
+.nav-link {
+    color: var(--text-secondary) !important;
+    font-weight: 500;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    color: var(--primary-color) !important;
+}
+
+/* Cards */
+.card-item {
+    background: white;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card-item:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--primary-color);
+}
+
+/* Inputs */
+input,
+textarea,
+select {
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 10px;
+}
+
+input:focus {
+    border-color: var(--primary-color);
+    outline: none;
+    box-shadow: 0 0 0 3px var(--primary-light);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-color);
+}
+
+/* Utilities */
+.text-primary {
+    color: var(--primary-color) !important;
+}
+
+.bg-light {
+    background-color: var(--bg-secondary) !important;
+}
+
+/* Compatibility / Legacy Aliases (Mapping old 'Glass' theme to new 'Clean' theme) */
+.glass-panel {
+    background: white;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    box-shadow: var(--shadow-sm);
+    padding: 1.5rem;
+    /* Default padding for panels */
+}
+
+.auth-btn {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: filter 0.2s;
+    width: 100%;
+}
+
+.auth-btn:hover {
+    filter: brightness(0.9);
+}
+
+.btn-primary-glow {
+    /* Standard button */
+    background-color: var(--primary-color) !important;
+    color: white !important;
+    box-shadow: 0 4px 10px rgba(255, 69, 151, 0.3);
+    /* Subtle pink shadow */
+}
+
+.form-control-glass {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    font-size: 1rem;
+}
+
+/* Premium Styling */
+.premium-border {
+    border: 3px solid #FFD700 !important;
+    /* Gold */
+    position: relative;
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
+}
+
+.premium-container {
+    position: relative;
+    display: inline-block;
+}
+
+.premium-crown-icon {
+    position: absolute;
+    top: -10px;
+    right: -5px;
+    color: #FFD700;
+    font-size: 1.2rem;
+    background: white;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+}

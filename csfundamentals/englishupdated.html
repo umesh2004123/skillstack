@@ -1,0 +1,1031 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>English Grammar Mastery - SkillStack</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-color: #fbfcff;
+            --sidebar-width: 380px;
+            --accent-blue: #FF4597;
+            /* Pink */
+            --accent-bg: #fff0f5;
+            /* Light Pink */
+            --text-main: #1d1d1d;
+            --text-secondary: #5d5d5d;
+            --border-color: #ebedf0;
+            --complete-green: #00d09c;
+        }
+
+        * {
+            box-sizing: border-box;
+            outline: none;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* ------------------ Header ------------------ */
+        .header {
+            height: 64px;
+            background: #ffffff;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 32px;
+            z-index: 10;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .back-btn {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .course-title {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: #0b0b0b;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .user-profile {
+            cursor: pointer;
+            position: relative;
+        }
+
+        .user-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            object-fit: cover;
+            background: #f0f0f0;
+        }
+
+        /* ------------------ Main Layout ------------------ */
+        .container {
+            flex: 1;
+            display: flex;
+            overflow: hidden;
+        }
+
+        /* ------------------ Video Section (Left) ------------------ */
+        .video-column {
+            flex: 1;
+            padding: 40px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .video-wrapper {
+            width: 100%;
+            max-width: 1000px;
+            background: #000;
+            border-radius: 8px;
+            /* Slightly rounded like reference */
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            position: relative;
+            padding-bottom: 56.25%;
+            /* 16:9 Aspect Ratio */
+            height: 0;
+        }
+
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .lesson-info {
+            width: 100%;
+            max-width: 1000px;
+            margin-top: 24px;
+        }
+
+        .lesson-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #0b0b0b;
+            margin-bottom: 16px;
+        }
+
+        .action-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn {
+            height: 40px;
+            padding: 0 20px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border: 1px solid transparent;
+        }
+
+        .btn-primary {
+            background-color: var(--accent-blue);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #0077bd;
+        }
+
+        .btn-success {
+            background-color: var(--complete-green);
+            color: white;
+        }
+
+        .btn-outline {
+            background: white;
+            border-color: #d1d5db;
+            color: var(--text-main);
+        }
+
+        .btn-outline:hover {
+            background: #f9fafb;
+        }
+
+        /* Notes Card */
+        .notes-area {
+            margin-top: 30px;
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 30px;
+            line-height: 1.6;
+        }
+
+        .notes-area h3 {
+            margin-top: 0;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+        }
+
+        .notes-area h1 {
+            font-size: 1.2rem;
+            margin-top: 0;
+        }
+
+        /* ------------------ Sidebar (Right) ------------------ */
+        .sidebar-column {
+            width: var(--sidebar-width);
+            background: #ffffff;
+            border-left: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        /* Progress Card */
+        .progress-card {
+            margin: 24px;
+            padding: 20px;
+            background: #f8faff;
+            /* Very light blue tint */
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .progress-circle {
+            position: relative;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: conic-gradient(var(--accent-blue) 0%, #e2e8f0 0%);
+            /* JS updates this */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .progress-circle::after {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            background: #f8faff;
+            border-radius: 50%;
+        }
+
+        .progress-circle span {
+            position: absolute;
+            z-index: 1;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--accent-blue);
+        }
+
+        .progress-details h4 {
+            margin: 0 0 4px 0;
+            font-size: 1rem;
+            color: var(--text-main);
+        }
+
+        .progress-details p {
+            margin: 0;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+
+        /* Content List */
+        .content-list-wrapper {
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        .list-header {
+            padding: 0 24px 10px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .module-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .module-item {
+            padding: 16px 24px;
+            cursor: pointer;
+            border-left: 3px solid transparent;
+            /* Selection indicator */
+            transition: background 0.1s;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            border-bottom: 1px solid #f5f5f5;
+        }
+
+        .module-item:hover {
+            background-color: #f9f9f9;
+        }
+
+        /* Active State (Like Image) */
+        .module-item.active {
+            background-color: var(--accent-bg);
+            /* #e5f4fb */
+            border-left-color: var(--accent-blue);
+        }
+
+        .module-top {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .status-indicator {
+            min-width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            font-size: 12px;
+        }
+
+        .module-item.active .status-indicator {
+            color: var(--accent-blue);
+        }
+
+        .module-name {
+            font-size: 0.95rem;
+            color: var(--text-main);
+            font-weight: 500;
+            line-height: 1.4;
+        }
+
+        .module-item.active .module-name {
+            color: var(--accent-blue);
+            font-weight: 600;
+        }
+
+        .module-duration {
+            font-size: 0.8rem;
+            color: #9ca3af;
+            margin-left: 32px;
+            /* Indent under title */
+        }
+
+        .module-item.completed .status-indicator {
+            color: var(--complete-green);
+        }
+
+        .module-item.completed .module-name {
+            /* text-decoration: line-through; Optional */
+            opacity: 0.8;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .container {
+                flex-direction: column;
+                overflow-y: auto;
+            }
+
+            .video-column {
+                padding: 20px;
+                height: auto;
+                flex: none;
+            }
+
+            .sidebar-column {
+                width: 100%;
+                height: auto;
+                border-left: none;
+                border-top: 1px solid var(--border-color);
+            }
+        }
+
+        /* Chatbot Overlay */
+        #chatbot-container {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 999;
+        }
+
+        .chatbot-toggle {
+            width: 58px;
+            height: 58px;
+            border-radius: 50%;
+            border: none;
+            background: linear-gradient(135deg, #ff4597, #ff7db7);
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 18px 40px rgba(255, 69, 151, 0.28);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .chatbot-toggle:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 22px 42px rgba(255, 69, 151, 0.34);
+        }
+
+        .chatbot-window {
+            display: none;
+            position: absolute;
+            bottom: 76px;
+            right: 0;
+            width: 380px;
+            height: 560px;
+            background: #ffffff;
+            border-radius: 18px;
+            box-shadow: 0 20px 60px rgba(15, 23, 42, 0.18);
+            border: 1px solid #eceff3;
+            overflow: hidden;
+            flex-direction: column;
+        }
+
+        .chatbot-window.open {
+            display: flex;
+        }
+
+        .chatbot-header {
+            padding: 16px 18px;
+            background: linear-gradient(135deg, #ff4597, #ff7db7);
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .chatbot-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .chatbot-title-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.18);
+            backdrop-filter: blur(10px);
+        }
+
+        .chatbot-title strong {
+            display: block;
+            font-size: 0.98rem;
+        }
+
+        .chatbot-title span {
+            display: block;
+            font-size: 0.8rem;
+            opacity: 0.9;
+            margin-top: 2px;
+        }
+
+        .chatbot-header-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .chatbot-icon-btn {
+            width: 34px;
+            height: 34px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            background: rgba(255, 255, 255, 0.12);
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .chatbot-status {
+            padding: 10px 16px;
+            border-bottom: 1px solid #f1f4f8;
+            background: #fff8fc;
+            color: #7a4a5e;
+            font-size: 0.82rem;
+            font-weight: 600;
+        }
+
+        .chatbot-messages {
+            flex: 1;
+            padding: 16px;
+            overflow-y: auto;
+            background: linear-gradient(180deg, #fff, #fafbff);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .chat-message {
+            max-width: 88%;
+            padding: 12px 14px;
+            border-radius: 14px;
+            font-size: 0.92rem;
+            line-height: 1.55;
+            white-space: normal;
+            word-break: break-word;
+        }
+
+        .chat-message.user {
+            align-self: flex-end;
+            background: linear-gradient(135deg, #ff4597, #ff7db7);
+            color: white;
+            border-bottom-right-radius: 6px;
+        }
+
+        .chat-message.bot {
+            align-self: flex-start;
+            background: white;
+            border: 1px solid #eef1f5;
+            color: #243341;
+            border-bottom-left-radius: 6px;
+        }
+
+        .chat-message.loading {
+            color: #7e8792;
+            font-size: 0.82rem;
+            background: #fff;
+            border: 1px dashed #e6eaf0;
+        }
+
+        .chatbot-settings {
+            display: none;
+            padding: 14px 16px;
+            border-top: 1px solid #f0f3f7;
+            background: #fbfcff;
+        }
+
+        .chatbot-settings.open {
+            display: block;
+        }
+
+        .chatbot-settings p {
+            margin: 0 0 10px 0;
+            color: #5d5d5d;
+            font-size: 0.82rem;
+            line-height: 1.55;
+        }
+
+        .chatbot-settings-row {
+            display: flex;
+            gap: 8px;
+        }
+
+        .chatbot-settings input {
+            flex: 1;
+            min-width: 0;
+            padding: 10px 12px;
+            border: 1px solid #dce3eb;
+            border-radius: 10px;
+        }
+
+        .chatbot-inputbar {
+            padding: 12px;
+            background: white;
+            border-top: 1px solid #edf1f5;
+            display: flex;
+            gap: 10px;
+        }
+
+        .chatbot-inputbar input {
+            flex: 1;
+            padding: 11px 12px;
+            border: 1px solid #dce3eb;
+            border-radius: 10px;
+            font-size: 0.92rem;
+        }
+
+        .chatbot-send {
+            min-width: 46px;
+            border-radius: 10px;
+            border: none;
+            background: linear-gradient(135deg, #ff4597, #ff7db7);
+            color: white;
+            cursor: pointer;
+        }
+
+        @media (max-width: 640px) {
+            #chatbot-container {
+                right: 16px;
+                bottom: 16px;
+            }
+
+            .chatbot-window {
+                width: min(92vw, 380px);
+                height: 72vh;
+                max-height: 560px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-left">
+            <a href="../index.html" class="back-btn"><i class="fas fa-arrow-left"></i></a>
+            <div class="course-title">English Grammar Mastery</div>
+        </div>
+        <div class="header-right">
+            <div class="user-profile">
+                <!-- Fallback image, replaced by JS -->
+                <img id="user-avatar" class="user-avatar" src="https://ui-avatars.com/api/?name=User&background=random"
+                    alt="Profile">
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- LEFT: Video -->
+        <main class="video-column">
+            <div class="video-wrapper">
+                <!-- Default src, updated by JS -->
+                <iframe id="video-frame" src="https://player.vimeo.com/video/1086483857?h=b6345c01e0" allow="autoplay"
+                    allowfullscreen></iframe>
+            </div>
+
+            <div class="lesson-info">
+                <h1 id="lesson-title" class="lesson-title">Adverbs</h1>
+
+                <div class="action-bar">
+                    <button id="mark-complete-btn" class="btn btn-primary">
+                        <i class="fas fa-check"></i> Mark as Completed
+                    </button>
+                    <div class="nav-buttons">
+                        <button id="prev-btn" class="btn btn-outline"><i class="fas fa-chevron-left"></i></button>
+                        <button id="next-btn" class="btn btn-outline"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                </div>
+
+                <div class="notes-area">
+                    <h3>Lesson Notes</h3>
+                    <div id="notes-content">
+                        <!-- Notes injected here -->
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- RIGHT: Sidebar -->
+        <aside class="sidebar-column">
+            <!-- Progress Widget -->
+            <div class="progress-card">
+                <div class="progress-circle" id="progress-circle">
+                    <span id="progress-text">0%</span>
+                </div>
+                <div class="progress-details">
+                    <h4>Course Progress</h4>
+                    <p><span id="completed-count">0</span> / <span id="total-count">0</span> completed</p>
+                </div>
+            </div>
+
+            <div class="content-list-wrapper">
+                <div class="list-header">Course Content</div>
+                <ul class="module-list" id="module-list">
+                    <!-- JS Injects Items Here -->
+                </ul>
+            </div>
+        </aside>
+    </div>
+
+    <!-- Chatbot Widget -->
+    <div id="chatbot-container">
+        <button id="chatbot-toggle" class="chatbot-toggle" aria-label="Open AI tutor">
+            <i class="fas fa-robot"></i>
+        </button>
+        <div id="chatbot-window" class="chatbot-window" aria-live="polite">
+            <div class="chatbot-header">
+                <div class="chatbot-title">
+                    <span class="chatbot-title-icon"><i class="fas fa-brain"></i></span>
+                    <div>
+                        <strong>Groq AI Tutor</strong>
+                        <span>English Grammar support inside SkillStack</span>
+                    </div>
+                </div>
+                <div class="chatbot-header-actions">
+                    <button id="chatbot-settings-toggle" class="chatbot-icon-btn" type="button" aria-label="Tutor settings"><i class="fas fa-key"></i></button>
+                    <button id="chatbot-close" class="chatbot-icon-btn" type="button" aria-label="Close tutor">&times;</button>
+                </div>
+            </div>
+            <div id="chatbot-status" class="chatbot-status">Secure mode: add a Groq API key in this browser to enable answers.</div>
+            <div id="chat-messages" class="chatbot-messages">
+                <div class="chat-message bot">
+                    Hello! I am your Groq-powered English Grammar tutor. Ask me anything about tenses, parts of speech, clauses, articles, or sentence correction.
+                </div>
+            </div>
+            <div id="chatbot-settings" class="chatbot-settings">
+                <p>Your Groq API key is stored only in this browser. It is not written into the page source.</p>
+                <div class="chatbot-settings-row">
+                    <input id="groq-api-key-input" type="password" placeholder="Paste Groq API key">
+                    <button id="save-groq-key" class="chatbot-send" type="button"><i class="fas fa-save"></i></button>
+                </div>
+            </div>
+            <div class="chatbot-inputbar">
+                <input id="chat-input" type="text" placeholder="Ask about English grammar...">
+                <button id="chat-send" class="chatbot-send" type="button" aria-label="Send message"><i class="fas fa-paper-plane"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initAuthStateListener } from '../js/auth.js';
+
+        // ----------------- Groq Tutor Configuration -----------------
+        const GROQ_STORAGE_KEY = "skillstack_groq_api_key";
+        const GROQ_MODEL = "llama-3.3-70b-versatile";
+        const GROQ_ENDPOINT = "https://api.groq.com/openai/v1/chat/completions";
+        const chatHistory = [];
+
+        function getGroqApiKey() {
+            return localStorage.getItem(GROQ_STORAGE_KEY) || "";
+        }
+
+        function escapeHtml(value) {
+            return value
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+
+        function formatReply(text) {
+            return escapeHtml(text)
+                .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
+                .replace(/\n/g, "<br>");
+        }
+
+        function updateTutorStatus() {
+            const statusEl = document.getElementById("chatbot-status");
+            statusEl.textContent = getGroqApiKey()
+                ? "Groq key detected. Ask your grammar question."
+                : "Secure mode: add a Groq API key in this browser to enable answers.";
+        }
+
+        async function askGroq(prompt) {
+            const apiKey = getGroqApiKey();
+            if (!apiKey) {
+                return "Add your Groq API key from the key button in the tutor header, then ask again.";
+            }
+
+            const messages = [
+                {
+                    role: "system",
+                    content: "You are SkillStack's English Grammar tutor. Answer clearly, correctly, and briefly. Focus on English grammar, sentence correction, parts of speech, tenses, clauses, punctuation, vocabulary, and examples. When useful, give one short example and one short correction."
+                },
+                ...chatHistory.slice(-6),
+                { role: "user", content: prompt }
+            ];
+
+            try {
+                const response = await fetch(GROQ_ENDPOINT, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${apiKey}`
+                    },
+                    body: JSON.stringify({
+                        model: GROQ_MODEL,
+                        temperature: 0.4,
+                        max_tokens: 500,
+                        messages
+                    })
+                });
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    console.error("Groq API Error:", data);
+                    return data?.error?.message || "Groq could not answer right now. Please check the API key and try again.";
+                }
+
+                const reply = data?.choices?.[0]?.message?.content?.trim();
+                return reply || "I could not generate a response just now. Please try again.";
+            } catch (error) {
+                console.error("Groq Request Failed:", error);
+                return "Sorry, I could not connect to Groq right now. Please check your network and API key.";
+            }
+        }
+        // --------------------------------------------------------
+
+        // 1. Data Source (Extracted from previous file)
+        const modules = [
+            { title: "Adverbs", duration: "10:30", url: "https://player.vimeo.com/video/1086483857?h=b6345c01e0" },
+            { title: "Articles", duration: "12:15", url: "https://player.vimeo.com/video/1086488973?h=a7c89351ac" },
+            { title: "Antonyms", duration: "08:45", url: "https://player.vimeo.com/video/1086488901?h=13f7f5aba2" },
+            { title: "Basic Rules", duration: "14:20", url: "https://player.vimeo.com/video/1086489039?h=ca7d2e9ac3" },
+            { title: "Clauses", duration: "11:50", url: "https://player.vimeo.com/video/1086489250?h=ca0828ece6" },
+            { title: "Conjunction part-1", duration: "13:00", url: "https://player.vimeo.com/video/1086489116?h=2df0a232c2" },
+            { title: "Conjunction part-2", duration: "15:10", url: "https://player.vimeo.com/video/1086489193?h=c38cbc61de" },
+            { title: "Determiners", duration: "09:40", url: "https://player.vimeo.com/video/1086493543?h=40481f31d0" },
+            { title: "Direct-Indirect part-1", duration: "16:25", url: "https://player.vimeo.com/video/1086493622?h=94f1a37daa" },
+            { title: "Direct-Indirect part-2", duration: "18:15", url: "https://player.vimeo.com/video/1086493737?h=00bf73ded6" },
+            { title: "Modals", duration: "12:55", url: "https://player.vimeo.com/video/1086493790?h=290e37cf4e" },
+            { title: "Noun", duration: "10:10", url: "https://player.vimeo.com/video/1086493878?h=1c4bf00d2c" },
+            { title: "Prepositions part-1", duration: "14:35", url: "https://player.vimeo.com/video/1086494073?h=88a723fc78" },
+            { title: "Prepositions part-2", duration: "15:50", url: "https://player.vimeo.com/video/1086494145?h=a2e4930d39" },
+            { title: "Prepositions part-3", duration: "13:40", url: "https://player.vimeo.com/video/1086494208?h=184f5c2668" }
+        ];
+
+        const videoNotes = {
+            "Adverbs": `<h1>Adverbs</h1><p>This lesson thoroughly explores the essential concepts of adverbs...</p>`,
+            "Articles": `<h1>Articles</h1><p>This lesson comprehensively explores the fundamental concepts of articles...</p>`,
+            "Antonyms": `<h1>Antonyms</h1><p>This lesson comprehensively explores the essential concepts of antonyms...</p>`,
+            "Basic Rules": `<h1>Basic Grammar Rules</h1><p>This lesson systematically covers the foundational rules of English grammar...</p>`,
+            "Clauses": `<h1>Clauses in English Grammar</h1><p>This lesson provides an in-depth examination of clauses...</p>`,
+            "Conjunction part-1": `<h1>Conjunctions (Part 1)</h1><p>This first part of the conjunction series introduces the fundamental concepts...</p>`,
+            "Conjunction part-2": `<h1>Conjunctions (Part 2)</h1><p>This second part of the conjunction series explores more advanced concepts...</p>`,
+            "Determiners": `<h1>Determiners in English</h1><p>This lesson provides a comprehensive overview of determiners...</p>`,
+            "Direct-Indirect part-1": `<h1>Direct and Indirect Speech (Part 1)</h1><p>This first part of the series introduces the fundamental concepts...</p>`,
+            "Direct-Indirect part-2": `<h1>Direct and Indirect Speech (Part 2)</h1><p>This second part of the series explores more complex aspects...</p>`,
+            "Modals": `<h1>Modal Verbs in English</h1><p>This lesson provides a thorough examination of modal verbs...</p>`,
+            "Noun": `<h1>Nouns in English Grammar</h1><p>This lesson offers a comprehensive study of nouns...</p>`,
+            "Prepositions part-1": `<h1>Prepositions (Part 1)</h1><p>This first part of the preposition series introduces the basic concepts...</p>`,
+            "Prepositions part-2": `<h1>Prepositions (Part 2)</h1><p>This second part of the series explores more complex preposition uses...</p>`,
+            "Prepositions part-3": `<h1>Prepositions (Part 3)</h1><p>This final part of the preposition series covers sophisticated usage...</p>`
+        };
+
+        let state = {
+            activeUrl: modules[0].url,
+            completed: JSON.parse(localStorage.getItem('english_progress')) || []
+        };
+
+        // 2. Auth for Profile & Premium Gate
+        initAuthStateListener((user, profile) => {
+            // 2. Check Premium
+            if (!profile || !profile.isPremium) {
+                alert("🔒 Premium Access Only\n\nThis content is exclusive to Premium members. Please upgrade to access.");
+                window.location.href = '../profile.html';
+                return;
+            }
+
+            // 3. Set Avatar
+            const avatar = document.getElementById('user-avatar');
+            if (user) {
+                avatar.src = user.photoURL || `https://ui-avatars.com/api/?name=${user.displayName}&background=008bdc&color=fff`;
+            }
+        }, () => {
+            // User is NULL (Not Logged In)
+            window.location.href = '../login.html';
+        });
+
+        // 3. Render Module List
+        const listEl = document.getElementById('module-list');
+        const videoFrame = document.getElementById('video-frame');
+        const titleEl = document.getElementById('lesson-title');
+        const notesEl = document.getElementById('notes-content');
+        const markBtn = document.getElementById('mark-complete-btn');
+
+        function render() {
+            listEl.innerHTML = '';
+            let completedCount = 0;
+
+            modules.forEach((mod, idx) => {
+                const isCompleted = state.completed.includes(mod.url);
+                if (isCompleted) completedCount++;
+                const isActive = mod.url === state.activeUrl;
+
+                const li = document.createElement('li');
+                li.className = `module-item ${isActive ? 'active' : ''} ${isCompleted ? 'completed' : ''}`;
+                li.onclick = () => loadVideo(mod.url);
+
+                let iconHtml = '';
+                if (isCompleted) iconHtml = '<i class="fas fa-check-circle"></i>';
+                else if (isActive) iconHtml = '<i class="fas fa-play"></i>';
+                else iconHtml = `<span style="font-size:0.8rem; font-weight:600; color:#ccc;">${idx + 1}</span>`;
+
+                li.innerHTML = `
+                    <div class="module-top">
+                        <div class="status-indicator">${iconHtml}</div>
+                        <div class="module-name">${mod.title}</div>
+                    </div>
+                    <div class="module-duration">${mod.duration}</div>
+                `;
+                listEl.appendChild(li);
+            });
+
+            updateProgress(completedCount);
+            updateActionBar();
+        }
+
+        function loadVideo(url) {
+            state.activeUrl = url;
+            const mod = modules.find(m => m.url === url);
+
+            videoFrame.src = url; // Vimeo Embed
+            titleEl.textContent = mod.title;
+            notesEl.innerHTML = videoNotes[mod.title] || "<p>Notes not available for this lesson.</p>";
+
+            render();
+        }
+
+        function updateActionBar() {
+            const isDone = state.completed.includes(state.activeUrl);
+            if (isDone) {
+                markBtn.innerHTML = '<i class="fas fa-check"></i> Completed';
+                markBtn.className = 'btn btn-success';
+            } else {
+                markBtn.innerHTML = '<i class="fas fa-check"></i> Mark as Completed';
+                markBtn.className = 'btn btn-primary';
+            }
+        }
+
+        function updateProgress(count) {
+            const total = modules.length;
+            const pct = Math.round((count / total) * 100);
+
+            document.getElementById('completed-count').textContent = count;
+            document.getElementById('total-count').textContent = total;
+            document.getElementById('progress-text').textContent = pct + '%';
+
+            const circle = document.getElementById('progress-circle');
+            circle.style.background = `conic-gradient(var(--complete-green) ${pct}%, #e2e8f0 ${pct}%)`;
+        }
+
+        markBtn.onclick = () => {
+            if (!state.completed.includes(state.activeUrl)) {
+                state.completed.push(state.activeUrl);
+                localStorage.setItem('english_progress', JSON.stringify(state.completed));
+                render();
+            }
+        };
+
+        // Navigation Buttons
+        document.getElementById('next-btn').onclick = () => {
+            const idx = modules.findIndex(m => m.url === state.activeUrl);
+            if (idx < modules.length - 1) loadVideo(modules[idx + 1].url);
+        };
+        document.getElementById('prev-btn').onclick = () => {
+            const idx = modules.findIndex(m => m.url === state.activeUrl);
+            if (idx > 0) loadVideo(modules[idx - 1].url);
+        };
+
+        // 6. Chatbot
+        const chatWin = document.getElementById('chatbot-window');
+        const chatSettings = document.getElementById('chatbot-settings');
+        const chatMsgs = document.getElementById('chat-messages');
+        const chatInput = document.getElementById('chat-input');
+        const keyInput = document.getElementById('groq-api-key-input');
+
+        document.getElementById('chatbot-toggle').onclick = () => chatWin.classList.toggle('open');
+        document.getElementById('chatbot-close').onclick = () => chatWin.classList.remove('open');
+        document.getElementById('chatbot-settings-toggle').onclick = () => chatSettings.classList.toggle('open');
+        document.getElementById('save-groq-key').onclick = () => {
+            const value = keyInput.value.trim();
+            if (!value) {
+                localStorage.removeItem(GROQ_STORAGE_KEY);
+                updateTutorStatus();
+                showToastMessage("Groq API key removed from this browser.");
+                return;
+            }
+            localStorage.setItem(GROQ_STORAGE_KEY, value);
+            keyInput.value = "";
+            updateTutorStatus();
+            showToastMessage("Groq API key saved in this browser.");
+        };
+
+        function showToastMessage(message) {
+            const existing = document.getElementById("skillstack-ai-toast");
+            if (existing) existing.remove();
+            const toast = document.createElement("div");
+            toast.id = "skillstack-ai-toast";
+            toast.style.cssText = "position:fixed;left:50%;bottom:26px;transform:translateX(-50%);background:#101827;color:#fff;padding:12px 16px;border-radius:12px;box-shadow:0 14px 30px rgba(0,0,0,0.18);z-index:1200;font-size:0.86rem;font-weight:600;";
+            toast.textContent = message;
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 2500);
+        }
+
+        document.getElementById('chat-send').onclick = sendChat;
+        chatInput.onkeypress = (e) => { if (e.key === 'Enter') sendChat(); }
+
+        function appendMessage(role, content, isHtml = false) {
+            const bubble = document.createElement("div");
+            bubble.className = `chat-message ${role}`;
+            if (isHtml) bubble.innerHTML = content;
+            else bubble.textContent = content;
+            chatMsgs.appendChild(bubble);
+            chatMsgs.scrollTop = chatMsgs.scrollHeight;
+            return bubble;
+        }
+
+        async function sendChat() {
+            const txt = chatInput.value.trim();
+            if (!txt) return;
+
+            appendMessage("user", txt);
+            chatInput.value = '';
+            const loadingDiv = appendMessage("loading bot", "Groq is thinking...");
+            const reply = await askGroq(txt);
+
+            loadingDiv.remove();
+            chatHistory.push({ role: "user", content: txt });
+            chatHistory.push({ role: "assistant", content: reply });
+            appendMessage("bot", formatReply(reply), true);
+        }
+
+        // Init
+        // Load first video's notes explicitly as render() doesn't do it initially efficiently without refactor, strictly speaking render calls loadVideo? no.
+        // Let's manually trigger load logic for first item
+        const firstMod = modules[0];
+        titleEl.textContent = firstMod.title;
+        notesEl.innerHTML = videoNotes[firstMod.title];
+        updateTutorStatus();
+        render();
+
+    </script>
+</body>
+
+</html>

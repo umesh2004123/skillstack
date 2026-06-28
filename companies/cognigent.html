@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cognizant Exam Pattern & Syllabus - CareerPrep</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #0033a0;
+            --secondary-color: #00a3e0;
+            --accent-color: #ff6b35;
+            --danger-color: #e74c3c;
+            --light-bg: #f9f9f9;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f7fa;
+            padding-top: 70px;
+        }
+        
+        .container {
+            max-width: 1200px;
+        }
+        
+        /* Navbar customization */
+        .navbar {
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            background-color: white;
+        }
+        .navbar-brand {
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+        .nav-link {
+            color: var(--primary-color);
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            margin: 0 0.2rem;
+            border-radius: 4px;
+        }
+        .nav-link:hover, .nav-link.active {
+            color: white;
+            background-color: var(--secondary-color);
+        }
+        
+        /* Home Button */
+        .home-btn {
+            position: fixed;
+            text-decoration: none;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: var(--secondary-color);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: 99;
+            transition: all 0.3s ease;
+        }
+        .home-btn:hover {
+            transform: translateY(-3px);
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        /* Section Styling */
+        .section {
+            background-color: white;
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            border-left: 4px solid var(--secondary-color);
+        }
+        .section h2 {
+            color: var(--primary-color);
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--secondary-color);
+            margin-bottom: 20px;
+        }
+        .section h3 {
+            color: var(--accent-color);
+            margin-top: 25px;
+        }
+        
+        /* Table Styling */
+        .table {
+            margin: 20px 0;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .table th {
+            background-color: var(--secondary-color);
+            color: white;
+            font-weight: 600;
+        }
+        .table td, .table th {
+            vertical-align: middle;
+        }
+        
+        /* List Styling */
+        .styled-list {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        .styled-list li {
+            padding: 8px 0;
+            padding-left: 30px;
+            position: relative;
+        }
+        .styled-list li:before {
+            content: "\f054";
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            color: var(--secondary-color);
+            font-size: 12px;
+            top: 10px;
+        }
+        
+        /* Cards */
+        .card {
+            border: none;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .card-header {
+            background-color: var(--secondary-color);
+            color: white;
+            font-weight: 600;
+            border-radius: 8px 8px 0 0 !important;
+        }
+        .card-body {
+            padding: 1.5rem;
+        }
+        
+        /* Buttons */
+        .btn {
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        .btn-primary {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+        }
+        .btn-primary:hover {
+            background-color: #0084b4;
+            border-color: #0084b4;
+            transform: translateY(-2px);
+        }
+        .btn-success {
+            background-color: var(--accent-color);
+            border-color: var(--accent-color);
+        }
+        .btn-danger {
+            background-color: var(--danger-color);
+            border-color: var(--danger-color);
+        }
+        
+        /* Badges */
+        .badge {
+            padding: 6px 10px;
+            font-weight: 500;
+        }
+        
+        /* Important Note */
+        .important-note {
+            background-color: #e6f7ff;
+            border-left: 4px solid var(--secondary-color);
+            padding: 15px;
+            border-radius: 4px;
+            margin: 20px 0;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            body {
+                padding-top: 60px;
+            }
+            .section {
+                padding: 20px;
+            }
+        }
+       .fas.fa-arrow-left{
+        margin-right: 20px;
+        padding: 5px;
+       }
+       .phase-badge {
+           font-size: 0.8rem;
+           padding: 5px 10px;
+           margin-left: 10px;
+       }
+       .highlight-box {
+           background-color: #f8f9fa;
+           border-radius: 8px;
+           padding: 15px;
+           border: 1px solid #dee2e6;
+           margin: 15px 0;
+       }
+    </style>
+</head>
+<body>
+    <!-- Bootstrap Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="/index.html">
+                <i class="fas fa-arrow-left"></i>    <i class="fas fa-graduation-cap me-2"></i>Cognizant Prep Guide
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#"><i class="fas fa-home me-1"></i> Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#pattern"><i class="fas fa-list-alt me-1"></i> Exam Pattern</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#syllabus"><i class="fas fa-book me-1"></i> Syllabus</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#resources"><i class="fas fa-file-pdf me-1"></i> Resources</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#youtube"><i class="fab fa-youtube me-1"></i> Videos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#tips"><i class="fas fa-lightbulb me-1"></i> Tips</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Home Button -->
+    <a href="#" class="home-btn">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+    
+    <div class="container">
+        <!-- Hero Section -->
+        <div class="section mt-4 text-center">
+            <h1 class="display-5 fw-bold mb-4">Cognizant GenC Syllabus & Pattern 2025</h1>
+            <p class="lead">Complete guide to crack the Cognizant GenerationC hiring process with detailed syllabus, preparation resources, and expert tips</p>
+            <div class="d-flex justify-content-center gap-3 mt-4">
+                <a href="#pattern" class="btn btn-primary btn-lg px-4">
+                    <i class="fas fa-chart-bar me-2"></i>Exam Pattern
+                </a>
+                <a href="#resources" class="btn btn-success btn-lg px-4">
+                    <i class="fas fa-download me-2"></i>Resources
+                </a>
+            </div>
+        </div>
+        
+        <!-- Exam Pattern Section -->
+        <div class="section" id="pattern">
+            <h2><i class="fas fa-chart-bar me-2"></i>Cognizant Hiring Process</h2>
+            
+            <div class="important-note">
+                <i class="fas fa-exclamation-circle me-2"></i>
+                <strong>Important Note:</strong> Cognizant has recently updated their hiring process to include more coding and communication assessment.
+            </div>
+            
+            <h3>Cognizant GenC Hiring Process 2025</h3>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Phase</th>
+                            <th>Description</th>
+                            <th>Duration</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1. Online Assessment</td>
+                            <td>Cognitive + Communication Test</td>
+                            <td>100 mins</td>
+                            <td><span class="badge bg-primary">Mandatory</span></td>
+                        </tr>
+                        <tr>
+                            <td>2. Technical Interview</td>
+                            <td>Technical skills evaluation</td>
+                            <td>45-60 mins</td>
+                            <td><span class="badge bg-primary">Mandatory</span></td>
+                        </tr>
+                        <tr>
+                            <td>3. HR Interview</td>
+                            <td>Final cultural fit assessment</td>
+                            <td>30 mins</td>
+                            <td><span class="badge bg-primary">Mandatory</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <h3>Detailed Cognizant Online Assessment Pattern</h3>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Section</th>
+                            <th>Questions</th>
+                            <th>Duration</th>
+                            <th>Difficulty</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="table-primary">
+                            <td><strong>Cognitive Test</strong></td>
+                            <td>24</td>
+                            <td>50 mins</td>
+                            <td>Medium</td>
+                        </tr>
+                        <tr>
+                            <td>Quantitative Aptitude</td>
+                            <td>8</td>
+                            <td>16 mins</td>
+                            <td>Easy-Medium</td>
+                        </tr>
+                        <tr>
+                            <td>Logical Reasoning</td>
+                            <td>8</td>
+                            <td>16 mins</td>
+                            <td>Medium</td>
+                        </tr>
+                        <tr>
+                            <td>Verbal Ability</td>
+                            <td>8</td>
+                            <td>18 mins</td>
+                            <td>Easy-Medium</td>
+                        </tr>
+                        <tr class="table-primary">
+                            <td><strong>Communication Test</strong></td>
+                            <td>26</td>
+                            <td>50 mins</td>
+                            <td>Medium</td>
+                        </tr>
+                        <tr>
+                            <td>Reading Comprehension</td>
+                            <td>6</td>
+                            <td>12 mins</td>
+                            <td>Medium</td>
+                        </tr>
+                        <tr>
+                            <td>Sentence Correction</td>
+                            <td>6</td>
+                            <td>12 mins</td>
+                            <td>Easy</td>
+                        </tr>
+                        <tr>
+                            <td>Listening Comprehension</td>
+                            <td>6</td>
+                            <td>12 mins</td>
+                            <td>Medium</td>
+                        </tr>
+                        <tr>
+                            <td>Speaking Assessment</td>
+                            <td>8</td>
+                            <td>14 mins</td>
+                            <td>Medium-Hard</td>
+                        </tr>
+                        <tr class="table-info">
+                            <td><strong>Total</strong></td>
+                            <td><strong>50</strong></td>
+                            <td><strong>100 mins</strong></td>
+                            <td><strong>Varies</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="highlight-box">
+                <h4><i class="fas fa-info-circle text-primary me-2"></i>Key Points:</h4>
+                <ul class="styled-list">
+                    <li>No negative marking in any section</li>
+                    <li>Sectional time limits - cannot switch between sections</li>
+                    <li>Communication test includes voice recording for speaking assessment</li>
+                    <li>Technical interview includes live coding for technical roles</li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- Syllabus Section -->
+        <div class="section" id="syllabus">
+            <h2><i class="fas fa-book me-2"></i>Cognizant Syllabus</h2>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <i class="fas fa-calculator me-2"></i>Quantitative Aptitude
+                        </div>
+                        <div class="card-body">
+                            <ul class="styled-list">
+                                <li>Number System & Number Theory</li>
+                                <li>LCM & HCF</li>
+                                <li>Divisibility Rules</li>
+                                <li>Decimals & Fractions</li>
+                                <li>Ratio & Proportion</li>
+                                <li>Percentages</li>
+                                <li>Profit & Loss</li>
+                                <li>Simple & Compound Interest</li>
+                                <li>Time, Speed & Distance</li>
+                                <li>Time & Work</li>
+                                <li>Algebra & Geometry</li>
+                                <li>Probability & Statistics</li>
+                                <li>Data Interpretation (Tables, Graphs, Charts)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <i class="fas fa-brain me-2"></i>Logical Reasoning
+                        </div>
+                        <div class="card-body">
+                            <ul class="styled-list">
+                                <li>Blood Relations</li>
+                                <li>Direction Sense</li>
+                                <li>Seating Arrangements</li>
+                                <li>Coding-Decoding</li>
+                                <li>Series Completion</li>
+                                <li>Analogies</li>
+                                <li>Classification</li>
+                                <li>Logical Deduction</li>
+                                <li>Syllogisms</li>
+                                <li>Statement-Conclusion</li>
+                                <li>Visual Reasoning</li>
+                                <li>Puzzles</li>
+                                <li>Data Sufficiency</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <i class="fas fa-language me-2"></i>Verbal Ability
+                        </div>
+                        <div class="card-body">
+                            <ul class="styled-list">
+                                <li>Reading Comprehension</li>
+                                <li>Sentence Correction</li>
+                                <li>Error Identification</li>
+                                <li>Sentence Completion</li>
+                                <li>Synonyms & Antonyms</li>
+                                <li>Idioms & Phrases</li>
+                                <li>Para Jumbles</li>
+                                <li>Vocabulary (Contextual Usage)</li>
+                                <li>Grammar Rules</li>
+                                <li>Precis Writing</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <i class="fas fa-comments me-2"></i>Communication Test
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Listening Comprehension</h5>
+                            <ul class="styled-list">
+                                <li>Audio-based questions</li>
+                                <li>Understanding accents</li>
+                                <li>Following instructions</li>
+                            </ul>
+                            
+                            <h5 class="card-title mt-3">Speaking Assessment</h5>
+                            <ul class="styled-list">
+                                <li>Sentence Reading</li>
+                                <li>Picture Description</li>
+                                <li>Short Speech</li>
+                                <li>Conversation Simulation</li>
+                            </ul>
+                            
+                            <div class="mt-3">
+                                <span class="badge bg-primary">Pronunciation</span>
+                                <span class="badge bg-success">Fluency</span>
+                                <span class="badge bg-info">Grammar</span>
+                                <span class="badge bg-warning">Clarity</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="highlight-box">
+                <h4><i class="fas fa-laptop-code text-primary me-2"></i>Technical Interview Syllabus</h4>
+                <div class="row">
+                    <div class="col-md-6">
+                        <h5>For CS/IT Students:</h5>
+                        <ul class="styled-list">
+                            <li>Programming Fundamentals (C/Java/Python)</li>
+                            <li>Data Structures & Algorithms</li>
+                            <li>DBMS & SQL Queries</li>
+                            <li>OOPS Concepts</li>
+                            <li>Operating System Basics</li>
+                            <li>Computer Networks</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <h5>For Non-CS Students:</h5>
+                        <ul class="styled-list">
+                            <li>Basic Programming Concepts</li>
+                            <li>Pseudocode Writing</li>
+                            <li>Problem Solving Approaches</li>
+                            <li>Domain Knowledge Questions</li>
+                            <li>Logical Thinking Exercises</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Resources Section -->
+        <div class="section" id="resources">
+            <h2><i class="fas fa-file-pdf me-2"></i>Preparation Resources</h2>
+            <p class="lead">Download these comprehensive resources to boost your preparation:</p>
+            
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+                <div class="col">
+                    <div class="card h-100">
+                        <div class="card-header bg-primary text-white">
+                            <i class="fas fa-calculator me-2"></i>Quantitative Aptitude
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Complete Math Guide</h5>
+                            <p class="card-text">600+ practice questions with detailed solutions covering all quantitative topics for Cognizant.</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="badge bg-info">PDF</span>
+                                <span class="text-muted">4.5 MB</span>
+                            </div>
+                        </div>
+                        <div class="card-footer bg-transparent">
+                            <a href="#" class="btn btn-sm btn-primary w-100">
+                                <i class="fas fa-download me-1"></i> Download
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col">
+                    <div class="card h-100">
+                        <div class="card-header bg-success text-white">
+                            <i class="fas fa-brain me-2"></i>Logical Reasoning
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Reasoning Workbook</h5>
+                            <p class="card-text">400+ reasoning questions with solutions covering all patterns asked in Cognizant exams.</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="badge bg-info">PDF</span>
+                                <span class="text-muted">3.8 MB</span>
+                            </div>
+                        </div>
+                        <div class="card-footer bg-transparent">
+                            <a href="#" class="btn btn-sm btn-success w-100">
+                                <i class="fas fa-download me-1"></i> Download
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col">
+                    <div class="card h-100">
+                        <div class="card-header bg-danger text-white">
+                            <i class="fas fa-language me-2"></i>Verbal Ability
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">English Mastery Guide</h5>
+                            <p class="card-text">Complete verbal ability resource with grammar rules, vocabulary lists, and comprehension exercises.</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="badge bg-info">PDF</span>
+                                <span class="text-muted">5.2 MB</span>
+                            </div>
+                        </div>
+                        <div class="card-footer bg-transparent">
+                            <a href="#" class="btn btn-sm btn-danger w-100">
+                                <i class="fas fa-download me-1"></i> Download
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col">
+                    <div class="card h-100">
+                        <div class="card-header bg-warning text-dark">
+                            <i class="fas fa-comments me-2"></i>Communication
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Speaking Practice Kit</h5>
+                            <p class="card-text">Audio samples and practice exercises for Cognizant's communication test with evaluation criteria.</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="badge bg-info">ZIP</span>
+                                <span class="text-muted">12.5 MB</span>
+                            </div>
+                        </div>
+                        <div class="card-footer bg-transparent">
+                            <a href="#" class="btn btn-sm btn-warning w-100">
+                                <i class="fas fa-download me-1"></i> Download
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col">
+                    <div class="card h-100">
+                        <div class="card-header bg-info text-white">
+                            <i class="fas fa-laptop-code me-2"></i>Technical Prep
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Coding & CS Fundamentals</h5>
+                            <p class="card-text>Programming concepts, data structures, and algorithms for technical interview preparation.</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="badge bg-info">PDF</span>
+                                <span class="text-muted">6.7 MB</span>
+                            </div>
+                        </div>
+                        <div class="card-footer bg-transparent">
+                            <a href="#" class="btn btn-sm btn-info w-100">
+                                <i class="fas fa-download me-1"></i> Download
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col">
+                    <div class="card h-100">
+                        <div class="card-header bg-secondary text-white">
+                            <i class="fas fa-file-archive me-2"></i>Complete Package
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">All-in-One Bundle</h5>
+                            <p class="card-text">Everything you need in one package - quantitative, reasoning, verbal, communication, and technical resources.</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="badge bg-info">ZIP</span>
+                                <span class="text-muted">18.9 MB</span>
+                            </div>
+                        </div>
+                        <div class="card-footer bg-transparent">
+                            <a href="#" class="btn btn-sm btn-secondary w-100">
+                                <i class="fas fa-download me-1"></i> Download All
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- YouTube Channels Section -->
+        <div class="section" id="youtube">
+            <h2><i class="fab fa-youtube me-2"></i>Recommended YouTube Channels</h2>
+            <p class="lead">Learn from these excellent YouTube channels for Cognizant exam preparation:</p>
+            
+            <div class="row row-cols-1 row-cols-md-2 g-4">
+                <div class="col">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center mb-3">
+                                <img src="https://yt3.googleusercontent.com/ytc/AIdro_mjesUGQ8rv1_pUM-zZyMCChTYqW_CuWMI9MWbtXAquJdI=s160-c-k-c0x00ffffff-no-rj" class="rounded-circle me-3" alt="Channel Logo">
+                                <div>
+                                    <h5 class="card-title mb-0">CareerRide</h5>
+                                    <span class="text-muted small">1.2M subscribers</span>
+                                </div>
+                            </div>
+                            <p class="card-text">Quantitative aptitude and reasoning tutorials with detailed explanations and shortcuts.</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="badge bg-danger"><i class="fab fa-youtube me-1"></i> YouTube</span>
+                                <a href="https://youtube.com/c/CareerRide" target="_blank" class="btn btn-sm btn-danger">
+                                    <i class="fas fa-external-link-alt me-1"></i> Visit
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center mb-3">
+                                <img src="https://yt3.googleusercontent.com/ytc/AIdro_mWTIv4H0ALBOw05DiZfCeoV7BniQlsFTIBBZo7Mxwc-yjI=s160-c-k-c0x00ffffff-no-rj" class="rounded-circle me-3" alt="Channel Logo">
+                                <div>
+                                    <h5 class="card-title mb-0">PrepInsta</h5>
+                                    <span class="text-muted small">650K subscribers</span>
+                                </div>
+                            </div>
+                            <p class="card-text">Dedicated Cognizant exam preparation content with mock test analysis.</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="badge bg-danger"><i class="fab fa-youtube me-1"></i> YouTube</span>
+                                <a href="https://youtube.com/c/PrepInsta" target="_blank" class="btn btn-sm btn-danger">
+                                    <i class="fas fa-external-link-alt me-1"></i> Visit
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center mb-3">
+                                <img src="https://yt3.googleusercontent.com/ytc/AIdro_mUu5FQ3qUvQ1bF0Xv1QYQZQZQZQZQZQZQZQZQZQZQ=s160-c-k-c0x00ffffff-no-rj" class="rounded-circle me-3" alt="Channel Logo">
+                                <div>
+                                    <h5 class="card-title mb-0">FreshersNow</h5>
+                                    <span class="text-muted small">450K subscribers</span>
+                                </div>
+                            </div>
+                            <p class="card-text">Communication test preparation with speaking practice exercises.</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="badge bg-danger"><i class="fab fa-youtube me-1"></i> YouTube</span>
+                                <a href="https://youtube.com/c/FreshersNow" target="_blank" class="btn btn-sm btn-danger">
+                                    <i class="fas fa-external-link-alt me-1"></i> Visit
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center mb-3">
+                                <img src="https://yt3.googleusercontent.com/ytc/AIdro_mUu5FQ3qUvQ1bF0Xv1QYQZQZQZQZQZQZQZQZQZQZQ=s160-c-k-c0x00ffffff-no-rj" class="rounded-circle me-3" alt="Channel Logo">
+                                <div>
+                                    <h5 class="card-title mb-0">Cognizant Training</h5>
+                                    <span class="text-muted small">320K subscribers</span>
+                                </div>
+                            </div>
+                            <p class="card-text">Official Cognizant training videos and interview preparation guides.</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="badge bg-danger"><i class="fab fa-youtube me-1"></i> YouTube</span>
+                                <a href="https://youtube.com/c/CognizantTraining" target="_blank" class="btn btn-sm btn-danger">
+                                    <i class="fas fa-external-link-alt me-1"></i> Visit
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-4">
+                <a href="#" class="btn btn-danger">
+                    <i class="fab fa-youtube me-1"></i> More Video Resources
+                </a>
+            </div>
+        </div>
+        
+        <!-- Tips Section -->
+        <div class="section" id="tips">
+            <h2><i class="fas fa-lightbulb me-2"></i>Preparation Tips</h2>
+            <p class="lead">Expert recommendations to help you crack the Cognizant hiring process:</p>
+            
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <div class="card h-100">
+                        <div class="card-header bg-primary text-white">
+                            <i class="fas fa-clock me-2"></i>Online Test Strategy
+                        </div>
+                        <div class="card-body">
+                            <ul class="styled-list">
+                                <li>Practice with sectional time limits to build speed</li>
+                                <li>Attempt easier questions first to secure marks</li>
+                                <li>For communication test, practice speaking clearly into microphone</li>
+                                <li>Use elimination technique for reasoning questions</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="card h-100">
+                        <div class="card-header bg-success text-white">
+                            <i class="fas fa-book me-2"></i>Study Approach
+                        </div>
+                        <div class="card-body">
+                            <ul class="styled-list">
+                                <li>Focus on accuracy first, then build speed</li>
+                                <li>Solve previous year Cognizant question papers</li>
+                                <li>Make formula sheets for quick revision</li>
+                                <li>Practice English communication daily</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="card h-100">
+                        <div class="card-header bg-info text-white">
+                            <i class="fas fa-user-tie me-2"></i>Interview Tips
+                        </div>
+                        <div class="card-body">
+                            <ul class="styled-list">
+                                <li>Be prepared with your resume projects</li>
+                                <li>Practice coding on whiteboard/paper</li>
+                                <li>Prepare STAR method for behavioral questions</li>
+                                <li>Research about Cognizant's work and values</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="card h-100">
+                        <div class="card-header bg-warning text-dark">
+                            <i class="fas fa-microphone me-2"></i>Communication Test
+                        </div>
+                        <div class="card-body">
+                            <ul class="styled-list">
+                                <li>Practice speaking clearly and at moderate pace</li>
+                                <li>Record yourself to identify areas for improvement</li>
+                                <li>Work on pronunciation of common tech terms</li>
+                                <li>Listen to English news/podcasts daily</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="highlight-box mt-4">
+                <h4><i class="fas fa-calendar-check text-primary me-2"></i>30-Day Study Plan</h4>
+                <div class="row">
+                    <div class="col-md-4">
+                        <h5>Week 1-2:</h5>
+                        <ul class="styled-list">
+                            <li>Quantitative Aptitude basics</li>
+                            <li>Logical Reasoning patterns</li>
+                            <li>Grammar fundamentals</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-4">
+                        <h5>Week 3:</h5>
+                        <ul class="styled-list">
+                            <li>Advanced quantitative topics</li>
+                            <li>Complex reasoning problems</li>
+                            <li>Reading comprehension</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-4">
+                        <h5>Week 4:</h5>
+                        <ul class="styled-list">
+                            <li>Full-length mock tests</li>
+                            <li>Communication practice</li>
+                            <li>Technical interview prep</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Final CTA -->
+        <div class="section text-center bg-light">
+            <h2>Ready to Start Your Preparation?</h2>
+            <p class="lead mb-4">Download our
+                            <p class="lead mb-4">Download our complete preparation package and get access to all resources!</p>
+            <a href="#" class="btn btn-primary btn-lg px-5 py-3">
+                <i class="fas fa-download me-2"></i>Download Full Package
+            </a>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-4 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5><i class="fas fa-graduation-cap me-2"></i>Cognizant Prep Guide</h5>
+                    <p>Comprehensive resources to help you crack the Cognizant GenerationC hiring process.</p>
+                    <div class="mt-3">
+                        <a href="#" class="text-white me-3"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-white me-3"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-white me-3"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="text-white me-3"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#pattern" class="text-white">Exam Pattern</a></li>
+                        <li><a href="#syllabus" class="text-white">Syllabus</a></li>
+                        <li><a href="#resources" class="text-white">Resources</a></li>
+                        <li><a href="#youtube" class="text-white">Videos</a></li>
+                        <li><a href="#tips" class="text-white">Tips</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5>Contact</h5>
+                    <ul class="list-unstyled">
+                        <li><i class="fas fa-envelope me-2"></i> support@cognizantprep.com</li>
+                        <li><i class="fas fa-phone me-2"></i> +1 (123) 456-7890</li>
+                        <li><i class="fas fa-map-marker-alt me-2"></i> 123 Prep Street, Edu City</li>
+                    </ul>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="mb-0">&copy; 2025 Cognizant Prep Guide. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <a href="#" class="text-white me-3">Privacy Policy</a>
+                    <a href="#" class="text-white me-3">Terms of Service</a>
+                    <a href="#" class="text-white">Disclaimer</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Back to top button visibility
+        window.addEventListener('scroll', function() {
+            const homeBtn = document.querySelector('.home-btn');
+            if (window.pageYOffset > 300) {
+                homeBtn.style.display = 'flex';
+            } else {
+                homeBtn.style.display = 'none';
+            }
+        });
+        
+        // Active nav link highlighting
+        const sections = document.querySelectorAll('.section');
+        const navLinks = document.querySelectorAll('.nav-link');
+        
+        window.addEventListener('scroll', function() {
+            let current = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                
+                if (pageYOffset >= (sectionTop - 300)) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

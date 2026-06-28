@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aptitude Classes</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* General Styles */
+        :root {
+            --primary-color: #192A56;
+            --secondary-color: #74B9FF;
+            --accent-color: #3498db;
+            --light-color: #f4f4f9;
+            --dark-color: #333;
+            --sidebar-width: 280px;
+            --sidebar-collapsed-width: 70px;
+            --transition-speed: 0.3s;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--light-color);
+            color: var(--dark-color);
+            display: flex;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: var(--sidebar-width);
+            background: linear-gradient(135deg, var(--primary-color), #1a237e);
+            padding: 20px 15px;
+            box-shadow: 2px 0 15px rgba(0, 0, 0, 0.1);
+            transition: all var(--transition-speed) ease;
+            position: relative;
+            overflow-y: auto;
+            height: 100vh;
+            z-index: 100;
+        }
+
+        .sidebar.collapsed {
+            width: var(--sidebar-collapsed-width);
+            overflow: hidden;
+        }
+
+        .sidebar.collapsed .sidebar-header h2,
+        .sidebar.collapsed .nav-link span {
+            display: none;
+        }
+
+        .sidebar.collapsed .nav-link {
+            justify-content: center;
+            padding: 12px 0;
+        }
+
+        .sidebar.collapsed .nav-link i {
+            margin-right: 0;
+            font-size: 1.2rem;
+        }
+
+        .sidebar-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .sidebar-header h2 {
+            color: white;
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin: 0;
+            white-space: nowrap;
+            transition: opacity var(--transition-speed);
+        }
+
+        .nav-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .nav-item {
+            margin: 8px 0;
+            position: relative;
+        }
+
+        .nav-link {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+        }
+
+        .nav-link i {
+            margin-right: 12px;
+            font-size: 1rem;
+            width: 20px;
+            text-align: center;
+        }
+
+        .nav-link:hover {
+            background-color: rgba(116, 185, 255, 0.2);
+            color: white;
+            transform: translateX(3px);
+        }
+
+        .nav-link.active {
+            background-color: var(--secondary-color);
+            color: white;
+            font-weight: 500;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-link.active:hover {
+            background-color: var(--secondary-color);
+            transform: none;
+        }
+
+        /* Toggle Button */
+        .toggle-btn {
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .toggle-btn:hover {
+            background-color: #5dade2;
+            transform: scale(1.05);
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            padding: 20px;
+            transition: margin-left var(--transition-speed);
+            overflow-y: auto;
+            height: 100vh;
+        }
+
+        .content-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .content-title {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--secondary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* Video Container */
+        .video-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            background-color: #000;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* OneDrive specific iframe styling to hide controls */
+        .video-container iframe[src*="onedrive"] {
+            /* This will hide the OneDrive header and controls */
+            margin-top: -55px;
+            height: calc(100% + 55px);
+        }
+
+        /* Video Controls */
+        .video-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 15px;
+        }
+
+        .video-info {
+            flex: 1;
+        }
+
+        .video-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .video-description {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .control-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .control-btn {
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.2s ease;
+        }
+
+        .control-btn:hover {
+            background-color: #5dade2;
+            transform: translateY(-2px);
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .control-btn i {
+            font-size: 0.9rem;
+        }
+
+        /* Loading Spinner */
+        .loader-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .loader-container.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: var(--secondary-color);
+            animation: spin 1s ease-in-out infinite;
+            margin-bottom: 15px;
+        }
+
+        .loader-text {
+            color: white;
+            font-size: 1rem;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Notes Section */
+        .notes-section {
+            margin-top: 30px;
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .section-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title i {
+            color: var(--secondary-color);
+        }
+
+        .notes-content {
+            color: #555;
+            line-height: 1.6;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .sidebar {
+                position: fixed;
+                left: 0;
+                top: 0;
+                height: 100%;
+                z-index: 1000;
+                transform: translateX(-100%);
+            }
+
+            .sidebar.active {
+                transform: translateX(0);
+            }
+
+            .sidebar.collapsed {
+                transform: translateX(-100%);
+            }
+
+            .main-content {
+                margin-left: 0 !important;
+                padding: 15px;
+            }
+
+            .mobile-menu-btn {
+                display: block !important;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .content-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+            .video-controls {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .control-buttons {
+                width: 100%;
+                justify-content: space-between;
+            }
+
+            .control-btn {
+                flex: 1;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .sidebar {
+                width: 100%;
+                padding: 15px;
+            }
+
+            .sidebar-header h2 {
+                font-size: 1.1rem;
+            }
+
+            .nav-link {
+                padding: 10px;
+                font-size: 0.9rem;
+            }
+
+            .content-title {
+                font-size: 1.2rem;
+            }
+        }
+
+        /* Mobile Menu Button */
+        .mobile-menu-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--secondary-color);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            z-index: 999;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu-btn:hover {
+            transform: scale(1.1);
+        }
+
+        /* Progress Indicator */
+        .progress-container {
+            width: 100%;
+            height: 5px;
+            background-color: #e0e0e0;
+            border-radius: 5px;
+            margin-top: 20px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--secondary-color), var(--accent-color));
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+        .video-container iframe[src*="onedrive"] {
+            /* This will hide the OneDrive header and controls */
+            margin-top: -55px;
+            height: calc(100% + 55px);
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar with Topics -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h2>Aptitude Masterclass</h2>
+            <button class="toggle-btn" id="toggle-btn">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+        </div>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="#" class="nav-link active" data-video="https://1drv.ms/v/c/5de984706aaa6298/IQQggtOynT2LTpM9HK2IKQxNATVROyOLqApM5xTkxSiymKo" data-title="Clocks Concepts">
+                    <i class="fas fa-clock"></i>
+                    <span>Clocks Concepts</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link" data-video="https://onedrive.live.com/embed?resid=5DE984706AAA6298%21108&authkey=%21APYhXyJXyVJZ7_c" data-title="Advanced Clock Problems">
+                    <i class="fas fa-stopwatch"></i>
+                    <span>Advanced Clock Problems</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link" data-video="https://onedrive.live.com/embed?resid=5DE984706AAA6298%21109&authkey=%21AQYhXyJXyVJZ7_c" data-title="Clock Case Studies">
+                    <i class="fas fa-book-open"></i>
+                    <span>Clock Case Studies</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link" data-video="https://onedrive.live.com/embed?resid=5DE984706AAA6298%21110&authkey=%21ARYhXyJXyVJZ7_c" data-title="Clock Problem Solving">
+                    <i class="fas fa-puzzle-piece"></i>
+                    <span>Clock Problem Solving</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content" id="main-content">
+        <div class="content-header">
+            <h1 class="content-title" id="video-title">Clocks Concepts</h1>
+            <div class="user-profile">
+                <div class="user-avatar">JS</div>
+            </div>
+        </div>
+
+        <div class="video-container">
+            <div class="loader-container" id="loader">
+                <div class="spinner"></div>
+                <div class="loader-text">Loading Video...</div>
+            </div>
+            <iframe id="video" src="https://onedrive.live.com/embed?resid=5DE984706AAA6298%21107&authkey=%21AKQhXyJXyVJZ7_c" allowfullscreen></iframe>
+        </div>
+
+        <div class="video-controls">
+            <div class="video-info">
+                <h2 class="video-title" id="current-video-title">Clocks Concepts</h2>
+                <p class="video-description">Learn the fundamentals of clock problems in aptitude tests with practical examples.</p>
+            </div>
+            <div class="control-buttons">
+                <button class="control-btn" id="prev-btn">
+                    <i class="fas fa-arrow-left"></i>
+                    <span>Previous</span>
+                </button>
+                <button class="control-btn" id="fullscreen-btn">
+                    <i class="fas fa-expand"></i>
+                    <span>Full Screen</span>
+                </button>
+                <button class="control-btn" id="next-btn">
+                    <i class="fas fa-arrow-right"></i>
+                    <span>Next</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="progress-container">
+            <div class="progress-bar" id="progress-bar"></div>
+        </div>
+
+        <div class="notes-section">
+            <h3 class="section-title">
+                <i class="fas fa-book"></i>
+                <span>Lesson Notes</span>
+            </h3>
+            <div class="notes-content" id="notes-content">
+                <p>This lesson covers the basic concepts of clock problems, including formulas and practical applications. Key points include:</p>
+                <ul>
+                    <li>Minute hand moves 360° in 60 minutes ⇒ 6° per minute</li>
+                    <li>Hour hand moves 360° in 12 hours ⇒ 30° per hour ⇒ 0.5° per minute</li>
+                    <li>Relative speed between minute and hour hands: 5.5° per minute</li>
+                    <li>Angle between hands formula: |30H - 5.5M|</li>
+                </ul>
+                <p>Practice problems will help reinforce these concepts.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Menu Button -->
+    <div class="mobile-menu-btn" id="mobile-menu-btn">
+        <i class="fas fa-bars"></i>
+    </div>
+
+    <script>
+        // DOM Elements
+        const sidebar = document.getElementById('sidebar');
+        const toggleBtn = document.getElementById('toggle-btn');
+        const mainContent = document.getElementById('main-content');
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const navLinks = document.querySelectorAll('.nav-link');
+        const video = document.getElementById('video');
+        const loader = document.getElementById('loader');
+        const fullscreenBtn = document.getElementById('fullscreen-btn');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const videoTitle = document.getElementById('video-title');
+        const currentVideoTitle = document.getElementById('current-video-title');
+        const progressBar = document.getElementById('progress-bar');
+        const notesContent = document.getElementById('notes-content');
+
+        // Mock notes data (in a real app, this would come from a database)
+        const videoNotes = {
+            "Clocks Concepts": `
+                <p>This lesson covers the basic concepts of clock problems, including formulas and practical applications. Key points include:</p>
+                <ul>
+                    <li>Minute hand moves 360° in 60 minutes ⇒ 6° per minute</li>
+                    <li>Hour hand moves 360° in 12 hours ⇒ 30° per hour ⇒ 0.5° per minute</li>
+                    <li>Relative speed between minute and hour hands: 5.5° per minute</li>
+                    <li>Angle between hands formula: |30H - 5.5M|</li>
+                </ul>
+                <p>Practice problems will help reinforce these concepts.</p>
+            `,
+            "Advanced Clock Problems": `
+                <p>Advanced concepts build upon the fundamentals, covering:</p>
+                <ul>
+                    <li>Time when hands coincide or are opposite</li>
+                    <li>Mirror image of clocks</li>
+                    <li>Faulty clocks and time calculations</li>
+                    <li>Clock angles at specific times</li>
+                </ul>
+            `,
+            "Clock Case Studies": `
+                <p>Real-world case studies demonstrate how these concepts are applied:</p>
+                <ul>
+                    <li>Competitive exam problems</li>
+                    <li>Time management applications</li>
+                    <li>Clock-based puzzles</li>
+                </ul>
+            `,
+            "Clock Problem Solving": `
+                <p>Problem solving techniques for clock problems:</p>
+                <ul>
+                    <li>Shortcut methods</li>
+                    <li>Common patterns</li>
+                    <li>Tricky problems and solutions</li>
+                </ul>
+            `,
+            "default": `
+                <p>Select a lesson to view its notes and resources.</p>
+            `
+        };
+
+        // Initialize the page
+        let currentVideoIndex = 0;
+        const videoItems = Array.from(navLinks).map(link => ({
+            url: link.getAttribute('data-video'),
+            title: link.getAttribute('data-title')
+        }));
+
+        // Update progress bar (simulated - in a real app, track actual progress)
+        function updateProgressBar() {
+            let progress = 0;
+            const interval = setInterval(() => {
+                if (progress >= 100) {
+                    clearInterval(interval);
+                } else {
+                    progress += Math.random() * 5;
+                    if (progress > 100) progress = 100;
+                    progressBar.style.width = `${progress}%`;
+                }
+            }, 500);
+        }
+
+        // Toggle Sidebar
+        function toggleSidebar() {
+            sidebar.classList.toggle('collapsed');
+            const isCollapsed = sidebar.classList.contains('collapsed');
+            toggleBtn.innerHTML = isCollapsed ? '<i class="fas fa-chevron-right"></i>' : '<i class="fas fa-chevron-left"></i>';
+            
+            if (window.innerWidth > 992) {
+                mainContent.style.marginLeft = isCollapsed ? `${getComputedStyle(document.documentElement).getPropertyValue('--sidebar-collapsed-width')}` : `${getComputedStyle(document.documentElement).getPropertyValue('--sidebar-width')}`;
+            }
+        }
+
+        // Toggle Mobile Menu
+        function toggleMobileMenu() {
+            sidebar.classList.toggle('active');
+        }
+
+        // Load Video
+        function loadVideo(url, title) {
+            loader.classList.add('active');
+            video.style.opacity = '0';
+            
+            setTimeout(() => {
+                video.src = url;
+                videoTitle.textContent = title;
+                currentVideoTitle.textContent = title;
+                
+                // Update active nav link
+                navLinks.forEach(link => link.classList.remove('active'));
+                const activeLink = Array.from(navLinks).find(link => link.getAttribute('data-title') === title);
+                if (activeLink) activeLink.classList.add('active');
+                
+                // Update notes
+                notesContent.innerHTML = videoNotes[title] || videoNotes['default'];
+                
+                // Update current video index
+                currentVideoIndex = videoItems.findIndex(item => item.title === title);
+                
+                // Update progress bar
+                updateProgressBar();
+                
+                // Show video when loaded
+                video.onload = () => {
+                    setTimeout(() => {
+                        loader.classList.remove('active');
+                        video.style.opacity = '1';
+                    }, 500);
+                };
+            }, 500);
+        }
+
+        // Fullscreen Functionality
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                const videoContainer = video.parentElement;
+                if (videoContainer.requestFullscreen) {
+                    videoContainer.requestFullscreen();
+                } else if (videoContainer.mozRequestFullScreen) {
+                    videoContainer.mozRequestFullScreen();
+                } else if (videoContainer.webkitRequestFullscreen) {
+                    videoContainer.webkitRequestFullscreen();
+                } else if (videoContainer.msRequestFullscreen) {
+                    videoContainer.msRequestFullscreen();
+                }
+                fullscreenBtn.innerHTML = '<i class="fas fa-compress"></i><span>Exit Fullscreen</span>';
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                } else if (document.mozCancelFullScreen) {
+                    document.mozCancelFullScreen();
+                } else if (document.webkitExitFullscreen) {
+                    document.webkitExitFullscreen();
+                } else if (document.msExitFullscreen) {
+                    document.msExitFullscreen();
+                }
+                fullscreenBtn.innerHTML = '<i class="fas fa-expand"></i><span>Full Screen</span>';
+            }
+        }
+
+        // Navigation Functions
+        function goToPreviousVideo() {
+            if (currentVideoIndex > 0) {
+                const prevVideo = videoItems[currentVideoIndex - 1];
+                loadVideo(prevVideo.url, prevVideo.title);
+            } else {
+                // Optionally loop to the end
+                const lastVideo = videoItems[videoItems.length - 1];
+                loadVideo(lastVideo.url, lastVideo.title);
+            }
+        }
+
+        function goToNextVideo() {
+            if (currentVideoIndex < videoItems.length - 1) {
+                const nextVideo = videoItems[currentVideoIndex + 1];
+                loadVideo(nextVideo.url, nextVideo.title);
+            } else {
+                // Optionally loop to the beginning
+                const firstVideo = videoItems[0];
+                loadVideo(firstVideo.url, firstVideo.title);
+            }
+        }
+
+        // Event Listeners
+        toggleBtn.addEventListener('click', toggleSidebar);
+        mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const videoUrl = link.getAttribute('data-video');
+                const videoTitle = link.getAttribute('data-title');
+                loadVideo(videoUrl, videoTitle);
+                
+                // Close sidebar on mobile after selection
+                if (window.innerWidth <= 992) {
+                    sidebar.classList.remove('active');
+                }
+            });
+        });
+
+        fullscreenBtn.addEventListener('click', toggleFullscreen);
+        prevBtn.addEventListener('click', goToPreviousVideo);
+        nextBtn.addEventListener('click', goToNextVideo);
+
+        // Handle fullscreen change
+        document.addEventListener('fullscreenchange', () => {
+            if (!document.fullscreenElement) {
+                fullscreenBtn.innerHTML = '<i class="fas fa-expand"></i><span>Full Screen</span>';
+            }
+        });
+
+        // Initialize
+        if (window.innerWidth > 992) {
+            mainContent.style.marginLeft = `${getComputedStyle(document.documentElement).getPropertyValue('--sidebar-width')}`;
+        } else {
+            sidebar.classList.add('active');
+        }
+
+        // Close sidebar when clicking outside on mobile
+        document.addEventListener('click', (e) => {
+            if (window.innerWidth <= 992 && !sidebar.contains(e.target) && e.target !== mobileMenuBtn) {
+                sidebar.classList.remove('active');
+            }
+        });
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 992) {
+                sidebar.classList.remove('active');
+                mainContent.style.marginLeft = sidebar.classList.contains('collapsed') ? 
+                    `${getComputedStyle(document.documentElement).getPropertyValue('--sidebar-collapsed-width')}` : 
+                    `${getComputedStyle(document.documentElement).getPropertyValue('--sidebar-width')}`;
+            } else {
+                mainContent.style.marginLeft = '0';
+            }
+            
+            // Hide mobile menu button on larger screens
+            mobileMenuBtn.style.display = window.innerWidth <= 992 ? 'flex' : 'none';
+        });
+
+        // Initialize mobile menu button visibility
+        mobileMenuBtn.style.display = window.innerWidth <= 992 ? 'flex' : 'none';
+    </script>
+
+    <!-- Firebase SDK -->
+    <script type="module">
+        // Import the functions you need from the Firebase SDKs
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyDSapc498-GErIIKRcOss5bTJwn0kCPS8g",
+            authDomain: "elearning-92515.firebaseapp.com",
+            projectId: "elearning-92515",
+            storageBucket: "elearning-92515.firebasestorage.app",
+            messagingSenderId: "546172404816",
+            appId: "1:546172404816:web:cd6aa52f94671eb7d47d55",
+            measurementId: "G-0VZPB6BWYQ"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        // Check if the user is authenticated
+        onAuthStateChanged(auth, (user) => {
+            if (!user) {
+                // Redirect to the Sign-In Page if the user is not authenticated
+                window.location.href = "/signin.html";
+            } else {
+                // Update user avatar with initials
+                const userAvatar = document.querySelector('.user-avatar');
+                if (user.displayName) {
+                    const initials = user.displayName.split(' ').map(name => name[0]).join('').toUpperCase();
+                    userAvatar.textContent = initials;
+                } else if (user.email) {
+                    userAvatar.textContent = user.email[0].toUpperCase();
+                }
+            }
+        });
+    </script>
+</body>
+</html>

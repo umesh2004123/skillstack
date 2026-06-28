@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cognizant GenC Prep | Ultimate Guide 2025</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0033a0;
+            --primary-light: #3d5baf;
+            --secondary: #00a3e0;
+            --accent: #ff6b35;
+            --light: #f8f9ff;
+            --dark: #1a1d28;
+            --success: #2ecc71;
+            --danger: #e74c3c;
+            --warning: #f39c12;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.7;
+            color: var(--dark);
+            background-color: var(--light);
+            overflow-x: hidden;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+        }
+        
+        /* Gradient Background */
+        .gradient-bg {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+        }
+        
+        /* Navbar */
+        .navbar {
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 5px 30px rgba(0, 51, 160, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 15px 0;
+            transition: all 0.3s ease;
+        }
+        
+        .navbar.scrolled {
+            padding: 10px 0;
+            box-shadow: 0 5px 20px rgba(0, 51, 160, 0.15);
+        }
+        
+        .navbar-brand {
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .navbar-brand img {
+            height: 40px;
+            margin-right: 10px;
+        }
+        
+        .nav-link {
+            font-weight: 500;
+            padding: 8px 15px;
+            margin: 0 5px;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            color: var(--dark);
+        }
+        
+        .nav-link:hover, .nav-link.active {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center;
+            background-size: cover;
+            position: relative;
+            padding: 120px 0 100px;
+            color: white;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 51, 160, 0.85);
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.25rem;
+            opacity: 0.9;
+            margin-bottom: 30px;
+        }
+        
+        /* Floating Cards */
+        .floating-card {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            overflow: hidden;
+            margin-bottom: 30px;
+            background: white;
+        }
+        
+        .floating-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .card-header {
+            background: var(--primary);
+            color: white;
+            padding: 20px;
+            border-bottom: none;
+        }
+        
+        .card-icon {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            color: white;
+        }
+        
+        /* Section Styling */
+        .section {
+            padding: 80px 0;
+            position: relative;
+        }
+        
+        .section-title {
+            position: relative;
+            margin-bottom: 50px;
+            color: var(--primary);
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 0;
+            width: 80px;
+            height: 4px;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+        
+        /* Table Styling */
+        .custom-table {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .custom-table thead th {
+            background: var(--primary);
+            color: white;
+            font-weight: 600;
+            padding: 15px;
+        }
+        
+        .custom-table tbody tr:nth-child(even) {
+            background-color: rgba(0, 163, 224, 0.05);
+        }
+        
+        /* Buttons */
+        .btn {
+            font-weight: 600;
+            padding: 12px 25px;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            letter-spacing: 0.5px;
+        }
+        
+        .btn-primary {
+            background: var(--primary);
+            border-color: var(--primary);
+        }
+        
+        .btn-primary:hover {
+            background: var(--primary-light);
+            border-color: var(--primary-light);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 51, 160, 0.2);
+        }
+        
+        .btn-outline-primary {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+        
+        .btn-outline-primary:hover {
+            background: var(--primary);
+            border-color: var(--primary);
+        }
+        
+        /* Badges */
+        .badge {
+            font-weight: 500;
+            padding: 8px 12px;
+            border-radius: 50px;
+        }
+        
+        /* Feature Boxes */
+        .feature-box {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            height: 100%;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        
+        .feature-box:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+        
+        /* Testimonial */
+        .testimonial-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            position: relative;
+            margin: 15px;
+        }
+        
+        .testimonial-card::before {
+            content: '\201C';
+            font-family: Georgia, serif;
+            font-size: 60px;
+            color: rgba(0, 51, 160, 0.1);
+            position: absolute;
+            top: 10px;
+            left: 20px;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            margin-top: 20px;
+        }
+        
+        .testimonial-author img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 15px;
+            object-fit: cover;
+        }
+        
+        /* Floating Action Button */
+        .fab-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            box-shadow: 0 10px 30px rgba(0, 51, 160, 0.3);
+            z-index: 99;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        
+        .fab-btn:hover {
+            transform: translateY(-5px) scale(1.1);
+            background: var(--secondary);
+            color: white;
+        }
+        
+        /* Animated Underline */
+        .animated-underline {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .animated-underline::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+        
+        .animated-underline:hover::after {
+            width: 100%;
+        }
+        
+        /* Progress Track */
+        .progress-track {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 4px;
+            background: var(--accent);
+            z-index: 9999;
+            transition: width 0.1s ease;
+        }
+        
+        /* Responsive Adjustments */
+        @media (max-width: 992px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 10px 0;
+            }
+            
+            .hero {
+                padding: 100px 0 80px;
+                text-align: center;
+            }
+            
+            .hero-title {
+                font-size: 2.2rem;
+            }
+            
+            .section {
+                padding: 60px 0;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+            
+            .btn {
+                padding: 10px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Progress Track -->
+    <div class="progress-track"></div>
+    
+    <!-- Floating Action Button -->
+    <a href="#" class="fab-btn">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+    
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <img src="https://www.cognizant.com/content/dam/cognizant_foundation/Dotcomimage/cognizant-logo-blue.png" alt="Cognizant Logo">
+                <span>GenC Prep</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#home"><i class="fas fa-home me-1"></i> Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#pattern"><i class="fas fa-list-alt me-1"></i> Exam Pattern</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#syllabus"><i class="fas fa-book me-1"></i> Syllabus</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#resources"><i class="fas fa-file-pdf me-1"></i> Resources</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#testimonials"><i class="fas fa-star me-1"></i> Success Stories</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact"><i class="fas fa-envelope me-1"></i> Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6 hero-content">
+                    <h1 class="hero-title">Crack Cognizant GenC 2025</h1>
+                    <p class="hero-subtitle">Your ultimate guide to mastering the Cognizant hiring process with curated resources, expert strategies, and proven success formulas.</p>
+                    <div class="d-flex flex-wrap gap-3">
+                        <a href="#pattern" class="btn btn-primary btn-lg">
+                            <i class="fas fa-play-circle me-2"></i> Get Started
+                        </a>
+                        <a href="#resources" class="btn btn-outline-light btn-lg">
+                            <i class="fas fa-download me-2"></i> Free Resources
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-6 d-none d-lg-block">
+                    <img src="https://cdn-icons-png.flaticon.com/512/3059/3059518.png" alt="Exam Preparation" class="img-fluid" style="filter: drop-shadow(0 10px 30px rgba(255,255,255,0.2))">
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Features Section -->
+    <section class="section bg-light">
+        <div class="container">
+            <h2 class="text-center section-title">Why Choose Our Prep Guide?</h2>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="feature-box text-center">
+                        <div class="feature-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h4>Data-Driven Approach</h4>
+                        <p>Our strategies are based on analysis of 500+ successful candidates' preparation patterns and exam trends.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="feature-box text-center">
+                        <div class="feature-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <h4>Time-Saving</h4>
+                        <p>Focused content that covers exactly what you need, eliminating unnecessary study material.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="feature-box text-center">
+                        <div class="feature-icon">
+                            <i class="fas fa-user-tie"></i>
+                        </div>
+                        <h4>Expert-Curated</h4>
+                        <p>Created by industry professionals and former Cognizant hiring panel members.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Exam Pattern Section -->
+    <section class="section" id="pattern">
+        <div class="container">
+            <h2 class="section-title">Hiring Process Breakdown</h2>
+            <p class="lead mb-5">Understand the complete Cognizant GenC 2025 selection process with detailed timelines and evaluation criteria.</p>
+            
+            <div class="row mb-5">
+                <div class="col-lg-6">
+                    <div class="floating-card">
+                        <div class="card-header">
+                            <div class="card-icon">
+                                <i class="fas fa-laptop"></i>
+                            </div>
+                            <h3 class="text-white mb-0">Online Assessment</h3>
+                        </div>
+                        <div class="card-body">
+                            <ul class="styled-list">
+                                <li><strong>Duration:</strong> 100 minutes</li>
+                                <li><strong>Sections:</strong> Cognitive + Communication</li>
+                                <li><strong>Questions:</strong> 50 total</li>
+                                <li><strong>Key Focus:</strong> Problem-solving, logical reasoning, and communication skills</li>
+                            </ul>
+                            <a href="#syllabus" class="btn btn-outline-primary mt-3">View Syllabus</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="floating-card">
+                        <div class="card-header" style="background: var(--secondary)">
+                            <div class="card-icon">
+                                <i class="fas fa-code"></i>
+                            </div>
+                            <h3 class="text-white mb-0">Technical Interview</h3>
+                        </div>
+                        <div class="card-body">
+                            <ul class="styled-list">
+                                <li><strong>Duration:</strong> 45-60 minutes</li>
+                                <li><strong>Focus Areas:</strong> Programming concepts, problem-solving, domain knowledge</li>
+                                <li><strong>Format:</strong> Live coding + conceptual questions</li>
+                                <li><strong>Evaluation:</strong> Technical proficiency and approach to problems</li>
+                            </ul>
+                            <a href="#resources" class="btn btn-outline-primary mt-3">Preparation Resources</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <h3 class="mb-4">Detailed Assessment Structure</h3>
+            <div class="table-responsive">
+                <table class="table custom-table">
+                    <thead>
+                        <tr>
+                            <th>Phase</th>
+                            <th>Components</th>
+                            <th>Duration</th>
+                            <th>Weightage</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Cognitive Test</strong></td>
+                            <td>Quantitative, Logical, Verbal</td>
+                            <td>50 mins</td>
+                            <td>60%</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Communication Test</strong></td>
+                            <td>Reading, Listening, Speaking</td>
+                            <td>50 mins</td>
+                            <td>40%</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Technical Interview</strong></td>
+                            <td>Coding, Problem Solving, Concepts</td>
+                            <td>45-60 mins</td>
+                            <td>Qualifying</td>
+                        </tr>
+                        <tr>
+                            <td><strong>HR Interview</strong></td>
+                            <td>Behavioral, Cultural Fit</td>
+                            <td>30 mins</td>
+                            <td>Qualifying</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="alert alert-primary mt-4" role="alert">
+                <i class="fas fa-lightbulb me-2"></i> <strong>Pro Tip:</strong> The communication test is now a deciding factor for many candidates. Practice speaking clearly and concisely with proper pronunciation.
+            </div>
+        </div>
+    </section>
+    
+    <!-- Syllabus Section -->
+    <section class="section bg-light" id="syllabus">
+        <div class="container">
+            <h2 class="section-title">Complete Syllabus</h2>
+            <p class="lead mb-5">Master these topics to excel in your Cognizant GenC examination.</p>
+            
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="floating-card h-100">
+                        <div class="card-header" style="background: var(--accent)">
+                            <div class="card-icon">
+                                <i class="fas fa-calculator"></i>
+                            </div>
+                            <h3 class="text-white mb-0">Quantitative Aptitude</h3>
+                        </div>
+                        <div class="card-body">
+                            <ul class="styled-list">
+                                <li>Number Systems & Theory</li>
+                                <li>Percentages & Ratios</li>
+                                <li>Profit/Loss & Interest</li>
+                                <li>Time/Speed/Distance</li>
+                                <li>Algebra & Geometry</li>
+                                <li>Probability & Stats</li>
+                                <li>Data Interpretation</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="floating-card h-100">
+                        <div class="card-header" style="background: var(--primary)">
+                            <div class="card-icon">
+                                <i class="fas fa-brain"></i>
+                            </div>
+                            <h3 class="text-white mb-0">Logical Reasoning</h3>
+                        </div>
+                        <div class="card-body">
+                            <ul class="styled-list">
+                                <li>Blood Relations</li>
+                                <li>Direction Sense</li>
+                                <li>Seating Arrangements</li>
+                                <li>Coding-Decoding</li>
+                                <li>Series Completion</li>
+                                <li>Syllogisms</li>
+                                <li>Visual Reasoning</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="floating-card h-100">
+                        <div class="card-header" style="background: var(--secondary)">
+                            <div class="card-icon">
+                                <i class="fas fa-language"></i>
+                            </div>
+                            <h3 class="text-white mb-0">Verbal Ability</h3>
+                        </div>
+                        <div class="card-body">
+                            <ul class="styled-list">
+                                <li>Reading Comprehension</li>
+                                <li>Sentence Correction</li>
+                                <li>Error Identification</li>
+                                <li>Para Jumbles</li>
+                                <li>Vocabulary</li>
+                                <li>Grammar Rules</li>
+                                <li>Precis Writing</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="floating-card h-100">
+                        <div class="card-header" style="background: #6c5ce7">
+                            <div class="card-icon">
+                                <i class="fas fa-microphone"></i>
+                            </div>
+                            <h3 class="text-white mb-0">Communication Test</h3>
+                        </div>
+                        <div class="card-body">
+                            <ul class="styled-list">
+                                <li>Reading Comprehension</li>
+                                <li>Sentence Correction</li>
+                                <li>Listening Exercises</li>
+                                <li>Picture Description</li>
+                                <li>Short Speech</li>
+                                <li>Conversation Simulation</li>
+                                <li>Pronunciation Practice</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="floating-card h-100">
+                        <div class="card-header" style="background: #00b894">
+                            <div class="card-icon">
+                                <i class="fas fa-laptop-code"></i>
+                            </div>
+                            <h3 class="text-white mb-0">Technical Interview</h3>
+                        </div>
+                        <div class="card-body">
+                            <ul class="styled-list">
+                                <li>Programming Fundamentals</li>
+                                <li>Data Structures</li>
+                                <li>Algorithms</li>
+                                <li>DBMS & SQL</li>
+                                <li>OOPS Concepts</li>
+                                <li>Problem Solving</li>
+                                <li>System Design Basics</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="floating-card h-100">
+                        <div class="card-header" style="background: #fd79a8">
+                            <div class="card-icon">
+                                <i class="fas fa-user-tie"></i>
+                            </div>
+                            <h3 class="text-white mb-0">HR Interview</h3>
+                        </div>
+                        <div class="card-body">
+                            <ul class="styled-list">
+                                <li>Tell Me About Yourself</li>
+                                <li>Strengths/Weaknesses</li>
+                                <li>Situational Questions</li>
+                                <li>Company Knowledge</li>
+                                <li>Behavioral Questions</li>
+                                <li>Career Goals</li>
+                                <li>Salary Expectations</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Resources Section -->
+    <section class="section" id="resources">
+        <div class="container">
+            <h2 class="section-title">Premium Preparation Resources</h2>
+            <p class="lead mb-5">Download these expertly curated materials to accelerate your preparation.</p>
+            
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="floating-card h-100">
+                        <div class="card-header" style="background: linear-gradient(135deg, #0033a0 0%, #00a3e0 100%)">
+                            <div class="card-icon">
+                                <i class="fas fa-book-open"></i>
+                            </div>
+                            <h3 class="text-white mb-0">Complete Study Package</h3>
+                        </div>
+                        <div class="card-body">
+                            <p>Everything you need in one comprehensive package:</p>
+                            <ul class="styled-list">
+                                <li>500+ Practice Questions</li>
+                                <li>Section-wise Strategies</li>
+                                <li>Solved Examples</li>
+                                <li>Shortcut Techniques</li>
+                                <li>Mock Test Papers</li>
+                            </ul>
+                            <div class="d-flex justify-content-between align-items-center mt-4">
+                                <span class="badge bg-primary">PDF + Videos</span>
+                                <span class="text-muted">25 MB</span>
+                            </div>
+                            <a href="#" class="btn btn-primary w-100 mt-3">
+                                <i class="fas fa-download me-2"></i> Download Now
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="floating-card h-100">
+                        <div class="card-header" style="background: linear-gradient(135deg, #ff6b35 0%, #ffa502 100%)">
+                            <div class="card-icon">
+                                <i class="fas fa-headphones"></i>
+                            </div>
+                            <h3 class="text-white mb-0">Communication Mastery Kit</h3>
+                        </div>
+                        <div class="card-body">
+                            <p>Specialized resources for the communication test:</p>
+                            <ul class="styled-list">
+                                <li>100+ Audio Exercises</li>
+                                <li>Speaking Practice Drills</li>
+                                <li>Pronunciation Guide</li>
+                                <li>Sample Responses</li>
+                                <li>Evaluation Criteria</li>
+                            </ul>
+                            <div class="d-flex justify-content-between align-items-center mt-4">
+                                <span class="badge bg-warning">Audio + PDF</span>
+                                <span class="text-muted">45 MB</span>
+                            </div>
+                            <a href="#" class="btn btn-warning w-100 mt-3 text-white">
+                                <i class="fas fa-download me-2"></i> Download Now
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="floating-card h-100">
+                        <div class="card-header" style="background: linear-gradient(135deg, #2ecc71 0%, #1abc9c 100%)">
+                            <div class="card-icon">
+                                <i class="fas fa-laptop-code"></i>
+                            </div>
+                            <h3 class="text-white mb-0">Technical Interview Prep</h3>
+                        </div>
+                        <div class="card-body">
+                            <p>Comprehensive technical preparation:</p>
+                            <ul class="styled-list">
+                                <li>150+ Coding Problems</li>
+                                <li>DS & Algorithms Guide</li>
+                                <li>System Design Basics</li>
+                                <li>Interview Questions</li>
+                                <li>Problem Solving Approaches</li>
+                            </ul>
+                            <div class="d-flex justify-content-between align-items-center mt-4">
+                                <span class="badge bg-success">PDF + Code</span>
+                                <span class="text-muted">18 MB</span>
+                            </div>
+                            <a href="#" class="btn btn-success w-100 mt-3">
+                                <i class="fas fa-download me-2"></i> Download Now
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-5">
+                <a href="#" class="btn btn-primary btn-lg px-5">
+                    <i class="fas fa-gem me-2"></i> Get All Premium Resources
+                </a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Testimonials Section -->
+    <section class="section bg-light" id="testimonials">
+        <div class="container">
+            <h2 class="text-center section-title">Success Stories</h2>
+            <p class="lead text-center mb-5">Hear from candidates who cracked Cognizant GenC using our resources</p>
+            
+            <div class="row">
+                <div class="col-lg-4 mb-4">
+                    <div class="testimonial-card">
+                        <p>"This guide was instrumental in my preparation. The communication practice kit especially helped me improve my pronunciation and fluency, which was crucial for clearing the assessment."</p>
+                        <div class="testimonial-author">
+                            <img src="https://randomuser.me/api/portraits/women/43.jpg" alt="Sarah K.">
+                            <div>
+                                <h5 class="mb-0">Sarah K.</h5>
+                                <small class="text-muted">Cognizant GenC 2024</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 mb-4">
+                    <div class="testimonial-card">
+                        <p>"The technical interview resources were spot on! The coding problems were very similar to what I faced in my actual interview. The strategies helped me approach problems methodically."</p>
+                        <div class="testimonial-author">
+                            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Rahul P.">
+                            <div>
+                                <h5 class="mb-0">Rahul P.</h5>
+                                <small class="text-muted">Cognizant GenC 2024</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 mb-4">
+                    <div class="testimonial-card">
+                        <p>"As a non-CS student, I was worried about the technical round. The way concepts are explained in the resources made it easy for me to understand and apply them in the interview."</p>
+                        <div class="testimonial-author">
+                            <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Priya M.">
+                            <div>
+                                <h5 class="mb-0">Priya M.</h5>
+                                <small class="text-muted">Cognizant GenC 2023</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- CTA Section -->
+    <section class="section gradient-bg text-white">
+        <div class="container text-center">
+            <h2 class="mb-4">Ready to Start Your Cognizant Journey?</h2>
+            <p class="lead mb-5">Join thousands of successful candidates who aced their Cognizant GenC exam with our proven preparation system.</p>
+            <div class="d-flex justify-content-center gap-3">
+                <a href="#" class="btn btn-light btn-lg px-5">
+                    <i class="fas fa-rocket me-2"></i> Get Started Now
+                </a>
+                <a href="#" class="btn btn-outline-light btn-lg px-5">
+                    <i class="fas fa-question-circle me-2"></i> Need Help?
+                </a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Contact Section -->
+    <section class="section" id="contact">
+        <div class="container">
+            <h2 class="text-center section-title">Have Questions?</h2>
+            <p class="lead text-center mb-5">We're here to help you with your Cognizant GenC preparation</p>
+            
+            <div class="row">
+                <div class="col-lg-6 mb-5 mb-lg-0">
+                    <div class="floating-card h-100">
+                        <div class="card-body">
+                            <h3 class="mb-4">Get In Touch</h3>
+                            <form>
+                                <div class="mb-3">
+                                    <input type="text" class="form-control" placeholder="Your Name" required>
+                                </div>
+                                <div class="mb-3">
+                                    <input type="email" class="form-control" placeholder="Email Address" required>
+                                </div>
+                                <div class="mb-3">
+                                    <input type="text" class="form-control" placeholder="Subject">
+                                </div>
+                                <div class="mb-3">
+                                    <textarea class="form-control" rows="5" placeholder="Your Message" required></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary w-100">
+                                    <i class="fas fa-paper-plane me-2"></i> Send Message
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-6">
+                    <div class="floating-card h-100">
+                        <div class="card-body">
+                            <h3 class="mb-4">Contact Information</h3>
+                            <ul class="list-unstyled">
+                                <li class="mb-4">
+                                    <div class="d-flex">
+                                        <div class="me-4 text-primary">
+                                            <i class="fas fa-map-marker-alt fa-2x"></i>
+                                        </div>
+                                        <div>
+                                            <h5>Location</h5>
+                                            <p>123 Prep Street, Knowledge City, IN 560001</p>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="mb-4">
+                                    <div class="d-flex">
+                                        <div
