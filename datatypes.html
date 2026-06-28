@@ -1,0 +1,1269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Data Types - Complete Guide</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --accent-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --success-gradient: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+            --warning-gradient: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --bg-card: #ffffff;
+            --text-primary: #1a202c;
+            --text-secondary: #718096;
+            --border-color: #e2e8f0;
+            --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: var(--bg-secondary);
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-color);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 0;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 32px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-primary);
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 8px 0;
+        }
+
+        .nav-links a:hover {
+            color: #667eea;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background: var(--primary-gradient);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .hamburger {
+            width: 24px;
+            height: 2px;
+            background: var(--text-primary);
+            margin: 3px 0;
+            transition: 0.3s;
+            border-radius: 1px;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: var(--primary-gradient);
+            color: white;
+            padding: 120px 0 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><circle cx="800" cy="200" r="300" fill="%23ffffff08"/><circle cx="200" cy="800" r="250" fill="%23ffffff05"/></svg>');
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            margin-bottom: 24px;
+            font-weight: 700;
+            letter-spacing: -0.025em;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            margin-bottom: 40px;
+            opacity: 0.9;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Table of Contents */
+        .toc {
+            background: var(--bg-card);
+            border-radius: 20px;
+            padding: 32px;
+            margin: 40px 0;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border-color);
+        }
+
+        .toc h2 {
+            color: var(--text-primary);
+            margin-bottom: 24px;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .toc-list {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 12px;
+        }
+
+        .toc-list a {
+            display: block;
+            padding: 12px 16px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+
+        .toc-list a:hover {
+            background: var(--primary-gradient);
+            color: white;
+            transform: translateX(8px);
+        }
+
+        /* Content Sections */
+        .content-section {
+            background: var(--bg-card);
+            border-radius: 20px;
+            padding: 40px;
+            margin: 40px 0;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border-color);
+        }
+
+        .content-section h2 {
+            color: var(--text-primary);
+            margin-bottom: 24px;
+            font-size: 2rem;
+            font-weight: 600;
+            position: relative;
+            padding-bottom: 16px;
+        }
+
+        .content-section h2::after {
+            content: '';
+            position: absolute;
+            width: 60px;
+            height: 4px;
+            background: var(--primary-gradient);
+            bottom: 0;
+            left: 0;
+            border-radius: 2px;
+        }
+
+        .content-section h3 {
+            color: var(--text-primary);
+            margin: 32px 0 16px 0;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .content-section p {
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+            line-height: 1.7;
+        }
+
+        /* Code Blocks */
+        .code-block {
+            background: #2d3748;
+            border-radius: 12px;
+            padding: 24px;
+            margin: 24px 0;
+            overflow-x: auto;
+            position: relative;
+            border: 1px solid #4a5568;
+        }
+
+        .code-block pre {
+            margin: 0;
+            color: #e2e8f0;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .code-block::before {
+            content: 'Python';
+            position: absolute;
+            top: 8px;
+            right: 12px;
+            background: var(--primary-gradient);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        /* Data Type Cards */
+        .data-types-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin: 32px 0;
+        }
+
+        .data-type-card {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 24px;
+            border: 2px solid var(--border-color);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .data-type-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--primary-gradient);
+        }
+
+        .data-type-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .data-type-card h4 {
+            color: var(--text-primary);
+            margin-bottom: 12px;
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .data-type-card p {
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+            font-size: 14px;
+        }
+
+        /* Tables */
+        .table-container {
+            overflow-x: auto;
+            margin: 24px 0;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--bg-card);
+        }
+
+        th, td {
+            padding: 16px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            background: var(--bg-secondary);
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        td {
+            color: var(--text-secondary);
+        }
+
+        tr:hover {
+            background: var(--bg-secondary);
+        }
+
+        /* Highlight Boxes */
+        .highlight-box {
+            background: linear-gradient(135deg, #667eea20, #764ba220);
+            border: 1px solid #667eea40;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 24px 0;
+            position: relative;
+        }
+
+        .highlight-box::before {
+            content: '💡';
+            font-size: 20px;
+            margin-right: 12px;
+        }
+
+        .highlight-box h4 {
+            color: var(--text-primary);
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        /* Lists */
+        ul, ol {
+            margin: 16px 0 16px 24px;
+            color: var(--text-secondary);
+        }
+
+        li {
+            margin-bottom: 8px;
+            line-height: 1.6;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-container {
+                padding: 0 16px;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                flex-direction: column;
+                background: rgba(255, 255, 255, 0.98);
+                width: 100%;
+                padding: 32px;
+                transition: left 0.3s ease;
+                backdrop-filter: blur(20px);
+                border-bottom: 1px solid var(--border-color);
+                gap: 16px;
+            }
+
+            .nav-links.active {
+                left: 0;
+            }
+
+            .mobile-menu {
+                display: flex;
+            }
+
+            .hero {
+                padding: 100px 0 60px;
+            }
+
+            .container {
+                padding: 0 16px;
+            }
+
+            .content-section {
+                padding: 24px;
+                margin: 24px 0;
+            }
+
+            .data-types-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+
+            .toc-list {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .animate-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Copy Button */
+        .copy-btn {
+            position: absolute;
+            top: 12px;
+            right: 50px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 6px 12px;
+            cursor: pointer;
+            font-size: 12px;
+            color: var(--text-secondary);
+            transition: all 0.3s ease;
+        }
+
+        .copy-btn:hover {
+            background: var(--primary-gradient);
+            color: white;
+            border-color: transparent;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <nav>
+                <div class="logo">Python Guide</div>
+                <ul class="nav-links" id="nav-links">
+                    <li><a href="#introduction">Introduction</a></li>
+                    <li><a href="#basic-types">Basic Types</a></li>
+                    <li><a href="#sequence-types">Sequences</a></li>
+                    <li><a href="#mapping-types">Mappings</a></li>
+                    <li><a href="#set-types">Sets</a></li>
+                    <li><a href="#examples">Examples</a></li>
+                </ul>
+                <div class="mobile-menu" id="mobile-menu">
+                    <div class="hamburger"></div>
+                    <div class="hamburger"></div>
+                    <div class="hamburger"></div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Python Data Types</h1>
+            <p>Master the fundamental building blocks of Python programming with our comprehensive guide to data types</p>
+        </div>
+    </section>
+
+    <div class="container">
+        <!-- Table of Contents -->
+        <section class="toc animate-on-scroll">
+            <h2>Table of Contents</h2>
+            <ul class="toc-list">
+                <li><a href="#introduction">What are Data Types?</a></li>
+                <li><a href="#basic-types">Numeric Types</a></li>
+                <li><a href="#text-type">Text Type (String)</a></li>
+                <li><a href="#sequence-types">Sequence Types</a></li>
+                <li><a href="#mapping-types">Mapping Types</a></li>
+                <li><a href="#set-types">Set Types</a></li>
+                <li><a href="#boolean-type">Boolean Type</a></li>
+                <li><a href="#examples">Practical Examples</a></li>
+            </ul>
+        </section>
+
+        <!-- Introduction -->
+        <section id="introduction" class="content-section animate-on-scroll">
+            <h2>What are Data Types in Python?</h2>
+            <p>Data types in Python are classifications that specify the type of value a variable can hold. Python is a dynamically typed language, which means you don't need to explicitly declare the data type of a variable when you create it. The Python interpreter automatically determines the data type based on the value assigned to the variable.</p>
+            
+            <div class="highlight-box">
+                <h4>Key Features of Python Data Types</h4>
+                <ul>
+                    <li>Dynamically typed - no need to declare types explicitly</li>
+                    <li>Type checking happens at runtime</li>
+                    <li>Variables can change types during execution</li>
+                    <li>Built-in type() function to check data types</li>
+                </ul>
+            </div>
+
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <pre><code># Python automatically determines data types
+x = 10          # int
+y = 3.14        # float
+name = "Python" # str
+is_true = True  # bool
+
+# Check data types
+print(type(x))     # <class 'int'>
+print(type(y))     # <class 'float'>
+print(type(name))  # <class 'str'>
+print(type(is_true)) # <class 'bool'></code></pre>
+            </div>
+        </section>
+
+        <!-- Basic Data Types Overview -->
+        <section id="basic-types" class="content-section animate-on-scroll">
+            <h2>Python Data Types Overview</h2>
+            <p>Python has several built-in data types that can be categorized into different groups:</p>
+
+            <div class="data-types-grid">
+                <div class="data-type-card">
+                    <h4>Numeric Types</h4>
+                    <p>int, float, complex</p>
+                    <div class="code-block">
+                        <pre><code>age = 25          # int
+price = 29.99     # float
+num = 3+4j        # complex</code></pre>
+                    </div>
+                </div>
+
+                <div class="data-type-card">
+                    <h4>Text Type</h4>
+                    <p>str (string)</p>
+                    <div class="code-block">
+                        <pre><code>name = "Alice"
+message = 'Hello World'
+text = """Multi-line
+string"""</code></pre>
+                    </div>
+                </div>
+
+                <div class="data-type-card">
+                    <h4>Sequence Types</h4>
+                    <p>list, tuple, range</p>
+                    <div class="code-block">
+                        <pre><code>fruits = ["apple", "banana"]  # list
+point = (10, 20)              # tuple
+numbers = range(5)            # range</code></pre>
+                    </div>
+                </div>
+
+                <div class="data-type-card">
+                    <h4>Mapping Type</h4>
+                    <p>dict (dictionary)</p>
+                    <div class="code-block">
+                        <pre><code>person = {
+    "name": "Alice",
+    "age": 30,
+    "city": "New York"
+}</code></pre>
+                    </div>
+                </div>
+
+                <div class="data-type-card">
+                    <h4>Set Types</h4>
+                    <p>set, frozenset</p>
+                    <div class="code-block">
+                        <pre><code>colors = {"red", "green", "blue"}
+frozen = frozenset([1, 2, 3])</code></pre>
+                    </div>
+                </div>
+
+                <div class="data-type-card">
+                    <h4>Boolean Type</h4>
+                    <p>bool (True/False)</p>
+                    <div class="code-block">
+                        <pre><code>is_student = True
+is_graduated = False
+result = 5 > 3  # True</code></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Numeric Types -->
+        <section class="content-section animate-on-scroll">
+            <h2>Numeric Types</h2>
+            
+            <h3>1. Integer (int)</h3>
+            <p>Integers are whole numbers without decimal points. Python 3 has unlimited precision for integers.</p>
+            
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <pre><code># Integer examples
+positive_num = 42
+negative_num = -17
+zero = 0
+large_num = 999999999999999999999
+
+# Binary, octal, and hexadecimal
+binary = 0b1010      # Binary (equals 10 in decimal)
+octal = 0o755        # Octal (equals 493 in decimal)
+hexadecimal = 0xFF   # Hexadecimal (equals 255 in decimal)
+
+print(type(positive_num))  # <class 'int'></code></pre>
+            </div>
+
+            <h3>2. Float</h3>
+            <p>Floating-point numbers represent real numbers with decimal points.</p>
+            
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <pre><code># Float examples
+pi = 3.14159
+temperature = -273.15
+scientific = 1.5e10  # Scientific notation (15,000,000,000)
+
+# Special float values
+infinity = float('inf')
+negative_infinity = float('-inf')
+not_a_number = float('nan')
+
+print(type(pi))  # <class 'float'></code></pre>
+            </div>
+
+            <h3>3. Complex</h3>
+            <p>Complex numbers have real and imaginary parts.</p>
+            
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <pre><code># Complex number examples
+z1 = 3 + 4j
+z2 = complex(2, -5)  # 2 - 5j
+
+# Accessing real and imaginary parts
+print(z1.real)  # 3.0
+print(z1.imag)  # 4.0
+
+# Complex operations
+result = z1 + z2
+print(result)    # (5-1j)</code></pre>
+            </div>
+        </section>
+
+        <!-- Text Type -->
+        <section id="text-type" class="content-section animate-on-scroll">
+            <h2>Text Type - String (str)</h2>
+            <p>Strings are sequences of characters enclosed in quotes. Python supports single, double, and triple quotes.</p>
+
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <pre><code># String creation
+single_quote = 'Hello World'
+double_quote = "Python Programming"
+triple_quote = """This is a
+multi-line
+string"""
+
+# String operations
+name = "Alice"
+greeting = f"Hello, {name}!"  # f-string formatting
+concatenated = "Hello" + " " + "World"
+repeated = "Ha" * 3  # "HaHaHa"
+
+# String methods
+text = "  Python Programming  "
+print(text.strip())      # Remove whitespace
+print(text.upper())      # Convert to uppercase
+print(text.lower())      # Convert to lowercase
+print(text.replace("Python", "Java"))  # Replace substring</code></pre>
+            </div>
+
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Method</th>
+                            <th>Description</th>
+                            <th>Example</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>len()</td>
+                            <td>Returns string length</td>
+                            <td>len("Hello") → 5</td>
+                        </tr>
+                        <tr>
+                            <td>str.split()</td>
+                            <td>Splits string into list</td>
+                            <td>"a,b,c".split(",") → ["a", "b", "c"]</td>
+                        </tr>
+                        <tr>
+                            <td>str.join()</td>
+                            <td>Joins list into string</td>
+                            <td>",".join(["a", "b"]) → "a,b"</td>
+                        </tr>
+                        <tr>
+                            <td>str.find()</td>
+                            <td>Finds substring index</td>
+                            <td>"hello".find("ll") → 2</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Sequence Types -->
+        <section id="sequence-types" class="content-section animate-on-scroll">
+            <h2>Sequence Types</h2>
+            
+            <h3>1. List</h3>
+            <p>Lists are ordered, mutable sequences that can store different data types.</p>
+            
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <pre><code># List creation and operations
+fruits = ["apple", "banana", "orange"]
+numbers = [1, 2, 3, 4, 5]
+mixed = [1, "hello", 3.14, True]
+
+# List methods
+fruits.append("grape")        # Add element
+fruits.insert(1, "kiwi")     # Insert at index
+fruits.remove("banana")      # Remove element
+popped = fruits.pop()        # Remove and return last element
+
+# List comprehension
+squares = [x**2 for x in range(10)]
+even_numbers = [x for x in range(20) if x % 2 == 0]
+
+print(fruits)      # ['apple', 'kiwi', 'orange', 'grape']
+print(squares)     # [0, 1, 4, 9, 16, 25, 36, 49, 64, 81]</code></pre>
+            </div>
+
+            <h3>2. Tuple</h3>
+            <p>Tuples are ordered, immutable sequences. Once created, you cannot change their elements.</p>
+            
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <pre><code># Tuple creation
+coordinates = (10, 20)
+colors = ("red", "green", "blue")
+single_element = (42,)  # Note the comma for single element
+
+# Tuple unpacking
+x, y = coordinates
+first, *rest = colors  # first = "red", rest = ["green", "blue"]
+
+# Named tuples (requires import)
+from collections import namedtuple
+Point = namedtuple('Point', ['x', 'y'])
+p = Point(10, 20)
+print(p.x, p.y)  # 10 20</code></pre>
+            </div>
+
+            <h3>3. Range</h3>
+            <p>Range objects represent immutable sequences of numbers, commonly used in for loops.</p>
+            
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <pre><code># Range examples
+numbers = range(10)        # 0 to 9
+even_nums = range(0, 20, 2)  # 0, 2, 4, ..., 18
+countdown = range(10, 0, -1)  # 10, 9, 8, ..., 1
+
+# Converting range to list
+list_nums = list(range(5))  # [0, 1, 2, 3, 4]
+
+# Using range in loops
+for i in range(5):
+    print(i)  # Prints 0, 1, 2, 3, 4</code></pre>
+            </div>
+        </section>
+
+        <!-- Mapping Types -->
+        <section id="mapping-types" class="content-section animate-on-scroll">
+            <h2>Mapping Type - Dictionary (dict)</h2>
+            <p>Dictionaries are unordered collections of key-value pairs. Keys must be unique and immutable.</p>
+
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <pre><code># Dictionary creation
+student = {
+    "name": "Alice",
+    "age": 20,
+    "grade": "A",
+    "subjects": ["Math", "Physics", "Chemistry"]
+}
+
+# Dictionary operations
+student["age"] = 21                    # Update value
+student["email"] = "alice@email.com"   # Add new key-value pair
+del student["grade"]                   # Delete key-value pair
+
+# Dictionary methods
+keys = student.keys()      # Get all keys
+values = student.values()  # Get all values
+items = student.items()    # Get key-value pairs
+
+# Dictionary comprehension
+squared = {x: x**2 for x in range(5)}  # {0: 0, 1: 1, 2: 4, 3: 9, 4: 16}
+
+# Accessing with get() method (safe)
+grade = student.get("grade", "Not Available")  # Returns default if key not found</code></pre>
+            </div>
+
+            <div class="highlight-box">
+                <h4>Dictionary Best Practices</h4>
+                <ul>
+                    <li>Use meaningful key names</li>
+                    <li>Prefer get() method over direct access for optional keys</li>
+                    <li>Use dictionary comprehensions for simple transformations</li>
+                    <li>Remember that dictionaries maintain insertion order (Python 3.7+)</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Set Types -->
+        <section id="set-types" class="content-section animate-on-scroll">
+            <h2>Set Types</h2>
+            
+            <h3>1. Set</h3>
+            <p>Sets are unordered collections of unique elements. They're useful for removing duplicates and set operations.</p>
+            
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <pre><code># Set creation
+fruits = {"apple", "banana", "orange"}
+numbers = set([1, 2, 3, 4, 5])
+unique_chars = set("hello")  # {'h', 'e', 'l', 'o'}
+
+# Set operations
+fruits.add("grape")           # Add element
+fruits.remove("banana")       # Remove element (raises error if not found)
+fruits.discard("kiwi")        # Remove element (no error if not found)
+
+# Set operations (mathematical)
+set1 = {1, 2, 3, 4}
+set2 = {3, 4, 5, 6}
+
+union = set1 | set2           # {1, 2, 3, 4, 5, 6}
+intersection = set1 & set2    # {3, 4}
+difference = set1 - set2      # {1, 2}
+symmetric_diff = set1 ^ set2  # {1, 2, 5, 6}</code></pre>
+            </div>
+
+            <h3>2. Frozenset</h3>
+            <p>Frozensets are immutable versions of sets. They can be used as dictionary keys.</p>
+            
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <pre><code># Frozenset creation
+immutable_set = frozenset([1, 2, 3, 4])
+frozen_from_set = frozenset({1, 2, 3})
+
+# Frozensets can be dictionary keys
+cache = {
+    frozenset([1, 2]): "result1",
+    frozenset([3, 4]): "result2"
+}
+
+# All set operations work with frozensets
+fs1 = frozenset([1, 2, 3])
+fs2 = frozenset([2, 3, 4])
+union = fs1 | fs2  # frozenset({1, 2, 3, 4})</code></pre>
+            </div>
+        </section>
+
+        <!-- Boolean Type -->
+        <section id="boolean-type" class="content-section animate-on-scroll">
+            <h2>Boolean Type (bool)</h2>
+            <p>Boolean values represent truth values: True or False. They're subclasses of integers.</p>
+
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <pre><code># Boolean values
+is_student = True
+is_graduated = False
+
+# Boolean operations
+result1 = True and False   # False
+result2 = True or False    # True
+result3 = not True         # False
+
+# Comparison operations return booleans
+age = 25
+is_adult = age >= 18       # True
+is_teenager = 13 <= age <= 19  # False
+
+# Truthiness of other types
+bool(1)          # True
+bool(0)          # False
+bool("hello")    # True
+bool("")         # False
+bool([1, 2])     # True
+bool([])         # False
+bool(None)       # False</code></pre>
+            </div>
+
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Value</th>
+                            <th>Boolean Equivalent</th>
+                            <th>Explanation</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>0, 0.0</td>
+                            <td>False</td>
+                            <td>Numeric zero values</td>
+                        </tr>
+                        <tr>
+                            <td>"", [], {}, ()</td>
+                            <td>False</td>
+                            <td>Empty collections</td>
+                        </tr>
+                        <tr>
+                            <td>None</td>
+                            <td>False</td>
+                            <td>None value</td>
+                        </tr>
+                        <tr>
+                            <td>All other values</td>
+                            <td>True</td>
+                            <td>Non-empty, non-zero values</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Practical Examples -->
+        <section id="examples" class="content-section animate-on-scroll">
+            <h2>Practical Examples</h2>
+            
+            <h3>Type Conversion Examples</h3>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <pre><code># Type conversion functions
+# String to number
+age_str = "25"
+age_int = int(age_str)      # 25
+price_str = "29.99"
+price_float = float(price_str)  # 29.99
+
+# Number to string
+count = 42
+count_str = str(count)      # "42"
+
+# List to string and vice versa
+words = ["hello", "world"]
+sentence = " ".join(words)  # "hello world"
+word_list = sentence.split()  # ["hello", "world"]
+
+# Checking types
+def process_data(data):
+    if isinstance(data, int):
+        return data * 2
+    elif isinstance(data, str):
+        return data.upper()
+    elif isinstance(data, list):
+        return len(data)
+    else:
+        return "Unknown type"</code></pre>
+            </div>
+
+            <h3>Real-World Example: Student Management System</h3>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <pre><code># Student management system using different data types
+students = [
+    {
+        "id": 1,
+        "name": "Alice Johnson",
+        "age": 20,
+        "grades": [95, 87, 92, 88],
+        "subjects": {"Math", "Physics", "Chemistry"},
+        "is_enrolled": True,
+        "contact": ("alice@email.com", "123-456-7890")
+    },
+    {
+        "id": 2,
+        "name": "Bob Smith",
+        "age": 19,
+        "grades": [78, 85, 80, 92],
+        "subjects": {"History", "English", "Art"},
+        "is_enrolled": True,
+        "contact": ("bob@email.com", "987-654-3210")
+    }
+]
+
+# Calculate average grade for a student
+def calculate_average(grades):
+    return sum(grades) / len(grades) if grades else 0
+
+# Find students by subject
+def find_students_by_subject(students, subject):
+    return [student["name"] for student in students 
+            if subject in student["subjects"]]
+
+# Process student data
+for student in students:
+    avg_grade = calculate_average(student["grades"])
+    print(f"{student['name']}: Average Grade = {avg_grade:.2f}")
+
+math_students = find_students_by_subject(students, "Math")
+print(f"Math students: {math_students}")</code></pre>
+            </div>
+
+            <div class="highlight-box">
+                <h4>Memory and Performance Tips</h4>
+                <ul>
+                    <li>Use tuples for data that won't change (coordinates, RGB values)</li>
+                    <li>Use sets for membership testing (O(1) average time complexity)</li>
+                    <li>Use dictionaries for key-based lookups</li>
+                    <li>Lists are great for ordered data that needs modification</li>
+                    <li>Consider using generators for large datasets to save memory</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Summary -->
+        <section class="content-section animate-on-scroll">
+            <h2>Summary</h2>
+            <p>Python's built-in data types provide a solid foundation for programming. Understanding when and how to use each type effectively is crucial for writing efficient and readable code.</p>
+            
+            <div class="data-types-grid">
+                <div class="data-type-card">
+                    <h4>When to Use Lists</h4>
+                    <ul>
+                        <li>Ordered data that can change</li>
+                        <li>Need to append/remove items</li>
+                        <li>Duplicate values are allowed</li>
+                    </ul>
+                </div>
+                
+                <div class="data-type-card">
+                    <h4>When to Use Tuples</h4>
+                    <ul>
+                        <li>Immutable ordered data</li>
+                        <li>Function return values</li>
+                        <li>Dictionary keys (if hashable)</li>
+                    </ul>
+                </div>
+                
+                <div class="data-type-card">
+                    <h4>When to Use Dictionaries</h4>
+                    <ul>
+                        <li>Key-value relationships</li>
+                        <li>Fast lookups by key</li>
+                        <li>Configuration settings</li>
+                    </ul>
+                </div>
+                
+                <div class="data-type-card">
+                    <h4>When to Use Sets</h4>
+                    <ul>
+                        <li>Unique elements only</li>
+                        <li>Set operations (union, intersection)</li>
+                        <li>Fast membership testing</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer style="background: linear-gradient(135deg, #434343 0%, #000000 100%); color: white; text-align: center; padding: 40px 0; margin-top: 60px;">
+        <div class="container">
+            <p>&copy; 2024 Python Data Types Guide. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    
+    <script>
+        // Mobile menu toggle
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navLinks = document.getElementById('nav-links');
+
+        mobileMenu.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // Animate elements on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.animate-on-scroll').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Header scroll effect
+        let lastScrollY = window.scrollY;
+        
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            const currentScrollY = window.scrollY;
+            
+            if (currentScrollY > 100) {
+                header.style.background = 'rgba(255, 255, 255, 0.98)';
+                header.style.boxShadow = '0 8px 32px rgba(0,0,0,0.12)';
+            } else {
+                header.style.background = 'rgba(255, 255, 255, 0.95)';
+                header.style.boxShadow = '0 2px 20px rgba(0,0,0,0.08)';
+            }
+
+            // Hide/show header on scroll
+            if (currentScrollY > lastScrollY && currentScrollY > 200) {
+                header.style.transform = 'translateY(-100%)';
+            } else {
+                header.style.transform = 'translateY(0)';
+            }
+            
+            lastScrollY = currentScrollY;
+        });
+
+        // Copy code functionality
+        function copyCode(button) {
+            const codeBlock = button.nextElementSibling.querySelector('code');
+            const text = codeBlock.textContent;
+            
+            navigator.clipboard.writeText(text).then(() => {
+                button.textContent = 'Copied!';
+                button.style.background = 'var(--success-gradient)';
+                button.style.color = 'white';
+                
+                setTimeout(() => {
+                    button.textContent = 'Copy';
+                    button.style.background = 'var(--bg-card)';
+                    button.style.color = 'var(--text-secondary)';
+                }, 2000);
+            }).catch(() => {
+                button.textContent = 'Failed';
+                setTimeout(() => {
+                    button.textContent = 'Copy';
+                }, 2000);
+            });
+        }
+
+        // Highlight current section in navigation
+        const sections = document.querySelectorAll('section[id]');
+        const navItems = document.querySelectorAll('.nav-links a[href^="#"]');
+
+        function highlightCurrentSection() {
+            let currentSection = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 100;
+                const sectionHeight = section.offsetHeight;
+                
+                if (window.scrollY >= sectionTop && window.scrollY < sectionTop + sectionHeight) {
+                    currentSection = section.getAttribute('id');
+                }
+            });
+
+            navItems.forEach(item => {
+                item.classList.remove('active');
+                if (item.getAttribute('href') === `#${currentSection}`) {
+                    item.classList.add('active');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', highlightCurrentSection);
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            highlightCurrentSection();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Sign in to SkillStack — your placement-ready learning platform.">
+    <meta name="theme-color" content="#ff4597">
+    <title>Login — SkillStack</title>
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/skillstack.css">
+    <link rel="stylesheet" href="css/auth.css">
+</head>
+
+<body class="auth-page">
+    <div class="auth-shell">
+        <aside class="auth-brand">
+            <a href="index.html" class="logo">
+                <span class="logo-mark"><i class="fas fa-layer-group"></i></span>
+                SkillStack
+            </a>
+            <div>
+                <h1>Welcome back.<br>Keep your momentum.</h1>
+                <p>Track progress, unlock premium SQL resources, and pick up exactly where you left off.</p>
+            </div>
+            <div class="feature-list">
+                <div class="feature-item">
+                    <div class="feature-icon"><i class="fas fa-book-open"></i></div>
+                    <div>
+                        <h4>25+ Topics</h4>
+                        <p>Aptitude, programming, SQL, resume prep, and company guides.</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon"><i class="fas fa-chart-line"></i></div>
+                    <div>
+                        <h4>Activity tracking</h4>
+                        <p>Build consistency with your personal learning dashboard.</p>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <div class="auth-form-panel">
+            <a href="index.html" class="auth-close" aria-label="Back to home">&times;</a>
+
+            <div id="loginForm">
+                <div class="auth-header">
+                    <h2>Sign in to your account</h2>
+                </div>
+
+                <div class="input-group">
+                    <input type="email" id="loginEmail" class="input" placeholder="Email address" autocomplete="email">
+                </div>
+                <div class="input-group">
+                    <input type="password" id="loginPassword" class="input" placeholder="Password" autocomplete="current-password">
+                </div>
+
+                <button id="btnLogin" class="btn btn-primary btn-submit" type="button">
+                    Sign in with email
+                </button>
+
+                <div class="auth-divider">or</div>
+
+                <button id="btnGoogle" class="btn-google" type="button">
+                    <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" width="20" alt="">
+                    Continue with Google
+                </button>
+
+                <div class="auth-toggle" id="toggleToSignup">Don't have an account? <b>Create one</b></div>
+            </div>
+
+            <div id="signupForm" class="hidden">
+                <div class="auth-header">
+                    <h2>Create your account</h2>
+                </div>
+
+                <div class="input-group">
+                    <input type="text" id="signupName" class="input" placeholder="Full name" autocomplete="name">
+                </div>
+                <div class="input-group">
+                    <input type="email" id="signupEmail" class="input" placeholder="Email address" autocomplete="email">
+                </div>
+                <div class="input-group">
+                    <input type="password" id="signupPassword" class="input" placeholder="Create password" autocomplete="new-password">
+                </div>
+
+                <button id="btnSignup" class="btn btn-primary btn-submit" type="button">
+                    Create account
+                </button>
+
+                <div class="auth-toggle" id="toggleToLogin">Already have an account? <b>Sign in</b></div>
+            </div>
+
+            <p class="auth-footer">
+                By continuing, you agree to SkillStack's <a href="#">Terms</a> and <a href="#">Privacy Policy</a>.
+            </p>
+        </div>
+    </div>
+
+    <script type="module">
+        import { loginWithGoogle, loginWithEmail, registerWithEmail } from './js/auth.js';
+
+        const loginForm = document.getElementById('loginForm');
+        const signupForm = document.getElementById('signupForm');
+
+        function showSignup() {
+            loginForm.classList.add('hidden');
+            signupForm.classList.remove('hidden');
+        }
+
+        function showLogin() {
+            signupForm.classList.add('hidden');
+            loginForm.classList.remove('hidden');
+        }
+
+        document.getElementById('toggleToSignup').onclick = showSignup;
+        document.getElementById('toggleToLogin').onclick = showLogin;
+
+        if (new URLSearchParams(window.location.search).get('action') === 'signup') {
+            showSignup();
+        }
+
+        document.getElementById('btnGoogle').addEventListener('click', loginWithGoogle);
+
+        document.getElementById('btnLogin').addEventListener('click', () => {
+            const email = document.getElementById('loginEmail').value;
+            const pass = document.getElementById('loginPassword').value;
+            if (email && pass) loginWithEmail(email, pass);
+            else alert('Please enter email and password');
+        });
+
+        document.getElementById('btnSignup').addEventListener('click', () => {
+            const name = document.getElementById('signupName').value;
+            const email = document.getElementById('signupEmail').value;
+            const pass = document.getElementById('signupPassword').value;
+            if (name && email && pass) registerWithEmail(email, pass, name);
+            else alert('Please fill all fields');
+        });
+    </script>
+</body>
+
+</html>

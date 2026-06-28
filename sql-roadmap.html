@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SQL Roadmap | SkillStack</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <meta name="description" content="SQL roadmap, premium resources, and reference PDFs inside SkillStack.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root { --bg:#07131a; --panel:rgba(10,28,36,.84); --panel2:rgba(16,39,49,.72); --surface:rgba(255,255,255,.04); --line:rgba(125,216,206,.16); --text:#eaf7f6; --muted:#9eb5b8; --primary:#74ead9; --primary2:#28c7b4; --accent:#ff4f9a; --shadow:0 24px 68px rgba(0,0,0,.28); --overlay:rgba(5,13,18,.72); }
+    :root[data-theme="light"] { --bg:#f4fbfa; --panel:rgba(255,255,255,.95); --panel2:rgba(241,249,247,.95); --surface:rgba(7,19,26,.03); --line:rgba(14,99,93,.12); --text:#152322; --muted:#607579; --primary:#0f8d82; --primary2:#0b6e66; --accent:#e63d87; --shadow:0 18px 44px rgba(17,34,33,.12); --overlay:rgba(243,250,248,.82); }
+    * { box-sizing:border-box; } html { scroll-behavior:smooth; }
+    body { margin:0; min-height:100vh; font-family:Inter,Arial,sans-serif; color:var(--text); background:radial-gradient(circle at top left, rgba(116,234,217,.16), transparent 28%),radial-gradient(circle at bottom right, rgba(255,79,154,.14), transparent 22%),var(--bg); -webkit-font-smoothing:antialiased; }
+    body::before { content:""; position:fixed; inset:0; pointer-events:none; background-image:radial-gradient(var(--line) 1px, transparent 1px); background-size:22px 22px; opacity:.55; }
+    a { color:inherit; text-decoration:none; } button, select { font:inherit; }
+    .page { position:relative; width:min(1220px, calc(100% - 32px)); margin:0 auto; padding:24px 0 64px; }
+    .card { background:var(--panel); border:1px solid var(--line); border-radius:24px; box-shadow:var(--shadow); backdrop-filter:blur(18px); }
+    .topbar { position:sticky; top:12px; z-index:30; margin-bottom:24px; padding:14px 18px; display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; }
+    .brand { display:inline-flex; align-items:center; gap:12px; font-weight:800; }
+    .brand-mark { width:42px; height:42px; display:grid; place-items:center; border-radius:12px; background:linear-gradient(135deg, rgba(116,234,217,.22), rgba(255,79,154,.2)); border:1px solid rgba(255,255,255,.08); color:var(--primary); }
+    .top-actions,.hero-actions,.doc-actions,.lock-actions,.stats,.chip-row,.timeline,.resources-grid,.doc-list { display:flex; flex-wrap:wrap; gap:12px; }
+    .btn,.theme-toggle,.doc-select,.status-chip,.phase-pill,.chip { min-height:44px; border-radius:12px; border:1px solid var(--line); background:var(--surface); color:var(--text); }
+    .btn,.theme-toggle,.status-chip,.phase-pill { display:inline-flex; align-items:center; justify-content:center; gap:10px; padding:0 16px; font-weight:700; }
+    .btn,.theme-toggle { cursor:pointer; transition:transform .2s ease,border-color .2s ease,background .2s ease; }
+    .btn:hover,.theme-toggle:hover,.doc-select:hover { transform:translateY(-1px); border-color:rgba(116,234,217,.42); }
+    .btn-primary { background:linear-gradient(135deg, var(--primary), var(--primary2)); color:#052427; border-color:transparent; }
+    .hero { display:grid; grid-template-columns:minmax(0,1.05fr) minmax(320px,.95fr); gap:24px; margin-bottom:26px; }
+    .hero-copy,.phase-card,.resource-card,.doc-pane,.upgrade-banner,.lock-panel { padding:24px; }
+    .hero-visual { padding:18px; display:grid; gap:16px; background:var(--panel2); }
+    .eyebrow { display:inline-flex; align-items:center; gap:10px; padding:8px 12px; border-radius:999px; background:rgba(255,255,255,.05); color:var(--primary); text-transform:uppercase; letter-spacing:.16em; font-size:.76rem; font-weight:800; }
+    h1 { margin:18px 0 16px; font-size:clamp(2.3rem,5vw,4.8rem); line-height:.98; letter-spacing:-.04em; }
+    .lead,.section-head p,.phase-card p,.resource-card p,.doc-pane p,.lock-panel p,.mini-note p { margin:0; color:var(--muted); line-height:1.8; }
+    .stats { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); margin-top:26px; }
+    .stat { padding:18px; border-radius:18px; background:var(--surface); border:1px solid var(--line); }
+    .stat strong { display:block; margin-bottom:6px; font-size:1.45rem; } .stat span { color:var(--muted); font-size:.92rem; line-height:1.6; }
+    .hero-image,.roadmap-image { overflow:hidden; min-height:240px; border-radius:18px; border:1px solid var(--line); }
+    .hero-image img,.roadmap-image img { display:block; width:100%; height:100%; object-fit:cover; }
+    .mini-note { padding:18px; border-radius:18px; background:var(--surface); border:1px solid var(--line); }
+    .section-head { display:flex; justify-content:space-between; align-items:end; gap:16px; margin:34px 0 18px; }
+    .section-head h2 { margin:0; font-size:clamp(1.5rem,2.8vw,2.35rem); letter-spacing:-.03em; }
+    .timeline,.resources-grid,.doc-grid,.doc-list { display:grid; gap:16px; }
+    .phase-top,.resource-head,.doc-toolbar { display:flex; justify-content:space-between; align-items:start; gap:16px; }
+    .phase-label { color:var(--primary); text-transform:uppercase; letter-spacing:.14em; font-size:.76rem; font-weight:800; }
+    .phase-card h3,.resource-card h3 { margin:10px 0; font-size:1.45rem; }
+    .phase-pill { color:var(--accent); text-transform:uppercase; letter-spacing:.14em; }
+    .chip-row { margin-top:18px; padding-top:18px; border-top:1px solid var(--line); }
+    .chip { padding:10px 14px; min-height:auto; border-radius:999px; font-size:.92rem; font-weight:700; }
+    .upgrade-banner { display:grid; grid-template-columns:minmax(0,1fr) auto; gap:18px; align-items:center; margin-bottom:18px; }
+    .lock-region { position:relative; }
+    .lock-region.locked .lock-content { filter:blur(10px); opacity:.42; pointer-events:none; user-select:none; }
+    .lock-overlay { display:none; }
+    .lock-region.locked .lock-overlay { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; padding:26px; background:linear-gradient(180deg, transparent 0%, var(--overlay) 25%, var(--overlay) 100%); }
+    .lock-panel { width:min(560px, 100%); text-align:center; border-radius:22px; background:var(--panel); border:1px solid var(--line); }
+    .lock-badge { display:inline-flex; align-items:center; gap:8px; padding:8px 12px; border-radius:999px; background:rgba(255,79,154,.12); color:var(--accent); font-size:.76rem; font-weight:800; text-transform:uppercase; letter-spacing:.14em; }
+    .resources-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+    .resource-link { display:grid; grid-template-columns:auto 1fr auto; gap:12px; align-items:center; padding:14px 15px; border-radius:16px; background:var(--surface); border:1px solid var(--line); }
+    .resource-link i:first-child { color:var(--primary); } .resource-meta strong { display:block; margin-bottom:4px; font-size:.96rem; } .resource-meta span,.doc-card span,.doc-title span { color:var(--muted); font-size:.85rem; line-height:1.6; }
+    .doc-grid { display:grid; grid-template-columns:minmax(280px,.36fr) minmax(0,.64fr); gap:16px; }
+    .doc-select { width:100%; padding:0 14px; color:var(--text); outline:none; }
+    .doc-card { width:100%; padding:16px; text-align:left; cursor:pointer; border-radius:16px; border:1px solid var(--line); background:var(--surface); color:var(--text); transition:transform .2s ease,border-color .2s ease,background .2s ease; }
+    .doc-card:hover,.doc-card.active { transform:translateY(-1px); border-color:rgba(116,234,217,.42); background:rgba(255,255,255,.06); }
+    .doc-toolbar { margin-bottom:14px; padding:14px; border-radius:18px; background:var(--surface); border:1px solid var(--line); }
+    .doc-title strong { display:block; margin-bottom:4px; }
+    .frame-wrap { overflow:hidden; border-radius:20px; border:1px solid var(--line); background:var(--surface); }
+    .doc-frame { width:100%; height:760px; border:0; display:block; background:#fff; }
+    .toast { position:fixed; right:18px; bottom:18px; z-index:80; display:none; max-width:min(400px, calc(100% - 36px)); padding:14px 16px; border-radius:14px; background:var(--panel); border:1px solid var(--line); box-shadow:var(--shadow); font-weight:700; }
+    .toast.show { display:block; }
+    @media (max-width:1024px) { .hero,.resources-grid,.doc-grid,.upgrade-banner { grid-template-columns:1fr; } .stats { grid-template-columns:1fr; } }
+    @media (max-width:780px) { .page { width:min(100% - 20px, 1220px); } .section-head,.phase-top,.resource-head,.doc-toolbar { flex-direction:column; align-items:stretch; } .doc-frame { height:620px; } }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="card topbar">
+      <a class="brand" href="index.html"><span class="brand-mark" style="background:linear-gradient(135deg,#ff4597,#ff7eb3);color:#fff;box-shadow:0 4px 12px rgba(255,69,151,.3);"><i class="fas fa-database"></i></span><span>SkillStack <span style="color:var(--accent);">SQL</span></span></a>
+      <div class="top-actions">
+        <span id="userStatus" class="status-chip"><i class="fas fa-user-shield"></i> Checking access</span>
+        <button id="themeToggle" class="theme-toggle" type="button"><i class="fas fa-sun"></i> Light mode</button>
+        <a class="btn" href="profile.html"><i class="fas fa-id-badge"></i> Profile</a>
+        <a class="btn btn-primary" href="sql-journey/"><i class="fas fa-diagram-project"></i> Complete Roadmap</a>
+      </div>
+    </header>
+
+    <section class="hero">
+      <article class="card hero-copy">
+        <span class="eyebrow"><i class="fas fa-road"></i> End-to-end SQL path</span>
+        <h1>Learn SQL from first query to production-ready systems.</h1>
+        <p class="lead">Follow the roadmap level by level, unlock premium learning resources and reference PDFs, and move into the full interactive SQL journey whenever you want a visual node-by-node experience.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="sql-journey/"><i class="fas fa-sparkles"></i> Open Complete Roadmap</a>
+          <a class="btn" href="sql-pdf.html"><i class="fas fa-file-pdf"></i> PDF Workspace</a>
+          <a class="btn" href="#resources"><i class="fas fa-book-open"></i> Learning Resources</a>
+        </div>
+        <div class="stats">
+          <div class="stat"><strong>6 Levels</strong><span>From fundamentals to scale and performance.</span></div>
+          <div class="stat"><strong>Premium Docs</strong><span>Read uploaded Google Drive PDFs directly inside SkillStack.</span></div>
+          <div class="stat"><strong>Interactive Flow</strong><span>Jump into the full SQL journey and continue visually.</span></div>
+        </div>
+      </article>
+      <aside class="card hero-visual">
+        <div class="hero-image"><img src="https://scaler-blog-prod-wp-content.s3.ap-south-1.amazonaws.com/wp-content/uploads/2025/11/25231134/20251125_2309_Minimalist-SQL-Roadmap_simple_compose_01kay1f6acf7yby07a43k872f8-860x573.webp" alt="SQL roadmap cover"></div>
+        <div class="mini-note"><strong>Premium learning repository</strong><p>The roadmap stays visible for everyone. The full repository and embedded references unlock automatically for premium members.</p></div>
+        <div class="roadmap-image"><img src="https://miro.medium.com/v2/resize:fit:1100/format:webp/1*8Z3klT8jhJUhCQkdpHA5QQ.png" alt="SQL roadmap visual"></div>
+      </aside>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <div><h2>Roadmap Flow</h2><p>Move phase by phase. Each level unlocks the next set of SQL skills and production database concepts.</p></div>
+        <a class="btn btn-primary" href="sql-journey/"><i class="fas fa-arrow-right"></i> Complete Roadmap</a>
+      </div>
+      <div class="timeline">
+        <article class="card phase-card"><div class="phase-top"><div><div class="phase-label">Level 0</div><h3>Query Fundamentals</h3><p>Start with the core commands required to read and filter relational data.</p></div><div class="phase-pill">Foundation</div></div><div class="chip-row"><span class="chip">SELECT</span><span class="chip">FROM</span><span class="chip">WHERE</span><span class="chip">GROUP BY</span><span class="chip">LIMIT</span><span class="chip">TOP</span><span class="chip">ORDER BY</span></div></article>
+        <article class="card phase-card"><div class="phase-top"><div><div class="phase-label">Level 1</div><h3>Set Logic and Joins</h3><p>Combine tables and compare result sets using joins, filters, and set operations.</p></div><div class="phase-pill">Core SQL</div></div><div class="chip-row"><span class="chip">JOIN</span><span class="chip">HAVING</span><span class="chip">UNION</span><span class="chip">INTERSECT</span><span class="chip">EXCEPT</span></div></article>
+        <article class="card phase-card"><div class="phase-top"><div><div class="phase-label">Level 2</div><h3>Advanced Query Patterns</h3><p>Handle real analytics questions with conditions, CTEs, temporary tables, and pivots.</p></div><div class="phase-pill">Analytics</div></div><div class="chip-row"><span class="chip">WINDOW</span><span class="chip">CASE WHEN</span><span class="chip">LIKE</span><span class="chip">IN</span><span class="chip">CTE</span><span class="chip">TEMP TABLE</span><span class="chip">PIVOT</span></div></article>
+        <article class="card phase-card"><div class="phase-top"><div><div class="phase-label">Level 3</div><h3>Database Objects and Design</h3><p>Move from query writing into reusable database objects, constraints, indexes, and design rules.</p></div><div class="phase-pill">Design</div></div><div class="chip-row"><span class="chip">Views</span><span class="chip">Stored Procedures</span><span class="chip">Functions</span><span class="chip">Triggers</span><span class="chip">Cursors</span><span class="chip">Index</span><span class="chip">Constraints</span><span class="chip">Normalization</span></div></article>
+        <article class="card phase-card"><div class="phase-top"><div><div class="phase-label">Level 4</div><h3>Production Database Concepts</h3><p>Learn how production databases evolve, replicate, audit changes, and support scale.</p></div><div class="phase-pill">Systems</div></div><div class="chip-row"><span class="chip">Replication</span><span class="chip">Sharding</span><span class="chip">WAL</span><span class="chip">Triggers</span><span class="chip">Materialized Views</span><span class="chip">CDC</span><span class="chip">SCD</span></div></article>
+        <article class="card phase-card"><div class="phase-top"><div><div class="phase-label">Level 5</div><h3>Scale and Performance</h3><p>Finish with application-facing performance ideas used in real systems.</p></div><div class="phase-pill">Performance</div></div><div class="chip-row"><span class="chip">Caching</span><span class="chip">Connection Pooling</span></div></article>
+      </div>
+    </section>
+
+    <section id="resources">
+      <div class="section-head"><div><h2>Learning Resources Repository</h2><p>Curated portals, books, playlists, practice sites, tools, and references. Premium users see everything clearly. Free users get the blurred premium preview.</p></div></div>
+      <div id="upgradeBanner" class="card upgrade-banner"><div><h3>Premium repository access</h3><p id="upgradeCopy" class="lead">Unlock the full SQL repository and embedded reference PDFs directly inside SkillStack.</p></div><div id="upgradeActions" class="lock-actions"></div></div>
+      <div id="resourceLock" class="lock-region locked">
+        <div id="resourcesGrid" class="lock-content resources-grid"></div>
+        <div class="lock-overlay"><div class="lock-panel"><div class="lock-badge"><i class="fas fa-lock"></i> Premium Required</div><h3>Learning resources are locked for free users.</h3><p id="resourceLockCopy">Upgrade to premium to access the complete SQL learning repository from the top of this section to the end.</p><div id="resourceLockActions" class="lock-actions" style="justify-content:center; margin-top:18px;"></div></div></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head"><div><h2>Reference Document</h2><p>Choose any uploaded Drive PDF and read it directly inside SkillStack. Premium users can view and download. Free users get the blurred premium preview.</p></div></div>
+      <div id="documentLock" class="lock-region locked">
+        <div class="lock-content doc-grid">
+          <aside class="card doc-pane"><h3>Document Library</h3><p>Switch between your uploaded SQL PDFs from one place.</p><select id="documentSelect" class="doc-select" aria-label="Choose SQL reference document"></select><div id="documentList" class="doc-list"></div></aside>
+          <section class="card doc-pane"><div class="doc-toolbar"><div class="doc-title"><strong id="documentTitle">Loading document</strong><span id="documentDescription">Reference PDF preview</span></div><div class="doc-actions"><a id="viewDriveBtn" class="btn" href="#" target="_blank" rel="noopener"><i class="fas fa-up-right-from-square"></i> Open in Drive</a><a id="downloadBtn" class="btn btn-primary" href="#" target="_blank" rel="noopener"><i class="fas fa-download"></i> Download</a></div></div><div class="frame-wrap"><iframe id="documentFrame" class="doc-frame" src="" title="SQL reference PDF"></iframe></div></section>
+        </div>
+        <div class="lock-overlay"><div class="lock-panel"><div class="lock-badge"><i class="fas fa-file-shield"></i> Premium Reference PDFs</div><h3>Reference documents are locked for free users.</h3><p id="documentLockCopy">Upgrade to premium to read and download your uploaded SQL PDFs inside SkillStack.</p><div id="documentLockActions" class="lock-actions" style="justify-content:center; margin-top:18px;"></div></div></div>
+      </div>
+    </section>
+  </main>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script type="module">
+    import { initAuthStateListener } from "./js/auth.js";
+    import { requestPremiumAccess } from "./js/db.js";
+    import { SQL_REFERENCE_DOCUMENTS } from "./js/roadmap-references.js";
+
+    const collections = [
+      { title: "Learning Portals", icon: "fa-laptop-code", description: "Interactive SQL lessons and guided tutorials.", items: [
+        ["SQLBolt", "Free interactive SQL lessons and practice queries.", "https://sqlbolt.com/"],
+        ["Mode SQL Tutorial", "Practical SQL concepts for analysis and exploration.", "https://mode.com/sql-tutorial/"],
+        ["SQLZoo", "Tutorials and exercises for beginners and working learners.", "https://sqlzoo.net/"],
+        ["PopSQL", "Collaborative SQL querying and shared query libraries.", "https://popsql.com/"]
+      ]},
+      { title: "Books", icon: "fa-book", description: "Strong references for fundamentals and better query habits.", items: [
+        ["Learning SQL by Alan Beaulieu", "Well-known SQL book with solid progression.", "https://www.oreilly.com/library/view/learning-sql-3rd/9781492057604/"],
+        ["A Visual Introduction to SQL", "Helpful for visual and example-driven learners.", "https://nostarch.com/learnsql"],
+        ["SQL Antipatterns", "Learn the common mistakes that weaken databases.", "https://pragprog.com/titles/bksap1/sql-antipatterns/"]
+      ]},
+      { title: "YouTube Playlists", icon: "fa-circle-play", description: "Video-first SQL practice, revision, and interview prep.", items: [
+        ["Kudvenkat SQL Playlist", "Beginner-friendly SQL lessons.", "https://www.youtube.com/playlist?list=PL08903FB7ACA1C2FB"],
+        ["techTFQ", "Advanced SQL problem solving and interview-style walkthroughs.", "https://www.youtube.com/c/techTFQ"],
+        ["freeCodeCamp SQL Tutorial", "Long-form SQL tutorial for concept coverage.", "https://www.youtube.com/watch?v=HXV3zeQKqGY"],
+        ["Ankit Bansal SQL", "Interview-oriented SQL patterns and practice.", "https://www.youtube.com/@ankitbansal6"]
+      ]},
+      { title: "Best Sites for SQL Guides", icon: "fa-compass-drafting", description: "Trusted references for production SQL and tuning.", items: [
+        ["SQL Server Central", "SQL Server articles and practical references.", "https://www.sqlservercentral.com/"],
+        ["MS SQL Tips", "Real-world tips and troubleshooting guidance.", "https://www.mssqltips.com/"],
+        ["Brent Ozar", "Performance tuning and indexing advice.", "https://www.brentozar.com/"],
+        ["Scary DBA", "Database administration and query tuning content.", "https://www.scarydba.com/"],
+        ["Kendra Little", "Indexes, execution plans, and performance material.", "https://kendralittle.com/"],
+        ["Erik Darling", "Practical SQL Server tuning guidance.", "https://erikdarling.com/blog/"]
+      ]},
+      { title: "Practice Platforms", icon: "fa-dumbbell", description: "Hands-on query practice for placements and analytics.", items: [
+        ["SQLZoo", "Beginner-friendly structured SQL exercises.", "https://sqlzoo.net/"],
+        ["SQLFiddle", "Online sandbox for testing SQL queries.", "http://sqlfiddle.com/"],
+        ["SQLBolt", "Interactive practice environment.", "https://sqlbolt.com/"],
+        ["DataLemur", "Interview-style SQL questions for data roles.", "https://datalemur.com/"],
+        ["StrataScratch", "Real-world analytics SQL prompts.", "https://www.stratascratch.com/"],
+        ["LeetCode Database", "Database interview problem set.", "https://leetcode.com/problemset/database/"]
+      ]},
+      { title: "Tools and Reference Docs", icon: "fa-screwdriver-wrench", description: "Visualizers, linters, design tools, and quick references.", items: [
+        ["SQLFlow", "Visualize SQL query lineage.", "https://sqlflow.gudusoft.com/"],
+        ["explain.dalibo.com", "PostgreSQL execution plan visualizer.", "https://explain.dalibo.com/"],
+        ["DrawSQL", "Collaborative database diagram design.", "https://drawsql.app/"],
+        ["DB Fiddle", "Test SQL queries in a quick online environment.", "https://www.db-fiddle.com/"],
+        ["DBVisualizer", "GUI client for multiple databases.", "https://www.dbvis.com/"],
+        ["Liquibase", "Track and manage schema changes.", "https://www.liquibase.com/"],
+        ["SQLFluff", "Configurable SQL linter.", "https://sqlfluff.com/"],
+        ["SQL Style Guide", "Write cleaner, more consistent SQL.", "https://www.sqlstyle.guide/"],
+        ["SQL Cheat Sheet Repo", "Open-source quick SQL cheat sheet collection.", "https://github.com/enochtangg/quick-SQL-cheatsheet"]
+      ]}
+    ];
+
+    const themeToggle = document.getElementById("themeToggle");
+    const userStatus = document.getElementById("userStatus");
+    const upgradeCopy = document.getElementById("upgradeCopy");
+    const resourcesGrid = document.getElementById("resourcesGrid");
+    const resourceLock = document.getElementById("resourceLock");
+    const documentLock = document.getElementById("documentLock");
+    const resourceLockCopy = document.getElementById("resourceLockCopy");
+    const documentLockCopy = document.getElementById("documentLockCopy");
+    const upgradeActions = document.getElementById("upgradeActions");
+    const resourceLockActions = document.getElementById("resourceLockActions");
+    const documentLockActions = document.getElementById("documentLockActions");
+    const documentSelect = document.getElementById("documentSelect");
+    const documentList = document.getElementById("documentList");
+    const documentTitle = document.getElementById("documentTitle");
+    const documentDescription = document.getElementById("documentDescription");
+    const documentFrame = document.getElementById("documentFrame");
+    const viewDriveBtn = document.getElementById("viewDriveBtn");
+    const downloadBtn = document.getElementById("downloadBtn");
+    const toast = document.getElementById("toast");
+
+    let currentUser = null;
+    let currentProfile = null;
+    let activeDocumentId = SQL_REFERENCE_DOCUMENTS[0]?.id || null;
+
+    function showToast(message) {
+      toast.textContent = message;
+      toast.classList.add("show");
+      clearTimeout(showToast.timer);
+      showToast.timer = setTimeout(() => toast.classList.remove("show"), 3200);
+    }
+
+    function setTheme(theme) {
+      document.documentElement.setAttribute("data-theme", theme);
+      localStorage.setItem("sql-roadmap-theme", theme);
+      themeToggle.innerHTML = theme === "dark" ? '<i class="fas fa-sun"></i> Light mode' : '<i class="fas fa-moon"></i> Dark mode';
+    }
+
+    function initTheme() {
+      const stored = localStorage.getItem("sql-roadmap-theme");
+      const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+      setTheme(stored || (prefersDark ? "dark" : "light"));
+    }
+
+    function makeLink(label, href, primary) {
+      const a = document.createElement("a");
+      a.className = primary ? "btn btn-primary" : "btn";
+      a.href = href;
+      a.innerHTML = primary ? `<i class="fas fa-crown"></i> ${label}` : `<i class="fas fa-id-card"></i> ${label}`;
+      return a;
+    }
+
+    function makeButton(label, icon, handler, primary) {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = primary ? "btn btn-primary" : "btn";
+      button.innerHTML = `<i class="fas ${icon}"></i> ${label}`;
+      button.addEventListener("click", handler);
+      return button;
+    }
+
+    function renderCollections() {
+      resourcesGrid.innerHTML = "";
+      collections.forEach((collection) => {
+        const card = document.createElement("article");
+        card.className = "card resource-card";
+        card.innerHTML = `<div class="resource-head"><div><h3>${collection.title}</h3><p>${collection.description}</p></div><span class="status-chip"><i class="fas ${collection.icon}"></i> Curated</span></div>`;
+        const list = document.createElement("div");
+        list.className = "doc-list";
+        collection.items.forEach(([label, desc, url]) => {
+          const link = document.createElement("a");
+          link.className = "resource-link";
+          link.href = url;
+          link.target = "_blank";
+          link.rel = "noopener noreferrer";
+          link.innerHTML = `<i class="fas fa-arrow-up-right-from-square"></i><div class="resource-meta"><strong>${label}</strong><span>${desc}</span></div><i class="fas fa-chevron-right"></i>`;
+          list.appendChild(link);
+        });
+        card.appendChild(list);
+        resourcesGrid.appendChild(card);
+      });
+    }
+
+    function renderDocs() {
+      documentSelect.innerHTML = "";
+      documentList.innerHTML = "";
+      SQL_REFERENCE_DOCUMENTS.forEach((doc) => {
+        const option = document.createElement("option");
+        option.value = doc.id;
+        option.textContent = doc.title;
+        documentSelect.appendChild(option);
+
+        const card = document.createElement("button");
+        card.type = "button";
+        card.className = "doc-card";
+        card.dataset.docId = doc.id;
+        card.innerHTML = `<strong>${doc.title}</strong><span>${doc.description}</span>`;
+        card.addEventListener("click", () => setActiveDocument(doc.id));
+        documentList.appendChild(card);
+      });
+    }
+
+    function setActiveDocument(id) {
+      const selected = SQL_REFERENCE_DOCUMENTS.find((doc) => doc.id === id) || SQL_REFERENCE_DOCUMENTS[0];
+      if (!selected) return;
+      activeDocumentId = selected.id;
+      documentSelect.value = selected.id;
+      documentTitle.textContent = selected.title;
+      documentDescription.textContent = selected.description;
+      documentFrame.src = selected.viewUrl;
+      viewDriveBtn.href = selected.viewUrl.replace("/preview", "/view");
+      downloadBtn.href = selected.downloadUrl;
+      documentList.querySelectorAll(".doc-card").forEach((card) => card.classList.toggle("active", card.dataset.docId === selected.id));
+    }
+
+    function isPremium(profile) {
+      return Boolean(profile && profile.isPremium);
+    }
+
+    async function requestPremium() {
+      if (!currentUser) {
+        showToast("Please login first to request premium access.");
+        window.location.href = "login.html";
+        return;
+      }
+      try {
+        await requestPremiumAccess(currentUser.uid);
+        localStorage.setItem("premium_requested", "true");
+        showToast("Premium request sent. The admin will review it.");
+        updateMembership(currentUser, { ...(currentProfile || {}), accessStatus: "pending", accessRequested: true, isPremium: false });
+      } catch (error) {
+        showToast("Could not request premium: " + error.message);
+      }
+    }
+
+    function fillActions(container, user, profile, premiumText) {
+      container.innerHTML = "";
+      if (!user) {
+        container.appendChild(makeLink("Login", "login.html", true));
+        container.appendChild(makeLink("Sign Up", "login.html", false));
+        return;
+      }
+      if (profile?.accessStatus === "pending" || profile?.accessRequested || localStorage.getItem("premium_requested")) {
+        const pending = makeButton("Request Pending", "fa-hourglass-half", () => {}, true);
+        pending.disabled = true;
+        pending.style.opacity = ".75";
+        pending.style.cursor = "not-allowed";
+        container.appendChild(pending);
+        container.appendChild(makeLink("Open Profile", "profile.html", false));
+        return;
+      }
+      container.appendChild(makeButton(premiumText, "fa-crown", requestPremium, true));
+      container.appendChild(makeLink("Open Profile", "profile.html", false));
+    }
+
+    function updateMembership(user, profile) {
+      currentUser = user;
+      currentProfile = profile;
+      const premium = isPremium(profile);
+      const pending = Boolean(profile?.accessStatus === "pending" || profile?.accessRequested || localStorage.getItem("premium_requested"));
+      const rejected = profile?.accessStatus === "rejected";
+
+      if (premium) {
+        localStorage.removeItem("premium_requested");
+        userStatus.innerHTML = '<i class="fas fa-crown"></i> Premium unlocked';
+        upgradeCopy.textContent = "You have premium access. Every resource card and reference PDF is fully unlocked.";
+        resourceLockCopy.textContent = "Premium active. The full SQL resource repository is unlocked.";
+        documentLockCopy.textContent = "Premium active. Your uploaded SQL PDFs are unlocked in the embedded viewer.";
+      } else if (!user) {
+        userStatus.innerHTML = '<i class="fas fa-user-lock"></i> Login for premium access';
+        upgradeCopy.textContent = "Login or create an account to request premium and unlock the full SQL repository and reference documents.";
+        resourceLockCopy.textContent = "Login first, then request premium access from your profile to unlock the full repository.";
+        documentLockCopy.textContent = "Login first, then request premium access from your profile to unlock the reference PDFs.";
+      } else if (rejected) {
+        localStorage.removeItem("premium_requested");
+        userStatus.innerHTML = '<i class="fas fa-circle-exclamation"></i> Request rejected';
+        upgradeCopy.textContent = "Your previous request was rejected. You can request premium again from your profile.";
+        resourceLockCopy.textContent = "This repository is still locked for free accounts. Request premium again to unlock it.";
+        documentLockCopy.textContent = "This document area is still locked for free accounts. Request premium again to unlock it.";
+      } else if (pending) {
+        userStatus.innerHTML = '<i class="fas fa-hourglass-half"></i> Request pending';
+        upgradeCopy.textContent = "Your premium request is pending admin review. The repository and PDFs unlock automatically after approval.";
+        resourceLockCopy.textContent = "Your premium request is pending. The repository will unlock after approval.";
+        documentLockCopy.textContent = "Your premium request is pending. The PDF viewer will unlock after approval.";
+      } else {
+        userStatus.innerHTML = '<i class="fas fa-lock"></i> Free plan';
+        upgradeCopy.textContent = "You are on the free plan. Upgrade to premium for the full SQL repository and embedded reference docs.";
+        resourceLockCopy.textContent = "Upgrade to premium to unlock the complete SQL learning repository.";
+        documentLockCopy.textContent = "Upgrade to premium to read and download your uploaded SQL PDFs inside SkillStack.";
+      }
+
+      resourceLock.classList.toggle("locked", !premium);
+      documentLock.classList.toggle("locked", !premium);
+      fillActions(upgradeActions, user, profile, "Request Premium");
+      fillActions(resourceLockActions, user, profile, "Unlock Premium");
+      fillActions(documentLockActions, user, profile, "Unlock PDF Access");
+    }
+
+    themeToggle.addEventListener("click", () => setTheme(document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark"));
+    documentSelect.addEventListener("change", (event) => setActiveDocument(event.target.value));
+
+    initTheme();
+    renderCollections();
+    renderDocs();
+    setActiveDocument(activeDocumentId);
+    initAuthStateListener((user, profile) => updateMembership(user, profile), () => updateMembership(null, null));
+  </script>
+</body>
+</html>

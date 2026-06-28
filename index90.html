@@ -1,0 +1,1263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduLearn - Master Skills Online</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --accent-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --success-gradient: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+            --warning-gradient: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            --dark-gradient: linear-gradient(135deg, #434343 0%, #000000 100%);
+            
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --bg-card: #ffffff;
+            --text-primary: #1a202c;
+            --text-secondary: #718096;
+            --border-color: #e2e8f0;
+            --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: var(--bg-secondary);
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-color);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 0;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.025em;
+        }
+
+        .search-container {
+            flex: 1;
+            max-width: 500px;
+            margin: 0 32px;
+            position: relative;
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 12px 48px 12px 16px;
+            border: 2px solid var(--border-color);
+            border-radius: 50px;
+            font-size: 16px;
+            font-family: inherit;
+            background: var(--bg-card);
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .search-box:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1), var(--shadow-md);
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-secondary);
+            font-size: 20px;
+            pointer-events: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 32px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-primary);
+            font-weight: 500;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 8px 0;
+        }
+
+        .nav-links a:hover {
+            color: #667eea;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background: var(--primary-gradient);
+            transition: width 0.3s ease;
+            border-radius: 1px;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            padding: 8px;
+        }
+
+        .hamburger {
+            width: 24px;
+            height: 2px;
+            background: var(--text-primary);
+            margin: 3px 0;
+            transition: 0.3s;
+            border-radius: 1px;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: var(--primary-gradient);
+            color: white;
+            padding: 140px 0 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><circle cx="800" cy="200" r="300" fill="%23ffffff08"/><circle cx="200" cy="800" r="250" fill="%23ffffff05"/></svg>');
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 8vw, 4.5rem);
+            margin-bottom: 24px;
+            font-weight: 700;
+            letter-spacing: -0.025em;
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards;
+        }
+
+        .hero p {
+            font-size: clamp(1.125rem, 3vw, 1.5rem);
+            margin-bottom: 40px;
+            opacity: 0.9;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.3s forwards;
+        }
+
+        .cta-button {
+            background: var(--secondary-gradient);
+            color: white;
+            padding: 16px 32px;
+            border: none;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: var(--shadow-lg);
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.6s forwards;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        /* Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Learning Sections */
+        .learning-section {
+            padding: 80px 0;
+            margin: 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 64px;
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 5vw, 3rem);
+            margin-bottom: 16px;
+            color: var(--text-primary);
+            font-weight: 700;
+            letter-spacing: -0.025em;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 4px;
+            background: var(--primary-gradient);
+            bottom: -16px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+
+        .section-subtitle {
+            color: var(--text-secondary);
+            font-size: 18px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Cards Container */
+        .cards-container {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cards-wrapper {
+            display: flex;
+            gap: 24px;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            padding: 24px 8px 32px;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .cards-wrapper::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Course Cards */
+        .course-card {
+            min-width: 320px;
+            background: var(--bg-card);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            border: 1px solid var(--border-color);
+        }
+
+        .course-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .card-image {
+            height: 200px;
+            background: var(--primary-gradient);
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(102, 126, 234, 0.9), rgba(118, 75, 162, 0.9));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .course-card:hover .card-overlay {
+            opacity: 1;
+        }
+
+        .play-button {
+            width: 64px;
+            height: 64px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: #667eea;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .play-button:hover {
+            transform: scale(1.1);
+            background: white;
+        }
+
+        .card-content {
+            padding: 24px;
+        }
+
+        .card-title {
+            font-size: 20px;
+            margin-bottom: 12px;
+            color: var(--text-primary);
+            font-weight: 600;
+            line-height: 1.3;
+        }
+
+        .card-description {
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+            line-height: 1.6;
+            font-size: 14px;
+        }
+
+        .card-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .card-level {
+            background: var(--primary-gradient);
+            color: white;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .card-duration {
+            color: var(--text-secondary);
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        /* Navigation Arrows */
+        .nav-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--bg-card);
+            color: var(--text-primary);
+            border: 2px solid var(--border-color);
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 18px;
+            transition: all 0.3s ease;
+            z-index: 10;
+            box-shadow: var(--shadow-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .nav-arrow:hover {
+            background: var(--primary-gradient);
+            color: white;
+            border-color: transparent;
+            transform: translateY(-50%) scale(1.1);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .nav-arrow.prev {
+            left: -24px;
+        }
+
+        .nav-arrow.next {
+            right: -24px;
+        }
+
+        /* Filter Pills */
+        .filter-container {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        .filter-pill {
+            padding: 8px 20px;
+            border: 2px solid var(--border-color);
+            border-radius: 25px;
+            background: var(--bg-card);
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .filter-pill:hover,
+        .filter-pill.active {
+            background: var(--primary-gradient);
+            color: white;
+            border-color: transparent;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .animate-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark-gradient);
+            color: white;
+            text-align: center;
+            padding: 60px 0;
+            margin-top: 80px;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .nav-arrow {
+                display: none;
+            }
+            
+            .search-container {
+                margin: 0 16px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                padding: 0 16px;
+            }
+
+            .search-container {
+                order: 3;
+                margin: 16px 0 0 0;
+                width: 100%;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                flex-direction: column;
+                background: rgba(255, 255, 255, 0.98);
+                width: 100%;
+                padding: 32px;
+                transition: left 0.3s ease;
+                backdrop-filter: blur(20px);
+                border-bottom: 1px solid var(--border-color);
+                gap: 16px;
+            }
+
+            .nav-links.active {
+                left: 0;
+            }
+
+            .mobile-menu {
+                display: flex;
+            }
+
+            nav {
+                flex-wrap: wrap;
+            }
+
+            .hero {
+                padding: 120px 0 60px;
+                min-height: 80vh;
+            }
+
+            .container {
+                padding: 0 16px;
+            }
+
+            .learning-section {
+                padding: 60px 0;
+            }
+
+            .course-card {
+                min-width: 280px;
+            }
+
+            .section-header {
+                margin-bottom: 40px;
+            }
+
+            .cards-wrapper {
+                padding: 16px 8px 24px;
+                gap: 16px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero {
+                padding: 100px 0 40px;
+            }
+
+            .course-card {
+                min-width: 260px;
+            }
+
+            .filter-container {
+                gap: 8px;
+            }
+
+            .filter-pill {
+                padding: 6px 16px;
+                font-size: 13px;
+            }
+        }
+
+        /* Hidden class for filtering */
+        .hidden {
+            display: none !important;
+        }
+
+        /* Loading animation */
+        .loading {
+            opacity: 0.6;
+            pointer-events: none;
+        }
+
+        /* Search results */
+        .no-results {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-secondary);
+        }
+
+        .no-results h3 {
+            font-size: 24px;
+            margin-bottom: 12px;
+            color: var(--text-primary);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <nav>
+                <div class="logo">EduLearn</div>
+                <div class="search-container">
+                    <input type="text" class="search-box" placeholder="Search courses, skills, programming languages..." id="searchInput">
+                    <span class="search-icon">🔍</span>
+                </div>
+                <ul class="nav-links" id="nav-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#aptitude">Aptitude</a></li>
+                    <li><a href="#programming">Programming</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+                <div class="mobile-menu" id="mobile-menu">
+                    <div class="hamburger"></div>
+                    <div class="hamburger"></div>
+                    <div class="hamburger"></div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>Master Skills with EduLearn</h1>
+            <p>Enhance your aptitude and programming skills with our comprehensive, interactive courses designed for modern learners</p>
+            <a href="#aptitude" class="cta-button">Start Learning Today</a>
+        </div>
+    </section>
+
+    <div class="container">
+        <!-- Aptitude Section -->
+        <section class="learning-section animate-on-scroll" id="aptitude">
+            <div class="section-header">
+                <h2 class="section-title">Aptitude Skills</h2>
+                <p class="section-subtitle">Build strong analytical and reasoning skills with our comprehensive aptitude courses</p>
+            </div>
+            
+            <div class="filter-container">
+                <div class="filter-pill active" data-filter="all">All Levels</div>
+                <div class="filter-pill" data-filter="beginner">Beginner</div>
+                <div class="filter-pill" data-filter="intermediate">Intermediate</div>
+                <div class="filter-pill" data-filter="advanced">Advanced</div>
+            </div>
+
+            <div class="cards-container">
+                <button class="nav-arrow prev" onclick="scrollCards('aptitude-cards', -1)">‹</button>
+                <div class="cards-wrapper" id="aptitude-cards">
+                    <div class="course-card" data-level="beginner" data-keywords="logical reasoning puzzles patterns analytical thinking">
+<div class="card-image" style="background-image: url('images/visual_reasoning_thumbnail_2x.webp');">
+
+                            <div class="card-overlay">
+                                <div class="play-button">▶</div>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title">Logical Reasoning</h3>
+                            <p class="card-description">Master logical reasoning with puzzles, patterns, and analytical thinking exercises designed to boost your problem-solving skills.</p>
+                            <div class="card-meta">
+                                <span class="card-level">Beginner</span>
+                                <span class="card-duration">2 hours</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="course-card" data-level="intermediate" data-keywords="quantitative aptitude mathematics algebra geometry arithmetic">
+                        <div class="card-image" style="background-image: url('/elerning/images/aptitude/logical_thumbnail-_2x.webp');">
+                            <div class="card-overlay">
+                                <div class="play-button">▶</div>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title">Quantitative Aptitude</h3>
+                            <p class="card-description">Strengthen your mathematical foundation with comprehensive coverage of algebra, geometry, and advanced arithmetic concepts.</p>
+                            <div class="card-meta">
+                                <span class="card-level">Intermediate</span>
+                                <span class="card-duration">3 hours</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="course-card" data-level="advanced" data-keywords="verbal reasoning comprehension vocabulary language analytical">
+                        <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=200&fit=crop');">
+                            <div class="card-overlay">
+                                <div class="play-button">▶</div>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title">Verbal Reasoning</h3>
+                            <p class="card-description">Enhance your comprehension, vocabulary, and language analytical skills through structured exercises and real-world applications.</p>
+                            <div class="card-meta">
+                                <span class="card-level">Advanced</span>
+                                <span class="card-duration">2.5 hours</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="course-card" data-level="intermediate" data-keywords="data interpretation charts graphs statistics analysis">
+                        <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=200&fit=crop');">
+                            <div class="card-overlay">
+                                <div class="play-button">▶</div>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title">Data Interpretation</h3>
+                            <p class="card-description">Master the art of analyzing charts, graphs, and statistical data to make informed decisions and draw meaningful insights.</p>
+                            <div class="card-meta">
+                                <span class="card-level">Intermediate</span>
+                                <span class="card-duration">4 hours</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="course-card" data-level="advanced" data-keywords="abstract reasoning pattern recognition thinking capabilities">
+                        <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=400&h=200&fit=crop');">
+                            <div class="card-overlay">
+                                <div class="play-button">▶</div>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title">Abstract Reasoning</h3>
+                            <p class="card-description">Develop advanced pattern recognition and abstract thinking capabilities through challenging exercises and innovative problem-solving techniques.</p>
+                            <div class="card-meta">
+                                <span class="card-level">Advanced</span>
+                                <span class="card-duration">3.5 hours</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="nav-arrow next" onclick="scrollCards('aptitude-cards', 1)">›</button>
+            </div>
+        </section>
+
+        <!-- Programming Languages Section -->
+        <section class="learning-section animate-on-scroll" id="programming">
+            <div class="section-header">
+                <h2 class="section-title">Programming Languages</h2>
+                <p class="section-subtitle">Learn cutting-edge programming languages and build real-world applications with hands-on projects</p>
+            </div>
+            
+            <div class="filter-container">
+                <div class="filter-pill active" data-filter="all">All Levels</div>
+                <div class="filter-pill" data-filter="beginner">Beginner</div>
+                <div class="filter-pill" data-filter="intermediate">Intermediate</div>
+                <div class="filter-pill" data-filter="advanced">Advanced</div>
+            </div>
+
+            <div class="cards-container">
+                <button class="nav-arrow prev" onclick="scrollCards('programming-cards', -1)">‹</button>
+                <div class="cards-wrapper" id="programming-cards">
+                    <div class="course-card" data-level="beginner" data-keywords="javascript fundamentals dom manipulation web development">
+                        <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=400&h=200&fit=crop');">
+                            <div class="card-overlay">
+                                <div class="play-button">▶</div>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title">JavaScript Fundamentals</h3>
+                            <p class="card-description">Master modern JavaScript from the ground up with ES6+ features, DOM manipulation, and interactive web development techniques.</p>
+                            <div class="card-meta">
+                                <span class="card-level">Beginner</span>
+                                <span class="card-duration">8 hours</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="course-card" data-level="beginner" data-keywords="python programming projects applications data science">
+                        <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=400&h=200&fit=crop');">
+                            <div class="card-overlay">
+                                <div class="play-button">▶</div>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title">Python Programming</h3>
+                            <p class="card-description">Learn Python programming through hands-on projects covering data analysis, automation, and real-world application development.</p>
+                            <div class="card-meta">
+                                <span class="card-level">Beginner</span>
+                                <span class="card-duration">10 hours</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="course-card" data-level="intermediate" data-keywords="react development hooks state management components">
+                        <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?w=400&h=200&fit=crop');">
+                            <div class="card-overlay">
+                                <div class="play-button">▶</div>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title">React Development</h3>
+                            <p class="card-description">Build dynamic, responsive web applications using React hooks, advanced state management, and modern component architecture.</p>
+                            <div class="card-meta">
+                                <span class="card-level">Intermediate</span>
+                                <span class="card-duration">12 hours</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="course-card" data-level="intermediate" data-keywords="java programming object oriented enterprise applications">
+                        <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=400&h=200&fit=crop');">
+                            <div class="card-overlay">
+                                <div class="play-button">▶</div>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title">Java Programming</h3>
+                            <p class="card-description">Master object-oriented programming principles with Java and build scalable enterprise applications using industry best practices.</p>
+                            <div class="card-meta">
+                                <span class="card-level">Intermediate</span>
+                                <span class="card-duration">15 hours</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="course-card" data-level="advanced" data-keywords="nodejs backend express databases api development">
+                        <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1649972904349-6e44c42644a7?w=400&h=200&fit=crop');">
+                            <div class="card-overlay">
+                                <div class="play-button">▶</div>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title">Node.js Backend</h3>
+                            <p class="card-description">Create powerful, scalable backend applications with Node.js, Express framework, and modern database integration techniques.</p>
+                            <div class="card-meta">
+                                <span class="card-level">Advanced</span>
+                                <span class="card-duration">18 hours</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="course-card" data-level="advanced" data-keywords="cpp fundamentals memory management system programming">
+                        <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=400&h=200&fit=crop');">
+                            <div class="card-overlay">
+                                <div class="play-button">▶</div>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title">C++ Fundamentals</h3>
+                            <p class="card-description">Master C++ programming with advanced memory management, system programming concepts, and high-performance application development.</p>
+                            <div class="card-meta">
+                                <span class="card-level">Advanced</span>
+                                <span class="card-duration">14 hours</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="nav-arrow next" onclick="scrollCards('programming-cards', 1)">›</button>
+            </div>
+        </section>
+    </div>
+
+    <!-- Programming Languages Section -->
+        <section class="learning-section animate-on-scroll" id="programming">
+            <div class="section-header">
+                <h2 class="section-title">Programming Languages</h2>
+                <p class="section-subtitle">Learn cutting-edge programming languages and build real-world applications with hands-on projects</p>
+            </div>
+            
+            <div class="filter-container">
+                <div class="filter-pill active" data-filter="all">All Levels</div>
+                <div class="filter-pill" data-filter="beginner">Beginner</div>
+                <div class="filter-pill" data-filter="intermediate">Intermediate</div>
+                <div class="filter-pill" data-filter="advanced">Advanced</div>
+            </div>
+
+            <div class="cards-container">
+                <button class="nav-arrow prev" onclick="scrollCards('programming-cards', -1)">‹</button>
+                <div class="cards-wrapper" id="programming-cards">
+                    <div class="course-card" data-level="beginner" data-keywords="javascript fundamentals dom manipulation web development">
+                        <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=400&h=200&fit=crop');">
+                            <div class="card-overlay">
+                                <div class="play-button">▶</div>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title">JavaScript Fundamentals</h3>
+                            <p class="card-description">Master modern JavaScript from the ground up with ES6+ features, DOM manipulation, and interactive web development techniques.</p>
+                            <div class="card-meta">
+                                <span class="card-level">Beginner</span>
+                                <span class="card-duration">8 hours</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="course-card" data-level="beginner" data-keywords="python programming projects applications data science">
+                        <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=400&h=200&fit=crop');">
+                            <div class="card-overlay">
+                                <div class="play-button">▶</div>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title">Python Programming</h3>
+                            <p class="card-description">Learn Python programming through hands-on projects covering data analysis, automation, and real-world application development.</p>
+                            <div class="card-meta">
+                                <span class="card-level">Beginner</span>
+                                <span class="card-duration">10 hours</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="course-card" data-level="intermediate" data-keywords="react development hooks state management components">
+                        <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?w=400&h=200&fit=crop');">
+                            <div class="card-overlay">
+                                <div class="play-button">▶</div>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title">React Development</h3>
+                            <p class="card-description">Build dynamic, responsive web applications using React hooks, advanced state management, and modern component architecture.</p>
+                            <div class="card-meta">
+                                <span class="card-level">Intermediate</span>
+                                <span class="card-duration">12 hours</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="course-card" data-level="intermediate" data-keywords="java programming object oriented enterprise applications">
+                        <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=400&h=200&fit=crop');">
+                            <div class="card-overlay">
+                                <div class="play-button">▶</div>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title">Java Programming</h3>
+                            <p class="card-description">Master object-oriented programming principles with Java and build scalable enterprise applications using industry best practices.</p>
+                            <div class="card-meta">
+                                <span class="card-level">Intermediate</span>
+                                <span class="card-duration">15 hours</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="course-card" data-level="advanced" data-keywords="nodejs backend express databases api development">
+                        <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1649972904349-6e44c42644a7?w=400&h=200&fit=crop');">
+                            <div class="card-overlay">
+                                <div class="play-button">▶</div>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title">Node.js Backend</h3>
+                            <p class="card-description">Create powerful, scalable backend applications with Node.js, Express framework, and modern database integration techniques.</p>
+                            <div class="card-meta">
+                                <span class="card-level">Advanced</span>
+                                <span class="card-duration">18 hours</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="course-card" data-level="advanced" data-keywords="cpp fundamentals memory management system programming">
+                        <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=400&h=200&fit=crop');">
+                            <div class="card-overlay">
+                                <div class="play-button">▶</div>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title">C++ Fundamentals</h3>
+                            <p class="card-description">Master C++ programming with advanced memory management, system programming concepts, and high-performance application development.</p>
+                            <div class="card-meta">
+                                <span class="card-level">Advanced</span>
+                                <span class="card-duration">14 hours</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="nav-arrow next" onclick="scrollCards('programming-cards', 1)">›</button>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2024 EduLearn. All rights reserved. | Empowering minds through quality education and innovative learning experiences.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navLinks = document.getElementById('nav-links');
+
+        mobileMenu.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // Animate elements on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.animate-on-scroll').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Horizontal scroll function for cards
+        function scrollCards(containerId, direction) {
+            const container = document.getElementById(containerId);
+            const scrollAmount = 344; // Card width + gap
+            const currentScroll = container.scrollLeft;
+            const targetScroll = currentScroll + (direction * scrollAmount);
+            
+            container.scrollTo({
+                left: targetScroll,
+                behavior: 'smooth'
+            });
+        }
+
+        // Search functionality
+        const searchInput = document.getElementById('searchInput');
+        let searchTimeout;
+
+        searchInput.addEventListener('input', function() {
+            clearTimeout(searchTimeout);
+            searchTimeout = setTimeout(() => {
+                performSearch(this.value.toLowerCase());
+            }, 300);
+        });
+
+        function performSearch(query) {
+            const allCards = document.querySelectorAll('.course-card');
+            let visibleCount = 0;
+
+            allCards.forEach(card => {
+                const title = card.querySelector('.card-title').textContent.toLowerCase();
+                const description = card.querySelector('.card-description').textContent.toLowerCase();
+                const keywords = card.getAttribute('data-keywords') || '';
+                
+                const isMatch = !query || 
+                    title.includes(query) || 
+                    description.includes(query) || 
+                    keywords.includes(query);
+
+                if (isMatch) {
+                    card.classList.remove('hidden');
+                    visibleCount++;
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
+
+            // Show/hide no results message
+            updateNoResultsMessage(visibleCount, query);
+        }
+
+        function updateNoResultsMessage(visibleCount, query) {
+            // Remove existing no-results messages
+            document.querySelectorAll('.no-results').forEach(el => el.remove());
+
+            if (visibleCount === 0 && query) {
+                ['aptitude-cards', 'programming-cards'].forEach(containerId => {
+                    const container = document.getElementById(containerId);
+                    const noResults = document.createElement('div');
+                    noResults.className = 'no-results';
+                    noResults.innerHTML = `
+                        <h3>No courses found</h3>
+                        <p>Try searching with different keywords or browse all courses.</p>
+                    `;
+                    container.appendChild(noResults);
+                });
+            }
+        }
+
+        // Filter functionality
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('filter-pill')) {
+                const section = e.target.closest('.learning-section');
+                const pills = section.querySelectorAll('.filter-pill');
+                const cards = section.querySelectorAll('.course-card');
+                const filter = e.target.getAttribute('data-filter');
+
+                // Update active pill
+                pills.forEach(pill => pill.classList.remove('active'));
+                e.target.classList.add('active');
+
+                // Filter cards
+                cards.forEach(card => {
+                    const cardLevel = card.getAttribute('data-level');
+                    if (filter === 'all' || cardLevel === filter) {
+                        card.classList.remove('hidden');
+                    } else {
+                        card.classList.add('hidden');
+                    }
+                });
+            }
+        });
+
+        // Touch/swipe support for mobile
+        let startX = 0;
+        let scrollLeft = 0;
+        let isDown = false;
+
+        document.querySelectorAll('.cards-wrapper').forEach(container => {
+            // Mouse events
+            container.addEventListener('mousedown', (e) => {
+                isDown = true;
+                startX = e.pageX - container.offsetLeft;
+                scrollLeft = container.scrollLeft;
+                container.style.cursor = 'grabbing';
+            });
+
+            container.addEventListener('mouseleave', () => {
+                isDown = false;
+                container.style.cursor = 'grab';
+            });
+
+            container.addEventListener('mouseup', () => {
+                isDown = false;
+                container.style.cursor = 'grab';
+            });
+
+            container.addEventListener('mousemove', (e) => {
+                if (!isDown) return;
+                e.preventDefault();
+                const x = e.pageX - container.offsetLeft;
+                const walk = (x - startX) * 2;
+                container.scrollLeft = scrollLeft - walk;
+            });
+
+            // Touch events
+            container.addEventListener('touchstart', (e) => {
+                startX = e.touches[0].pageX - container.offsetLeft;
+                scrollLeft = container.scrollLeft;
+            });
+
+            container.addEventListener('touchmove', (e) => {
+                const x = e.touches[0].pageX - container.offsetLeft;
+                const walk = (x - startX) * 2;
+                container.scrollLeft = scrollLeft - walk;
+            });
+
+            container.style.cursor = 'grab';
+        });
+
+        // Header scroll effect
+        let lastScrollY = window.scrollY;
+        
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            const currentScrollY = window.scrollY;
+            
+            if (currentScrollY > 100) {
+                header.style.background = 'rgba(255, 255, 255, 0.98)';
+                header.style.boxShadow = '0 8px 32px rgba(0,0,0,0.12)';
+            } else {
+                header.style.background = 'rgba(255, 255, 255, 0.95)';
+                header.style.boxShadow = '0 2px 20px rgba(0,0,0,0.08)';
+            }
+
+            // Hide/show header on scroll
+            if (currentScrollY > lastScrollY && currentScrollY > 200) {
+                header.style.transform = 'translateY(-100%)';
+            } else {
+                header.style.transform = 'translateY(0)';
+            }
+            
+            lastScrollY = currentScrollY;
+        });
+
+        // Loading animation
+        window.addEventListener('load', () => {
+            document.body.style.opacity = '1';
+        });
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            if (e.key === '/' && !e.target.matches('input, textarea')) {
+                e.preventDefault();
+                searchInput.focus();
+            }
+            
+            if (e.key === 'Escape') {
+                searchInput.blur();
+                searchInput.value = '';
+                performSearch('');
+            }
+        });
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            // Add focus indicator for search
+            searchInput.addEventListener('focus', () => {
+                searchInput.parentElement.style.transform = 'scale(1.02)';
+            });
+            
+            searchInput.addEventListener('blur', () => {
+                searchInput.parentElement.style.transform = 'scale(1)';
+            });
+
+            // Add loading states
+            document.querySelectorAll('.course-card').forEach(card => {
+                card.addEventListener('click', () => {
+                    card.classList.add('loading');
+                    setTimeout(() => {
+                        card.classList.remove('loading');
+                    }, 1000);
+                });
+            });
+        });
+    </script>
+</body>
+</html>

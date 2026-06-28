@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Offline — SkillStack</title>
+    <meta name="theme-color" content="#ff4597">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="/css/skillstack.css">
+    <style>
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            text-align: center;
+        }
+        .offline-card {
+            max-width: 420px;
+            padding: 40px 32px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            background: var(--surface);
+            box-shadow: var(--shadow-md);
+        }
+        .offline-icon {
+            width: 64px;
+            height: 64px;
+            margin: 0 auto 20px;
+            border-radius: var(--radius-md);
+            background: var(--brand-soft);
+            color: var(--brand);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+        h1 { margin: 0 0 12px; font-size: 1.5rem; }
+        p { margin: 0 0 24px; color: var(--ink-muted); line-height: 1.6; }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="offline-card">
+        <div class="offline-icon"><i class="fas fa-wifi"></i></div>
+        <h1>You're offline</h1>
+        <p>Check your internet connection, then reload SkillStack to continue learning.</p>
+        <a href="/index.html" class="btn btn-primary"><i class="fas fa-rotate-right"></i> Try again</a>
+    </div>
+</body>
+</html>

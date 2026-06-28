@@ -1,0 +1,39 @@
+{
+  "name": "SkillStack — Learning Platform",
+  "short_name": "SkillStack",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#0f172a",
+  "theme_color": "#ff4597",
+  "description": "Placement-ready learning hub for aptitude, programming, SQL, resume prep, and company interview preparation.",
+  "lang": "en-US",
+  "dir": "ltr",
+  "categories": ["education", "learning"],
+  "icons": [
+    {
+      "src": "favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Explore Topics",
+      "url": "./index.html#course-section",
+      "description": "Browse all learning tracks"
+    },
+    {
+      "name": "SQL Roadmap",
+      "url": "./sql-roadmap.html",
+      "description": "Interactive SQL learning path"
+    },
+    {
+      "name": "Profile",
+      "url": "./profile.html",
+      "description": "Your learning dashboard"
+    }
+  ]
+}

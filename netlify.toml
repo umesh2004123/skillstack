@@ -1,0 +1,45 @@
+[build]
+  publish = "."
+  command = "echo 'Static site — no build step'"
+
+[[redirects]]
+  from = "/sql-journey/*"
+  to = "/sql-journey/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/aptitude"
+  to = "/aptitude/quntitative_aptitude.html"
+  status = 301
+
+[[redirects]]
+  from = "/login"
+  to = "/login.html"
+  status = 301
+
+[[redirects]]
+  from = "/profile"
+  to = "/profile.html"
+  status = 301
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+[[headers]]
+  for = "/css/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/js/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/images/*"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"

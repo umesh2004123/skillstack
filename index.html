@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="SkillStack — placement-ready learning hub for aptitude, programming, SQL, resume prep, and company-specific interview preparation.">
+    <meta name="theme-color" content="#ff4597">
+    <title>SkillStack — Learn Skills. Get Placed.</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/skillstack.css">
+    <link rel="stylesheet" href="css/home.css">
+</head>
+
+<body>
+    <a href="#main-content" class="skip-link">Skip to content</a>
+
+    <nav class="navbar" aria-label="Main navigation">
+        <div class="container nav-content">
+            <a href="index.html" class="logo">
+                <span class="logo-mark"><i class="fas fa-layer-group"></i></span>
+                SkillStack
+            </a>
+
+            <div class="nav-links">
+                <a href="#course-section">Topics</a>
+                <a href="sql-roadmap.html">SQL Roadmap</a>
+                <a href="profile.html">Profile</a>
+            </div>
+
+            <div class="search-bar-nav">
+                <i class="fas fa-search search-icon" aria-hidden="true"></i>
+                <input type="search" class="search-input" id="searchInput"
+                    placeholder="Search topics — Python, SQL, TCS…" oninput="performSearch()"
+                    aria-label="Search topics">
+            </div>
+
+            <div class="auth-buttons" id="auth-buttons"></div>
+
+            <button class="nav-toggle" id="navToggle" type="button" aria-label="Open menu" aria-expanded="false">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <div class="mobile-nav" id="mobileNav" aria-hidden="true">
+        <div class="mobile-nav-panel">
+            <div class="search-bar-nav">
+                <i class="fas fa-search search-icon" aria-hidden="true"></i>
+                <input type="search" class="search-input" id="searchInputMobile"
+                    placeholder="Search topics…" oninput="syncSearch(this.value)"
+                    aria-label="Search topics">
+            </div>
+            <a href="#course-section" onclick="closeMobileNav()">Topics</a>
+            <a href="sql-roadmap.html">SQL Roadmap</a>
+            <a href="profile.html">Profile</a>
+        </div>
+    </div>
+
+    <section class="hero-banner">
+        <div class="container hero-inner">
+            <div class="hero-copy reveal">
+                <p class="eyebrow">
+                    <span class="eyebrow-dot"></span>
+                    Placement-ready learning hub
+                </p>
+                <h1>Learn skills, build confidence, and <em>get placed.</em></h1>
+                <p>Aptitude, programming, SQL roadmaps, resume prep, and company-specific preparation — all in one focused workspace.</p>
+                <div class="hero-actions">
+                    <a href="#course-section" class="primary-cta">
+                        Explore topics <i class="fas fa-arrow-right"></i>
+                    </a>
+                    <a href="sql-roadmap.html" class="secondary-cta">
+                        SQL roadmap <i class="fas fa-database"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="hero-visual reveal">
+                <div class="hero-stat-card featured">
+                    <i class="fas fa-graduation-cap"></i>
+                    <div>
+                        <strong>25+ learning tracks</strong>
+                        <p>From verbal ability to Android development — curated for campus placements.</p>
+                    </div>
+                </div>
+                <div class="hero-stat-card">
+                    <i class="fas fa-route"></i>
+                    <strong>3</strong>
+                    <span>Roadmap PDFs</span>
+                </div>
+                <div class="hero-stat-card">
+                    <i class="fas fa-building"></i>
+                    <strong>4+</strong>
+                    <span>Company prep kits</span>
+                </div>
+                <div class="hero-stat-card">
+                    <i class="fas fa-chart-line"></i>
+                    <strong>1</strong>
+                    <span>Progress dashboard</span>
+                </div>
+                <div class="hero-stat-card">
+                    <i class="fas fa-clock"></i>
+                    <strong>Free</strong>
+                    <span>Always accessible</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="quick-nav">
+        <div class="container reveal">
+            <div class="quick-nav-header">
+                <h2>Jump to a category</h2>
+                <p>Start where you need the most help today.</p>
+            </div>
+            <div class="category-grid">
+                <div class="category-card cat-aptitude" onclick="scrollToSection('section-aptitude')">
+                    <div class="category-icon"><i class="fas fa-brain"></i></div>
+                    <h3>Aptitude & Reasoning</h3>
+                    <p>Quant, verbal, logic, and data interpretation for placement tests.</p>
+                    <span class="category-link">Browse topics <i class="fas fa-arrow-right"></i></span>
+                </div>
+                <div class="category-card cat-softskills" onclick="scrollToSection('section-softskills')">
+                    <div class="category-icon"><i class="fas fa-user-tie"></i></div>
+                    <h3>Resume & Soft Skills</h3>
+                    <p>Resume building, self-intro, and group discussion preparation.</p>
+                    <span class="category-link">Browse topics <i class="fas fa-arrow-right"></i></span>
+                </div>
+                <div class="category-card cat-programming" onclick="scrollToSection('section-programming')">
+                    <div class="category-icon"><i class="fas fa-code"></i></div>
+                    <h3>Programming</h3>
+                    <p>Python, Java, C++, Android, AI/ML, web, and SQL databases.</p>
+                    <span class="category-link">Browse topics <i class="fas fa-arrow-right"></i></span>
+                </div>
+                <div class="category-card cat-companies" onclick="scrollToSection('section-companies')">
+                    <div class="category-icon"><i class="fas fa-briefcase"></i></div>
+                    <h3>Company Prep</h3>
+                    <p>TCS, Accenture, Wipro, Infosys mock tests and round-wise prep.</p>
+                    <span class="category-link">Browse topics <i class="fas fa-arrow-right"></i></span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <main id="main-content">
+        <div id="course-section" class="container section">
+            <div class="section-header reveal">
+                <div>
+                    <h2 class="section-title">Explore Topics</h2>
+                    <p class="section-subtitle">Pick a path, open the resources, and keep progressing from foundations to interview-ready practice.</p>
+                </div>
+            </div>
+
+            <div class="filter-bar reveal" role="tablist" aria-label="Filter topics by category">
+                <button class="filter-chip active" type="button" data-filter="all" onclick="setFilter('all')">All</button>
+                <button class="filter-chip" type="button" data-filter="aptitude" onclick="setFilter('aptitude')">Aptitude</button>
+                <button class="filter-chip" type="button" data-filter="softskills" onclick="setFilter('softskills')">Soft Skills</button>
+                <button class="filter-chip" type="button" data-filter="programming" onclick="setFilter('programming')">Programming</button>
+                <button class="filter-chip" type="button" data-filter="companies" onclick="setFilter('companies')">Companies</button>
+            </div>
+
+            <div id="emptyState" class="empty-state">
+                <i class="fas fa-search"></i>
+                No matching topics found. Try SQL, resume, aptitude, Python, Java, or TCS.
+            </div>
+
+            <div class="topic-section" data-category="aptitude">
+                <h3 class="topic-heading" id="section-aptitude">Aptitude & Reasoning</h3>
+                <div class="scroll-row">
+                    <a href="csfundamentals/englishupdated.html" class="course-card" data-name="verbal english">
+                        <div class="course-media">
+                            <img src="images/aptitude/verbal-homepage-icon.webp" class="course-img" alt="Verbal Ability" loading="lazy">
+                            <div class="course-overlay">
+                                <span class="course-cta">Start learning <i class="fas fa-arrow-right"></i></span>
+                                <span class="course-icon"><i class="fas fa-book-open"></i></span>
+                            </div>
+                        </div>
+                        <div class="course-body">
+                            <div class="course-tag">English</div>
+                            <div class="course-name">Verbal Ability</div>
+                            <p class="course-description">Build grammar, vocabulary, reading, and workplace communication skills for placements.</p>
+                            <div class="course-meta">
+                                <span class="course-level">Beginner</span>
+                                <span class="course-duration"><i class="far fa-clock"></i>2 hrs</span>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="aptitude/quntitative_aptitude.html" class="course-card" data-name="quant math aptitude">
+                        <div class="course-media">
+                            <img src="images/aptitude/quantitative.webp" class="course-img" alt="Quant" loading="lazy">
+                            <div class="course-overlay">
+                                <span class="course-cta">Practice now <i class="fas fa-arrow-right"></i></span>
+                                <span class="course-icon"><i class="fas fa-calculator"></i></span>
+                            </div>
+                        </div>
+                        <div class="course-body">
+                            <div class="course-tag">Math</div>
+                            <div class="course-name">Quantitative Aptitude</div>
+                            <p class="course-description">Sharpen arithmetic, algebra, percentages, ratios, and speed-solving patterns.</p>
+                            <div class="course-meta">
+                                <span class="course-level">Intermediate</span>
+                                <span class="course-duration"><i class="far fa-clock"></i>3 hrs</span>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="csfundamentals/mainvideo.html" class="course-card" data-name="reasoning logic">
+                        <div class="course-media">
+                            <img src="images/visual_reasoning_thumbnail_2x.webp" class="course-img" alt="Reasoning" loading="lazy">
+                            <div class="course-overlay">
+                                <span class="course-cta">View lessons <i class="fas fa-arrow-right"></i></span>
+                                <span class="course-icon"><i class="fas fa-brain"></i></span>
+                            </div>
+                        </div>
+                        <div class="course-body">
+                            <div class="course-tag">Logic</div>
+                            <div class="course-name">Reasoning Masterclass</div>
+                            <p class="course-description">Train patterns, series, coding-decoding, seating, and analytical reasoning basics.</p>
+                            <div class="course-meta">
+                                <span class="course-level">Beginner</span>
+                                <span class="course-duration"><i class="far fa-clock"></i>2.5 hrs</span>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="#" class="course-card" data-name="data interpretation">
+                        <div class="course-media">
+                            <img src="images/data_interpretation_thumbna_2x.webp" class="course-img" alt="Data Interpretation" loading="lazy">
+                            <div class="course-overlay">
+                                <span class="course-cta">Explore data <i class="fas fa-arrow-right"></i></span>
+                                <span class="course-icon"><i class="fas fa-chart-line"></i></span>
+                            </div>
+                        </div>
+                        <div class="course-body">
+                            <div class="course-tag">Data</div>
+                            <div class="course-name">Data Interpretation</div>
+                            <p class="course-description">Read tables, charts, graphs, and caselets with clear steps and accuracy.</p>
+                            <div class="course-meta">
+                                <span class="course-level">Intermediate</span>
+                                <span class="course-duration"><i class="far fa-clock"></i>4 hrs</span>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="#" class="course-card" data-name="puzzles">
+                        <div class="course-media">
+                            <img src="images/aptitude/logical_thumbnail-_2x.webp" class="course-img" alt="Logical Puzzles" loading="lazy">
+                            <div class="course-overlay">
+                                <span class="course-cta">Solve puzzles <i class="fas fa-arrow-right"></i></span>
+                                <span class="course-icon"><i class="fas fa-puzzle-piece"></i></span>
+                            </div>
+                        </div>
+                        <div class="course-body">
+                            <div class="course-tag">Logic</div>
+                            <div class="course-name">Logical Puzzles</div>
+                            <p class="course-description">Improve interview problem solving through grids, constraints, and puzzle drills.</p>
+                            <div class="course-meta">
+                                <span class="course-level">Advanced</span>
+                                <span class="course-duration"><i class="far fa-clock"></i>3 hrs</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <div class="topic-section" data-category="softskills">
+                <h3 class="topic-heading" id="section-softskills">Resume & Soft Skills</h3>
+                <div class="scroll-row">
+                    <a href="csfundamentals/resume.html" class="course-card" data-name="resume building">
+                        <div class="course-media">
+                            <img src="images/resume-home-thumb.webp" class="course-img" alt="Resume Building" loading="lazy">
+                            <div class="course-overlay">
+                                <span class="course-cta">Build resume <i class="fas fa-arrow-right"></i></span>
+                                <span class="course-icon"><i class="fas fa-file-lines"></i></span>
+                            </div>
+                        </div>
+                        <div class="course-body">
+                            <div class="course-tag">Placement</div>
+                            <div class="course-name">Resume Building</div>
+                            <p class="course-description">Create clean, recruiter-ready resumes with focused content and project impact.</p>
+                            <div class="course-meta">
+                                <span class="course-level">Career</span>
+                                <span class="course-duration"><i class="far fa-clock"></i>1.5 hrs</span>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="csfundamentals/selfintro.html" class="course-card" data-name="self introduction">
+                        <div class="course-media">
+                            <img src="images/selfintro.png" class="course-img" alt="Self Introduction" loading="lazy">
+                            <div class="course-overlay">
+                                <span class="course-cta">Prepare answer <i class="fas fa-arrow-right"></i></span>
+                                <span class="course-icon"><i class="fas fa-user-tie"></i></span>
+                            </div>
+                        </div>
+                        <div class="course-body">
+                            <div class="course-tag">Interview</div>
+                            <div class="course-name">Self Introduction</div>
+                            <p class="course-description">Structure a confident opening answer for HR, technical, and campus interviews.</p>
+                            <div class="course-meta">
+                                <span class="course-level">Interview</span>
+                                <span class="course-duration"><i class="far fa-clock"></i>45 mins</span>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="csfundamentals/gd.html" class="course-card" data-name="group discussion soft skills">
+                        <div class="course-media">
+                            <img src="images/group-discussion-home-thumb.webp" class="course-img" alt="Group Discussion" loading="lazy">
+                            <div class="course-overlay">
+                                <span class="course-cta">Join prep <i class="fas fa-arrow-right"></i></span>
+                                <span class="course-icon"><i class="fas fa-comments"></i></span>
+                            </div>
+                        </div>
+                        <div class="course-body">
+                            <div class="course-tag">Communication</div>
+                            <div class="course-name">Group Discussion</div>
+                            <p class="course-description">Learn how to enter, support points, summarize, and stay composed in GD rounds.</p>
+                            <div class="course-meta">
+                                <span class="course-level">Placement</span>
+                                <span class="course-duration"><i class="far fa-clock"></i>1 hr</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <div class="topic-section" data-category="programming">
+                <h3 class="topic-heading" id="section-programming">Programming</h3>
+                <div class="scroll-row">
+                    <a href="programming/python.html" class="course-card" data-name="python programming">
+                        <div class="course-media">
+                            <img src="images/program languages/learnpythoncarouselimage7.webp" class="course-img" alt="Python" loading="lazy">
+                            <div class="course-overlay">
+                                <span class="course-cta">Open course <i class="fas fa-arrow-right"></i></span>
+                                <span class="course-icon"><i class="fab fa-python"></i></span>
+                            </div>
+                        </div>
+                        <div class="course-body">
+                            <div class="course-tag">Beginner</div>
+                            <div class="course-name">Python Course</div>
+                            <p class="course-description">Start coding with syntax, functions, problem solving, and practical programs.</p>
+                            <div class="course-meta">
+                                <span class="course-level">Beginner</span>
+                                <span class="course-duration"><i class="far fa-clock"></i>10 hrs</span>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="csfundamentals/document.html" class="course-card" data-name="java programming">
+                        <div class="course-media">
+                            <img src="images/program languages/java-thumbn.png" class="course-img" alt="Java" loading="lazy">
+                            <div class="course-overlay">
+                                <span class="course-cta">Learn Java <i class="fas fa-arrow-right"></i></span>
+                                <span class="course-icon"><i class="fab fa-java"></i></span>
+                            </div>
+                        </div>
+                        <div class="course-body">
+                            <div class="course-tag">Backend</div>
+                            <div class="course-name">Java Programming</div>
+                            <p class="course-description">Master OOP, classes, collections, and fundamentals used in interviews.</p>
+                            <div class="course-meta">
+                                <span class="course-level">Intermediate</span>
+                                <span class="course-duration"><i class="far fa-clock"></i>12 hrs</span>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="programming/c++/devskillcpp.html" class="course-card" data-name="c++ programming">
+                        <div class="course-media">
+                            <img src="images/program languages/c.webp" class="course-img" alt="C++" loading="lazy">
+                            <div class="course-overlay">
+                                <span class="course-cta">View C++ <i class="fas fa-arrow-right"></i></span>
+                                <span class="course-icon"><i class="fas fa-code"></i></span>
+                            </div>
+                        </div>
+                        <div class="course-body">
+                            <div class="course-tag">Core</div>
+                            <div class="course-name">C++ Masterclass</div>
+                            <p class="course-description">Strengthen C++ concepts, memory basics, STL, and placement coding practice.</p>
+                            <div class="course-meta">
+                                <span class="course-level">Core</span>
+                                <span class="course-duration"><i class="far fa-clock"></i>14 hrs</span>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="programming/android.html" class="course-card" data-name="android kotlin mobile app development">
+                        <div class="course-media">
+                            <img src="images/basic-coding-homepage-icon.webp" class="course-img" alt="Android" loading="lazy">
+                            <div class="course-overlay">
+                                <span class="course-cta">Open roadmap <i class="fas fa-arrow-right"></i></span>
+                                <span class="course-icon"><i class="fab fa-android"></i></span>
+                            </div>
+                        </div>
+                        <div class="course-body">
+                            <div class="course-tag">Mobile</div>
+                            <div class="course-name">Android Development</div>
+                            <p class="course-description">Master Kotlin, Android Studio, App Components, Jetpack Compose, and SQLite databases.</p>
+                            <div class="course-meta">
+                                <span class="course-level">Intermediate</span>
+                                <span class="course-duration"><i class="far fa-clock"></i>15 hrs</span>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="signin/aimlslides.html" class="course-card" data-name="ai aiml machine learning">
+                        <div class="course-media">
+                            <img src="images/web-dev-mern-stack-1.webp" class="course-img" alt="AI and Machine Learning" loading="lazy">
+                            <div class="course-overlay">
+                                <span class="course-cta">Explore AI <i class="fas fa-arrow-right"></i></span>
+                                <span class="course-icon"><i class="fas fa-robot"></i></span>
+                            </div>
+                        </div>
+                        <div class="course-body">
+                            <div class="course-tag">Advanced</div>
+                            <div class="course-name">AI & Machine Learning</div>
+                            <p class="course-description">Understand AI foundations, model ideas, and applied learning paths.</p>
+                            <div class="course-meta">
+                                <span class="course-level">Advanced</span>
+                                <span class="course-duration"><i class="far fa-clock"></i>8 hrs</span>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="#" class="course-card" data-name="web development">
+                        <div class="course-media">
+                            <img src="images/advance-html.webp" class="course-img" alt="Web Development" loading="lazy">
+                            <div class="course-overlay">
+                                <span class="course-cta">Build web <i class="fas fa-arrow-right"></i></span>
+                                <span class="course-icon"><i class="fas fa-laptop-code"></i></span>
+                            </div>
+                        </div>
+                        <div class="course-body">
+                            <div class="course-tag">Frontend</div>
+                            <div class="course-name">Web Development</div>
+                            <p class="course-description">Learn HTML, CSS, JavaScript, responsive layouts, and modern frontend basics.</p>
+                            <div class="course-meta">
+                                <span class="course-level">Frontend</span>
+                                <span class="course-duration"><i class="far fa-clock"></i>9 hrs</span>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="sql-roadmap.html" class="course-card" data-name="database sql">
+                        <div class="course-media">
+                            <img src="images/cs subjects/sql-homepage-icon.webp" class="course-img" alt="SQL Database" loading="lazy">
+                            <div class="course-overlay">
+                                <span class="course-cta">Study SQL <i class="fas fa-arrow-right"></i></span>
+                                <span class="course-icon"><i class="fas fa-database"></i></span>
+                            </div>
+                        </div>
+                        <div class="course-body">
+                            <div class="course-tag">Backend</div>
+                            <div class="course-name">SQL Database</div>
+                            <p class="course-description">Practice queries, joins, constraints, database design, and interview SQL patterns.</p>
+                            <div class="course-meta">
+                                <span class="course-level">Backend</span>
+                                <span class="course-duration"><i class="far fa-clock"></i>6 hrs</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <div class="topic-section" data-category="companies">
+                <h3 class="topic-heading" id="section-companies">Mock Tests & Company Prep</h3>
+                <div class="scroll-row">
+                    <a href="companies/tcs.html" class="course-card" data-name="tcs company">
+                        <div class="course-media">
+                            <img src="images/companies/tcs-home-thumb.webp" class="course-img" alt="TCS" loading="lazy">
+                            <div class="course-overlay">
+                                <span class="course-cta">Prepare now <i class="fas fa-arrow-right"></i></span>
+                                <span class="course-icon"><i class="fas fa-building"></i></span>
+                            </div>
+                        </div>
+                        <div class="course-body">
+                            <div class="course-tag">MNC</div>
+                            <div class="course-name">TCS Preparation</div>
+                            <p class="course-description">Practice TCS NQT patterns, company rounds, and core preparation topics.</p>
+                            <div class="course-meta">
+                                <span class="course-level">Company</span>
+                                <span class="course-duration"><i class="far fa-clock"></i>5 hrs</span>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="#" class="course-card" data-name="accenture">
+                        <div class="course-media">
+                            <img src="images/companies/accentureimg.webp" class="course-img" alt="Accenture" loading="lazy">
+                            <div class="course-overlay">
+                                <span class="course-cta">View prep <i class="fas fa-arrow-right"></i></span>
+                                <span class="course-icon"><i class="fas fa-briefcase"></i></span>
+                            </div>
+                        </div>
+                        <div class="course-body">
+                            <div class="course-tag">MNC</div>
+                            <div class="course-name">Accenture Prep</div>
+                            <p class="course-description">Prepare aptitude, communication, coding, and assessment-style questions.</p>
+                            <div class="course-meta">
+                                <span class="course-level">Company</span>
+                                <span class="course-duration"><i class="far fa-clock"></i>4 hrs</span>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="#" class="course-card" data-name="wipro">
+                        <div class="course-media">
+                            <img src="images/companies/wipro-homepage-icon.webp" class="course-img" alt="Wipro" loading="lazy">
+                            <div class="course-overlay">
+                                <span class="course-cta">Start prep <i class="fas fa-arrow-right"></i></span>
+                                <span class="course-icon"><i class="fas fa-user-graduate"></i></span>
+                            </div>
+                        </div>
+                        <div class="course-body">
+                            <div class="course-tag">MNC</div>
+                            <div class="course-name">Wipro NTH Prep</div>
+                            <p class="course-description">Revise coding basics, verbal ability, quantitative aptitude, and HR rounds.</p>
+                            <div class="course-meta">
+                                <span class="course-level">Company</span>
+                                <span class="course-duration"><i class="far fa-clock"></i>4 hrs</span>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="#" class="course-card" data-name="infosys">
+                        <div class="course-media">
+                            <img src="images/companies/infosys-homepage-icon.webp" class="course-img" alt="Infosys" loading="lazy">
+                            <div class="course-overlay">
+                                <span class="course-cta">Explore prep <i class="fas fa-arrow-right"></i></span>
+                                <span class="course-icon"><i class="fas fa-laptop-code"></i></span>
+                            </div>
+                        </div>
+                        <div class="course-body">
+                            <div class="course-tag">MNC</div>
+                            <div class="course-name">Infosys Power Programmer</div>
+                            <p class="course-description">Practice programming, problem solving, DBMS, and specialist-role concepts.</p>
+                            <div class="course-meta">
+                                <span class="course-level">Company</span>
+                                <span class="course-duration"><i class="far fa-clock"></i>6 hrs</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <section class="how-section">
+            <div class="container section">
+                <div class="section-header reveal">
+                    <div>
+                        <h2 class="section-title">How SkillStack Works</h2>
+                        <p class="section-subtitle">A simple loop for learning consistently without getting lost between resources.</p>
+                    </div>
+                </div>
+                <div class="learning-path reveal">
+                    <article class="path-step">
+                        <div class="step-number">1</div>
+                        <h3>Choose a roadmap</h3>
+                        <p>Start with a clear path like SQL, aptitude, programming, or interview preparation.</p>
+                    </article>
+                    <article class="path-step">
+                        <div class="step-number">2</div>
+                        <h3>Study with references</h3>
+                        <p>Open notes, videos, docs, and curated links from the same topic page.</p>
+                    </article>
+                    <article class="path-step">
+                        <div class="step-number">3</div>
+                        <h3>Track your progress</h3>
+                        <p>Use your profile dashboard to keep momentum and return to the next useful step.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="logo">
+                        <span class="logo-mark"><i class="fas fa-layer-group"></i></span>
+                        SkillStack
+                    </a>
+                    <p>Practice smarter, prepare better. Your placement-ready learning hub for aptitude, coding, and interviews.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Learn</h4>
+                    <a href="#section-aptitude">Aptitude</a>
+                    <a href="#section-programming">Programming</a>
+                    <a href="sql-roadmap.html">SQL Roadmap</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Prepare</h4>
+                    <a href="#section-softskills">Resume & Soft Skills</a>
+                    <a href="#section-companies">Company Prep</a>
+                    <a href="profile.html">Your Profile</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Account</h4>
+                    <a href="login.html">Login</a>
+                    <a href="login.html?action=signup">Sign Up</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <span>&copy; 2026 SkillStack. All rights reserved.</span>
+                <div class="footer-bottom-links">
+                    <a href="index.html">Home</a>
+                    <a href="sql-roadmap.html">SQL Roadmap</a>
+                    <a href="profile.html">Profile</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script type="module">
+        import { initAuthStateListener, logout } from './js/auth.js';
+
+        const authContainer = document.getElementById('auth-buttons');
+        window.logout = logout;
+
+        initAuthStateListener((user, profile) => {
+            if (user) {
+                const displayName = user.displayName || user.email?.split('@')[0] || 'SkillStack Learner';
+                const img = user.photoURL || `https://ui-avatars.com/api/?name=${encodeURIComponent(displayName)}&background=0d9488&color=fff`;
+
+                let avatarHtml = `<img src="${img}" class="user-avatar" alt="Profile">`;
+
+                if (profile && profile.isPremium) {
+                    avatarHtml = `
+                    <div style="position:relative;display:inline-block;">
+                        <img src="${img}" class="user-avatar" alt="Profile" style="border:2px solid #FFD700;">
+                        <div style="position:absolute;top:-10px;right:-6px;background:#fff;border-radius:50%;width:18px;height:18px;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 5px rgba(0,0,0,0.2);">
+                            <i class="fas fa-crown" style="color:#FFD700;font-size:10px;"></i>
+                        </div>
+                    </div>`;
+                }
+
+                const adminLink = (user.email === "umeshvalavala2004@gmail.com")
+                    ? `<a href="admin.html" class="btn-login">Admin</a>`
+                    : '';
+
+                authContainer.innerHTML = `
+                    ${adminLink}
+                    <div class="user-menu" onclick="window.location.href='profile.html'" role="button" tabindex="0" aria-label="Go to profile">
+                        ${avatarHtml}
+                        <i class="fas fa-chevron-down" style="font-size:0.7rem;color:#94a3b8;"></i>
+                    </div>
+                `;
+            } else {
+                authContainer.innerHTML = `
+                    <a href="login.html" class="btn-login">Login</a>
+                    <a href="login.html?action=signup" class="btn-signup">Sign Up</a>
+                `;
+            }
+        }, () => {
+            authContainer.innerHTML = `
+                <a href="login.html" class="btn-login">Login</a>
+                <a href="login.html?action=signup" class="btn-signup">Sign Up</a>
+            `;
+        });
+    </script>
+
+    <script>
+        let activeFilter = 'all';
+
+        function scrollToSection(id) {
+            document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function closeMobileNav() {
+            const nav = document.getElementById('mobileNav');
+            const toggle = document.getElementById('navToggle');
+            nav.classList.remove('open');
+            nav.setAttribute('aria-hidden', 'true');
+            toggle.setAttribute('aria-expanded', 'false');
+            toggle.innerHTML = '<i class="fas fa-bars"></i>';
+        }
+
+        document.getElementById('navToggle').addEventListener('click', () => {
+            const nav = document.getElementById('mobileNav');
+            const toggle = document.getElementById('navToggle');
+            const isOpen = nav.classList.toggle('open');
+            nav.setAttribute('aria-hidden', String(!isOpen));
+            toggle.setAttribute('aria-expanded', String(isOpen));
+            toggle.innerHTML = isOpen ? '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+        });
+
+        document.getElementById('mobileNav').addEventListener('click', (e) => {
+            if (e.target === e.currentTarget) closeMobileNav();
+        });
+
+        function syncSearch(value) {
+            document.getElementById('searchInput').value = value;
+            document.getElementById('searchInputMobile').value = value;
+            performSearch();
+        }
+
+        function setFilter(filter) {
+            activeFilter = filter;
+            document.querySelectorAll('.filter-chip').forEach(chip => {
+                chip.classList.toggle('active', chip.dataset.filter === filter);
+            });
+            applyFilters();
+        }
+
+        function applyFilters() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            const sections = document.querySelectorAll('.topic-section');
+            const cards = document.querySelectorAll('.course-card');
+            const emptyState = document.getElementById('emptyState');
+            let visibleCount = 0;
+
+            sections.forEach(section => {
+                const category = section.dataset.category;
+                const sectionVisible = activeFilter === 'all' || activeFilter === category;
+                section.classList.toggle('hidden', !sectionVisible);
+            });
+
+            cards.forEach(card => {
+                const name = (card.getAttribute('data-name') || '').toLowerCase();
+                const section = card.closest('.topic-section');
+                const category = section?.dataset.category;
+                const categoryMatch = activeFilter === 'all' || activeFilter === category;
+                const searchMatch = !query || name.includes(query);
+                const visible = categoryMatch && searchMatch;
+
+                card.classList.toggle('hidden-card', !visible);
+                if (visible) visibleCount++;
+            });
+
+            if (emptyState) {
+                emptyState.style.display = visibleCount === 0 ? 'block' : 'none';
+            }
+
+            requestAnimationFrame(() => {
+                document.querySelectorAll('.scroll-row').forEach(row => {
+                    row.dispatchEvent(new Event('scroll'));
+                });
+            });
+        }
+
+        function performSearch() {
+            const desktop = document.getElementById('searchInput');
+            const mobile = document.getElementById('searchInputMobile');
+            if (mobile) mobile.value = desktop.value;
+            applyFilters();
+        }
+
+        function initializeCardScrollers() {
+            document.querySelectorAll('.scroll-row').forEach((row, index) => {
+                if (row.parentElement.classList.contains('scroll-shell')) return;
+
+                const shell = document.createElement('div');
+                shell.className = 'scroll-shell';
+                row.parentNode.insertBefore(shell, row);
+                shell.appendChild(row);
+
+                const controls = document.createElement('div');
+                controls.className = 'scroll-controls';
+                controls.innerHTML = `
+                    <button class="scroll-arrow scroll-prev" type="button" aria-label="Scroll left">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="scroll-arrow scroll-next" type="button" aria-label="Scroll right">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                `;
+                shell.appendChild(controls);
+
+                const previous = controls.querySelector('.scroll-prev');
+                const next = controls.querySelector('.scroll-next');
+
+                const scrollAmount = () => {
+                    const card = row.querySelector('.course-card:not(.hidden-card)');
+                    if (!card) return row.clientWidth * 0.85;
+                    const gap = Number.parseFloat(getComputedStyle(row).gap) || 20;
+                    return card.getBoundingClientRect().width + gap;
+                };
+
+                const updateButtons = () => {
+                    const maxScroll = row.scrollWidth - row.clientWidth;
+                    previous.disabled = row.scrollLeft <= 4;
+                    next.disabled = row.scrollLeft >= maxScroll - 4;
+                    controls.hidden = maxScroll <= 4;
+                };
+
+                previous.addEventListener('click', () => row.scrollBy({ left: -scrollAmount(), behavior: 'smooth' }));
+                next.addEventListener('click', () => row.scrollBy({ left: scrollAmount(), behavior: 'smooth' }));
+                row.addEventListener('scroll', updateButtons, { passive: true });
+                window.addEventListener('resize', updateButtons);
+
+                row.setAttribute('tabindex', '0');
+                row.setAttribute('aria-label', `Course cards row ${index + 1}`);
+                row.addEventListener('keydown', (event) => {
+                    if (event.key === 'ArrowLeft') {
+                        event.preventDefault();
+                        row.scrollBy({ left: -scrollAmount(), behavior: 'smooth' });
+                    }
+                    if (event.key === 'ArrowRight') {
+                        event.preventDefault();
+                        row.scrollBy({ left: scrollAmount(), behavior: 'smooth' });
+                    }
+                });
+
+                requestAnimationFrame(updateButtons);
+            });
+        }
+
+        function initReveal() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+            document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+        }
+
+        initializeCardScrollers();
+        initReveal();
+
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('./sw.js').catch(() => {});
+        }
+    </script>
+</body>
+
+</html>

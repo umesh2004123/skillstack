@@ -1,0 +1,1432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Programming Course Timetable</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #4361ee;
+            --secondary-color: #3f37c9;
+            --accent-color: #4895ef;
+            --light-color: #f8f9fa;
+            --dark-color: #212529;
+            --success-color: #4cc9f0;
+            --warning-color: #f72585;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: var(--dark-color);
+        }
+        
+        .app-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 2.5rem 0;
+            margin-bottom: 2.5rem;
+            box-shadow: 0 4px 20px rgba(67, 97, 238, 0.15);
+        }
+        
+        .week-container {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
+            margin-bottom: 2.5rem;
+            overflow: hidden;
+            border: 1px solid #e9ecef;
+        }
+        
+        .week-header {
+            background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+            color: white;
+            padding: 1.25rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .day-card {
+            border-left: 4px solid var(--accent-color);
+            margin: 0.75rem;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+        }
+        
+        .day-card:hover {
+            transform: translateX(4px);
+        }
+        
+        .day-header {
+            background-color: rgba(72, 149, 239, 0.1);
+            padding: 0.75rem 1rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .day-header.collapsed::after {
+            content: '+';
+            font-weight: bold;
+        }
+        
+        .day-header:not(.collapsed)::after {
+            content: '-';
+            font-weight: bold;
+        }
+        
+        .topic-item {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid #f1f3f5;
+            display: flex;
+            align-items: center;
+        }
+        
+        .topic-item:last-child {
+            border-bottom: none;
+        }
+        
+        .topic-checkbox {
+            margin-right: 12px;
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+        
+        .topic-text {
+            flex: 1;
+        }
+        
+        .completed {
+            text-decoration: line-through;
+            color: #adb5bd;
+        }
+        
+        .progress-container {
+            width: 120px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .progress-text {
+            font-size: 0.8rem;
+            color: white;
+            margin-left: 8px;
+            min-width: 40px;
+            font-size: 25px;
+        }
+        
+        .test-day {
+            border-left: 4px solid var(--warning-color);
+        }
+        
+        .test-header {
+            background-color: rgba(247, 37, 133, 0.1);
+            color: var(--warning-color);
+        }
+        
+        .btn-clear {
+            background-color: #f1f3f5;
+            border: none;
+            color: #6c757d;
+            padding: 0.25rem 0.5rem;
+            font-size: 0.8rem;
+            border-radius: 4px;
+            margin-left: 8px;
+        }
+        
+        .btn-clear:hover {
+            background-color: #e9ecef;
+            color: var(--dark-color);
+        }
+        
+        @media (max-width: 768px) {
+            .app-header h1 {
+                font-size: 1.8rem;
+            }
+            .progress-container {
+                width: 100px;
+            }
+            .progress-text {
+                font-size: 20px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .progress-text {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="app-header">
+        <div class="container">
+            <h1 class="text-center mb-3">Programming Course Tracker</h1>
+            <p class="text-center lead mb-0">Track your progress</p>
+        </div>
+    </header>
+
+    <div class="container mb-5">
+        <!-- Week 2 -->
+        <div class="week-container" id="week2">
+            <div class="week-header">
+                <h2 class="mb-0">Week 2: Programming Basics & OOP</h2>
+                <div class="progress-container">
+                    <div class="progress-text" id="week2-progress">0%</div>
+                </div>
+            </div>
+            <div class="accordion" id="week2Accordion">
+                <!-- Day 1 -->
+                <div class="day-card">
+                    <div class="day-header collapsed" data-bs-toggle="collapse" data-bs-target="#day1-content">
+                        Day 1: Introduction to Programming
+                    </div>
+                    <div id="day1-content" class="collapse" data-bs-parent="#week2Accordion">
+                        <div class="topic-list">
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="day1-topic1">
+                                <label for="day1-topic1" class="topic-text">Overview of programming concepts, types, and importance in technology</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="day1-topic2">
+                                <label for="day1-topic2" class="topic-text">What is programming?</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="day1-topic3">
+                                <label for="day1-topic3" class="topic-text">Types of programming languages (compiled vs. interpreted)</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="day1-topic4">
+                                <label for="day1-topic4" class="topic-text">Basic syntax and structure of C, C++, Java, Python</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="day1-topic5">
+                                <label for="day1-topic5" class="topic-text">Procedure Oriented vs Object Oriented</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Day 2 -->
+                <div class="day-card">
+                    <div class="day-header collapsed" data-bs-toggle="collapse" data-bs-target="#day2-content">
+                        Day 2: Variables, Data Types, Operators, Control Structures
+                    </div>
+                    <div id="day2-content" class="collapse" data-bs-parent="#week2Accordion">
+                        <div class="topic-list">
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="day2-topic1">
+                                <label for="day2-topic1" class="topic-text">Variables, data types, operators</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="day2-topic2">
+                                <label for="day2-topic2" class="topic-text">Conditional statements: if, else, switch, ternary operators</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="day2-topic3">
+                                <label for="day2-topic3" class="topic-text">Loops: for, while, do-while loops</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="day2-topic4">
+                                <label for="day2-topic4" class="topic-text">Functions & Modular Programming</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="day2-topic6">
+                                <label for="day2-topic6" class="topic-text">Primitive types (int, float, char, boolean, string, etc.)</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="day2-topic7">
+                                <label for="day2-topic7" class="topic-text">Operators (Arithmetic, Unary, Binary, Assignment, Comparison)</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="day2-topic8">
+                                <label for="day2-topic8" class="topic-text">Practical examples combining variables with loops and conditions</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="day2-topic9">
+                                <label for="day2-topic9" class="topic-text">Functions, scope, recursion</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Day 3 -->
+                <div class="day-card">
+                    <div class="day-header collapsed" data-bs-toggle="collapse" data-bs-target="#day3-content">
+                        Day 3: C Programming - Pointers and Memory Management
+                    </div>
+                    <div id="day3-content" class="collapse" data-bs-parent="#week2Accordion">
+                        <div class="topic-list">
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="day3-topic2">
+                                <label for="day3-topic2" class="topic-text">Understanding pointers: memory addresses, declaration, initialization</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="day3-topic3">
+                                <label for="day3-topic3" class="topic-text">Dereferencing pointers and using & (address-of) and * (dereference) operators</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="day3-topic4">
+                                <label for="day3-topic4" class="topic-text">Operations on pointers: incrementing, decrementing, comparing</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="day3-topic5">
+                                <label for="day3-topic5" class="topic-text">Dynamic memory management: malloc(), calloc(), realloc(), free()</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="day3-topic6">
+                                <label for="day3-topic6" class="topic-text">Function pointers and passing functions as arguments</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="day3-topic7">
+                                <label for="day3-topic7" class="topic-text">Writing recursive functions</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="day3-topic8">
+                                <label for="day3-topic8" class="topic-text">Bitwise operators: &, |, ^, ~, <<, >></label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="day3-topic9">
+                                <label for="day3-topic9" class="topic-text">Applications of bitwise operations: masking, setting, clearing, toggling bits</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Day 4 -->
+                <div class="day-card">
+                    <div class="day-header collapsed" data-bs-toggle="collapse" data-bs-target="#day4-content">
+                        Day 4: Introduction to OOP (Classes & Objects)
+                    </div>
+                    <div id="day4-content" class="collapse" data-bs-parent="#week2Accordion">
+                        <div class="topic-list">
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="day4-topic1">
+                                <label for="day4-topic1" class="topic-text">Introduction to object-oriented programming concepts</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="day4-topic2">
+                                <label for="day4-topic2" class="topic-text">Classes and Objects</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="day4-topic3">
+                                <label for="day4-topic3" class="topic-text">Encapsulation and data hiding</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="day4-topic4">
+                                <label for="day4-topic4" class="topic-text">Inheritance for code reuse</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Day 5 -->
+                <div class="day-card">
+                    <div class="day-header collapsed" data-bs-toggle="collapse" data-bs-target="#day5-content">
+                        Day 5: Polymorphism
+                    </div>
+                    <div id="day5-content" class="collapse" data-bs-parent="#week2Accordion">
+                        <div class="topic-list">
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="day5-topic1">
+                                <label for="day5-topic1" class="topic-text">Focus on polymorphism</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Test Day -->
+                <div class="day-card test-day">
+                    <div class="day-header test-header collapsed" data-bs-toggle="collapse" data-bs-target="#test-day-content">
+                        Week 2 Test
+                    </div>
+                    <div id="test-day-content" class="collapse" data-bs-parent="#week2Accordion">
+                        <div class="topic-list">
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="test-day-topic1">
+                                <label for="test-day-topic1" class="topic-text">Test Basic Concepts & Syntax</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="test-day-topic2">
+                                <label for="test-day-topic2" class="topic-text">OOP Principles</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="test-day-topic3">
+                                <label for="test-day-topic3" class="topic-text">Covering basics like syntax, conditions, loops, and functions</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Week 3 -->
+        <div class="week-container" id="week3">
+            <div class="week-header">
+                <h2 class="mb-0">Week 3: C++ Advanced Features</h2>
+                <div class="progress-container">
+                    <div class="progress-text" id="week3-progress">0%</div>
+                </div>
+            </div>
+            <div class="accordion" id="week3Accordion">
+                <!-- Day 1 -->
+                <div class="day-card">
+                    <div class="day-header collapsed" data-bs-toggle="collapse" data-bs-target="#week3-day1-content">
+                        Day 1: Constructors, Storage Classes
+                    </div>
+                    <div id="week3-day1-content" class="collapse" data-bs-parent="#week3Accordion">
+                        <div class="topic-list">
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="week3-day1-topic1">
+                                <label for="week3-day1-topic1" class="topic-text">Constructors, Parameterized Constructors</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="week3-day1-topic2">
+                                <label for="week3-day1-topic2" class="topic-text">Copy Constructors, Move Constructors</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="week3-day1-topic3">
+                                <label for="week3-day1-topic3" class="topic-text">Destructors, Virtual destructors</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="week3-day1-topic4">
+                                <label for="week3-day1-topic4" class="topic-text">Automatic Storage Class (auto)</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="week3-day1-topic5">
+                                <label for="week3-day1-topic5" class="topic-text">Register Storage Class (register)</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="week3-day1-topic6">
+                                <label for="week3-day1-topic6" class="topic-text">Static Storage Class (static)</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="week3-day1-topic7">
+                                <label for="week3-day1-topic7" class="topic-text">Extern Storage Class (extern)</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="week3-day1-topic8">
+                                <label for="week3-day1-topic8" class="topic-text">Mutable Storage Class (mutable)</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="week3-day1-topic9">
+                                <label for="week3-day1-topic9" class="topic-text">Thread Storage Class (thread_local)</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Day 2 -->
+                <div class="day-card">
+                    <div class="day-header collapsed" data-bs-toggle="collapse" data-bs-target="#week3-day2-content">
+                        Day 2: Templates, Smart Pointers
+                    </div>
+                    <div id="week3-day2-content" class="collapse" data-bs-parent="#week3Accordion">
+                        <div class="topic-list">
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="week3-day2-topic1">
+                                <label for="week3-day2-topic1" class="topic-text">Define template functions and classes</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="week3-day2-topic2">
+                                <label for="week3-day2-topic2" class="topic-text">Specialization and usage inside other templates</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="week3-day2-topic3">
+                                <label for="week3-day2-topic3" class="topic-text">Hands-on practice with template instantiations and operators</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="week3-day2-topic4">
+                                <label for="week3-day2-topic4" class="topic-text">Differences between std::unique_ptr and std::shared_ptr</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="week3-day2-topic5">
+                                <label for="week3-day2-topic5" class="topic-text">Typical conversion use cases</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="week3-day2-topic6">
+                                <label for="week3-day2-topic6" class="topic-text">Practice with memory management through smart pointers</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Day 3 -->
+                <div class="day-card">
+                    <div class="day-header collapsed" data-bs-toggle="collapse" data-bs-target="#week3-day3-content">
+                        Day 3: Important Language Features
+                    </div>
+                    <div id="week3-day3-content" class="collapse" data-bs-parent="#week3Accordion">
+                        <div class="topic-list">
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="week3-day3-topic1">
+                                <label for="week3-day3-topic1" class="topic-text">Using auto, range-based for loops</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="week3-day3-topic2">
+                                <label for="week3-day3-topic2" class="topic-text">Lambdas, constexpr</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="week3-day3-topic3">
+                                <label for="week3-day3-topic3" class="topic-text">Tuples and strongly-typed enums</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Day 4 -->
+                <div class="day-card">
+                    <div class="day-header collapsed" data-bs-toggle="collapse" data-bs-target="#week3-day4-content">
+                        Day 4: NameSpace, Inline, Macros, Type casting
+                    </div>
+                    <div id="week3-day4-content" class="collapse" data-bs-parent="#week3Accordion">
+                        <div class="topic-list">
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="week3-day4-topic1">
+                                <label for="week3-day4-topic1" class="topic-text">Hands-on coding to reinforce the usage of these features</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Day 5 -->
+                <div class="day-card">
+                    <div class="day-header collapsed" data-bs-toggle="collapse" data-bs-target="#week3-day5-content">
+                        Day 5: Functional Objects, Utilities & Advanced I/O
+                    </div>
+                    <div id="week3-day5-content" class="collapse" data-bs-parent="#week3Accordion">
+                        <div class="topic-list">
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="week3-day5-topic1">
+                                <label for="week3-day5-topic1" class="topic-text">Using std::transform</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="week3-day5-topic2">
+                                <label for="week3-day5-topic2" class="topic-text">Utility functions like plus(), minus(), and ptr_fun</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="week3-day5-topic3">
+                                <label for="week3-day5-topic3" class="topic-text">Practice hands-on with complex and simple data</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="week3-day5-topic4">
+                                <label for="week3-day5-topic4" class="topic-text">Manipulate I/O streams using cout/cin</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="week3-day5-topic5">
+                                <label for="week3-day5-topic5" class="topic-text">Format flags and operators like boolalpha, setprecision, setw</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="week3-day5-topic6">
+                                <label for="week3-day5-topic6" class="topic-text">Practice formatting complex output for data containers</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Week 4 -->
+        <div class="week-container" id="week4">
+            <div class="week-header">
+                <h2 class="mb-0">Week 4: C++ Advanced Topics</h2>
+                <div class="progress-container">
+                    <div class="progress-text" id="week4-progress">0%</div>
+                </div>
+            </div>
+            <div class="accordion" id="week4Accordion">
+                <!-- Day 1 -->
+                <div class="day-card">
+                    <div class="day-header collapsed" data-bs-toggle="collapse" data-bs-target="#week4-day1-content">
+                        Day 1: Exception Handling and Error Handling (29-04-2025)
+                    </div>
+                    <div id="week4-day1-content" class="collapse" data-bs-parent="#week4Accordion">
+                        <div class="topic-list">
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="week4-day1-topic1">
+                                <label for="week4-day1-topic1" class="topic-text">Understand how to handle exceptions</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="week4-day1-topic2">
+                                <label for="week4-day1-topic2" class="topic-text">Handling errors</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="week4-day1-topic3">
+                                <label for="week4-day1-topic3" class="topic-text">Exception handling techniques</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="week4-day1-topic4">
+                                <label for="week4-day1-topic4" class="topic-text">Syntax errors</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="week4-day1-topic5">
+                                <label for="week4-day1-topic5" class="topic-text">Runtime errors</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Day 2 -->
+                <div class="day-card">
+                    <div class="day-header collapsed" data-bs-toggle="collapse" data-bs-target="#week4-day2-content">
+                        Day 2: Code Testing, Debugging (30-04-2025)
+                    </div>
+                    <div id="week4-day2-content" class="collapse" data-bs-parent="#week4Accordion">
+                        <div class="topic-list">
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="week4-day2-topic1">
+                                <label for="week4-day2-topic1" class="topic-text">Learn debugging techniques</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="week4-day2-topic2">
+                                <label for="week4-day2-topic2" class="topic-text">Conduct code testing</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="week4-day2-topic3">
+                                <label for="week4-day2-topic3" class="topic-text">Unit tests</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="week4-day2-topic4">
+                                <label for="week4-day2-topic4" class="topic-text">Integration tests</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="week4-day2-topic5">
+                                <label for="week4-day2-topic5" class="topic-text">Code debugging</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Day 3 -->
+                <div class="day-card">
+                    <div class="day-header collapsed" data-bs-toggle="collapse" data-bs-target="#week4-day3-content">
+                        Day 3: Introduction to MultiThreading in C++ (02-05-2025)
+                    </div>
+                    <div id="week4-day3-content" class="collapse" data-bs-parent="#week4Accordion">
+                        <div class="topic-list">
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="week4-day3-topic1">
+                                <label for="week4-day3-topic1" class="topic-text">Introduction to Threads</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="week4-day3-topic2">
+                                <label for="week4-day3-topic2" class="topic-text">Thread Management</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="week4-day3-topic3">
+                                <label for="week4-day3-topic3" class="topic-text">Thread Safety (Mutex, Lock Guard)</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="week4-day3-topic4">
+                                <label for="week4-day3-topic4" class="topic-text">Advanced Thread Management</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="week4-day3-topic5">
+                                <label for="week4-day3-topic5" class="topic-text">Condition Variables</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="week4-day3-topic6">
+                                <label for="week4-day3-topic6" class="topic-text">Deadlock</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Day 4 -->
+                <div class="day-card">
+                    <div class="day-header collapsed" data-bs-toggle="collapse" data-bs-target="#week4-day4-content">
+                        Day 4: Sorting and Searching Algorithms (05-05-2025)
+                    </div>
+                    <div id="week4-day4-content" class="collapse" data-bs-parent="#week4Accordion">
+                        <div class="topic-list">
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="week4-day4-topic1">
+                                <label for="week4-day4-topic1" class="topic-text">Learn sorting algorithms and searching algorithms</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="week4-day4-topic2">
+                                <label for="week4-day4-topic2" class="topic-text">Bubble sort</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="week4-day4-topic3">
+                                <label for="week4-day4-topic3" class="topic-text">Selection sort</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="week4-day4-topic4">
+                                <label for="week4-day4-topic4" class="topic-text">Binary search</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Day 5 -->
+                <div class="day-card">
+                    <div class="day-header collapsed" data-bs-toggle="collapse" data-bs-target="#week4-day5-content">
+                        Day 5: Sorting, Binary Search (06-05-2025)
+                    </div>
+                    <div id="week4-day5-content" class="collapse" data-bs-parent="#week4Accordion">
+                        <div class="topic-list">
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="week4-day5-topic1">
+                                <label for="week4-day5-topic1" class="topic-text">Focus on std::sort, std::stable_sort</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="week4-day5-topic2">
+                                <label for="week4-day5-topic2" class="topic-text">std::lower_bound, std::upper_bound, and std::binary_search</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="week4-day5-topic3">
+                                <label for="week4-day5-topic3" class="topic-text">Exercises with sorting and searching algorithms</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Test Day -->
+                <div class="day-card test-day">
+                    <div class="day-header test-header collapsed" data-bs-toggle="collapse" data-bs-target="#week4-test-content">
+                        Week 4 Test
+                    </div>
+                    <div id="week4-test-content" class="collapse" data-bs-parent="#week4Accordion">
+                        <div class="topic-list">
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="week4-test-topic1">
+                                <label for="week4-test-topic1" class="topic-text">Exception Handling</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="week4-test-topic2">
+                                <label for="week4-test-topic2" class="topic-text">Debugging Techniques</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="week4-test-topic3">
+                                <label for="week4-test-topic3" class="topic-text">MultiThreading Concepts</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="week4-test-topic4">
+                                <label for="week4-test-topic4" class="topic-text">Sorting and Searching Algorithms</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Week 5 -->
+        <div class="week-container" id="week5">
+            <div class="week-header">
+                <h2 class="mb-0">Week 5: CPP Advanced Data Structures</h2>
+                <div class="progress-container">
+                    <div class="progress-text" id="week5-progress">0%</div>
+                </div>
+            </div>
+            <div class="accordion" id="week5Accordion">
+                <!-- Day 1 -->
+                <div class="day-card">
+                    <div class="day-header collapsed" data-bs-toggle="collapse" data-bs-target="#week5-day1-content">
+                        Day 1: Data Structures (Lists, Stacks, Queues) (08-05-2025)
+                    </div>
+                    <div id="week5-day1-content" class="collapse" data-bs-parent="#week5Accordion">
+                        <div class="topic-list">
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="week5-day1-topic1">
+                                <label for="week5-day1-topic1" class="topic-text">Introduce basic data structures like stacks and queues</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="week5-day1-topic2">
+                                <label for="week5-day1-topic2" class="topic-text">Understanding stack operations (push, pop, peek)</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="week5-day1-topic3">
+                                <label for="week5-day1-topic3" class="topic-text">Understanding queue operations (enqueue, dequeue)</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="week5-day1-topic4">
+                                <label for="week5-day1-topic4" class="topic-text">Practical implementations of stacks and queues</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Day 2 -->
+                <div class="day-card">
+                    <div class="day-header collapsed" data-bs-toggle="collapse" data-bs-target="#week5-day2-content">
+                        Day 2: Data Structures (List) (09-05-2025)
+                    </div>
+                    <div id="week5-day2-content" class="collapse" data-bs-parent="#week5Accordion">
+                        <div class="topic-list">
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="week5-day2-topic1">
+                                <label for="week5-day2-topic1" class="topic-text">Introduction to linked lists</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="week5-day2-topic2">
+                                <label for="week5-day2-topic2" class="topic-text">Singly linked lists vs doubly linked lists</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="week5-day2-topic3">
+                                <label for="week5-day2-topic3" class="topic-text">List operations (insertion, deletion, traversal)</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="week5-day2-topic4">
+                                <label for="week5-day2-topic4" class="topic-text">Practical implementations of lists</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Day 3 -->
+                <div class="day-card">
+                    <div class="day-header collapsed" data-bs-toggle="collapse" data-bs-target="#week5-day3-content">
+                        Day 3: Sequence Containers, Container Adapters (12-05-2025)
+                    </div>
+                    <div id="week5-day3-content" class="collapse" data-bs-parent="#week5Accordion">
+                        <div class="topic-list">
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="week5-day3-topic1">
+                                <label for="week5-day3-topic1" class="topic-text">Concepts and usage of std::vector, std::deque, std::list</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="week5-day3-topic2">
+                                <label for="week5-day3-topic2" class="topic-text">std::forward_list</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="week5-day3-topic3">
+                                <label for="week5-day3-topic3" class="topic-text">Methods and iterators for accessing and modifying data</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="week5-day3-topic4">
+                                <label for="week5-day3-topic4" class="topic-text">Hands-on practice with simple and complex data types</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="week5-day3-topic5">
+                                <label for="week5-day3-topic5" class="topic-text">Performance characteristics of different containers</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Day 4 -->
+                <div class="day-card">
+                    <div class="day-header collapsed" data-bs-toggle="collapse" data-bs-target="#week5-day4-content">
+                        Day 4: Sequence Containers, Container Adapters (13-05-2025)
+                    </div>
+                    <div id="week5-day4-content" class="collapse" data-bs-parent="#week5Accordion">
+                        <div class="topic-list">
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="week5-day4-topic1">
+                                <label for="week5-day4-topic1" class="topic-text">Container Adapters: std::stack, std::queue, std::priority_queue</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="week5-day4-topic2">
+                                <label for="week5-day4-topic2" class="topic-text">Methods and iterators for accessing and modifying data</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="week5-day4-topic3">
+                                <label for="week5-day4-topic3" class="topic-text">Hands-on practice with simple and complex data types</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="week5-day4-topic4">
+                                <label for="week5-day4-topic4" class="topic-text">Comparing container adapters with underlying containers</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="week5-day4-topic5">
+                                <label for="week5-day4-topic5" class="topic-text">Practical use cases for each container adapter</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Day 5 -->
+                <div class="day-card">
+                    <div class="day-header collapsed" data-bs-toggle="collapse" data-bs-target="#week5-day5-content">
+                        Day 5: Trees (14-05-2025)
+                    </div>
+                    <div id="week5-day5-content" class="collapse" data-bs-parent="#week5Accordion">
+                        <div class="topic-list">
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="week5-day5-topic1">
+                                <label for="week5-day5-topic1" class="topic-text">Understanding tree data structures</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="week5-day5-topic2">
+                                <label for="week5-day5-topic2" class="topic-text">Binary trees and their properties</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="week5-day5-topic3">
+                                <label for="week5-day5-topic3" class="topic-text">Tree traversals (in-order, pre-order, post-order)</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="week5-day5-topic4">
+                                <label for="week5-day5-topic4" class="topic-text">Binary search trees and their operations</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="week5-day5-topic5">
+                                <label for="week5-day5-topic5" class="topic-text">Implementing tree structures in C++</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Test Day -->
+                <div class="day-card test-day">
+                    <div class="day-header test-header collapsed" data-bs-toggle="collapse" data-bs-target="#week5-test-content">
+                        Week 5 Test (15-05-2025)
+                    </div>
+                    <div id="week5-test-content" class="collapse" data-bs-parent="#week5Accordion">
+                        <div class="topic-list">
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="week5-test-topic1">
+                                <label for="week5-test-topic1" class="topic-text">Test on data structures</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="week5-test-topic2">
+                                <label for="week5-test-topic2" class="topic-text">Test on algorithms</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="week5-test-topic3">
+                                <label for="week5-test-topic3" class="topic-text">Implementation of sequence containers</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="week5-test-topic4">
+                                <label for="week5-test-topic4" class="topic-text">Working with container adapters</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="week5-test-topic5">
+                                <label for="week5-test-topic5" class="topic-text">Tree operations and traversals</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Week 6 -->
+        <div class="week-container" id="week6">
+            <div class="week-header">
+                <h2 class="mb-0">Week 6: Graphs and Advanced Algorithms</h2>
+                <div class="progress-container">
+                    <div class="progress-text" id="week6-progress">0%</div>
+                </div>
+            </div>
+            <div class="accordion" id="week6Accordion">
+                <!-- Day 1 -->
+                <div class="day-card">
+                    <div class="day-header collapsed" data-bs-toggle="collapse" data-bs-target="#week6-day1-content">
+                        Day 1: Graphs (Introduction) (16-05-2025)
+                    </div>
+                    <div id="week6-day1-content" class="collapse" data-bs-parent="#week6Accordion">
+                        <div class="topic-list">
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="week6-day1-topic1">
+                                <label for="week6-day1-topic1" class="topic-text">Basics of Graphs, building blocks of many algorithms</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="week6-day1-topic2">
+                                <label for="week6-day1-topic2" class="topic-text">Graph Traversal</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="week6-day1-topic3">
+                                <label for="week6-day1-topic3" class="topic-text">Shortest Path</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="week6-day1-topic4">
+                                <label for="week6-day1-topic4" class="topic-text">Minimum Spanning Tree</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="week6-day1-topic5">
+                                <label for="week6-day1-topic5" class="topic-text">Cycle Detection in Graphs</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Day 2 -->
+                <div class="day-card">
+                    <div class="day-header collapsed" data-bs-toggle="collapse" data-bs-target="#week6-day2-content">
+                        Day 2: Associative Containers (19-05-2025)
+                    </div>
+                    <div id="week6-day2-content" class="collapse" data-bs-parent="#week6Accordion">
+                        <div class="topic-list">
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="week6-day2-topic1">
+                                <label for="week6-day2-topic1" class="topic-text">Concepts of std::set, std::multiset, std::map, std::multimap</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="week6-day2-topic2">
+                                <label for="week6-day2-topic2" class="topic-text">Iterators and accessing data</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="week6-day2-topic3">
+                                <label for="week6-day2-topic3" class="topic-text">Hands-on with both simple and complex types</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Day 3 -->
+                <div class="day-card">
+                    <div class="day-header collapsed" data-bs-toggle="collapse" data-bs-target="#week6-day3-content">
+                        Day 3: Non-Modifying & Modifying Algorithms (20-05-2025)
+                    </div>
+                    <div id="week6-day3-content" class="collapse" data-bs-parent="#week6Accordion">
+                        <div class="topic-list">
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="week6-day3-topic1">
+                                <label for="week6-day3-topic1" class="topic-text">Using std::for_each, std::find, std::find_if, std::adjacent_find</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="week6-day3-topic2">
+                                <label for="week6-day3-topic2" class="topic-text">Using std::count, std::count_if, std::equal</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="week6-day3-topic3">
+                                <label for="week6-day3-topic3" class="topic-text">Practice iterating through containers and finding elements</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="week6-day3-topic4">
+                                <label for="week6-day3-topic4" class="topic-text">Learn operations like std::copy, std::fill, std::generate</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="week6-day3-topic5">
+                                <label for="week6-day3-topic5" class="topic-text">Learn std::transform, std::replace, std::remove_if, std::reverse, std::partition</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="week6-day3-topic6">
+                                <label for="week6-day3-topic6" class="topic-text">Hands-on modifying container data using these operations</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Day 4 -->
+                <div class="day-card">
+                    <div class="day-header collapsed" data-bs-toggle="collapse" data-bs-target="#week6-day4-content">
+                        Day 4: Merge, Heap, Min, Max Algorithms (21-05-2025)
+                    </div>
+                    <div id="week6-day4-content" class="collapse" data-bs-parent="#week6Accordion">
+                        <div class="topic-list">
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="week6-day4-topic1">
+                                <label for="week6-day4-topic1" class="topic-text">Learn and practice std::merge, std::inplace_merge</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="week6-day4-topic2">
+                                <label for="week6-day4-topic2" class="topic-text">Learn std::set_union, std::set_intersection</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="week6-day4-topic3">
+                                <label for="week6-day4-topic3" class="topic-text">Learn std::min_element, std::max_element</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="week6-day4-topic4">
+                                <label for="week6-day4-topic4" class="topic-text">Work with different datasets to merge and find extreme values</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Day 5 -->
+                <div class="day-card">
+                    <div class="day-header collapsed" data-bs-toggle="collapse" data-bs-target="#week6-day5-content">
+                        Day 5: Algorithms (22-05-2025)
+                    </div>
+                    <div id="week6-day5-content" class="collapse" data-bs-parent="#week6Accordion">
+                        <div class="topic-list">
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="week6-day5-topic1">
+                                <label for="week6-day5-topic1" class="topic-text">Basic concepts and importance of algorithms</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="week6-day5-topic2">
+                                <label for="week6-day5-topic2" class="topic-text">Time and space complexity (Big O notation)</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Test Day -->
+                <div class="day-card test-day">
+                    <div class="day-header test-header collapsed" data-bs-toggle="collapse" data-bs-target="#week6-test-content">
+                        Week 6 Test (23-05-2025)
+                    </div>
+                    <div id="week6-test-content" class="collapse" data-bs-parent="#week6Accordion">
+                        <div class="topic-list">
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="week6-test-topic1">
+                                <label for="week6-test-topic1" class="topic-text">Graph algorithms and traversals</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="week6-test-topic2">
+                                <label for="week6-test-topic2" class="topic-text">Associative containers usage</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="week6-test-topic3">
+                                <label for="week6-test-topic3" class="topic-text">Non-modifying and modifying algorithms</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="week6-test-topic4">
+                                <label for="week6-test-topic4" class="topic-text">Merge, heap, min, max algorithms</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" class="topic-checkbox" id="week6-test-topic5">
+                                <label for="week6-test-topic5" class="topic-text">Algorithm complexity analysis</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Week 7 -->
+<div class="week-container" id="week7">
+    <div class="week-header">
+        <h2 class="mb-0">Week 7: Design Patterns and SOLID Principles</h2>
+        <div class="progress-container">
+            <div class="progress-text" id="week7-progress">0%</div>
+        </div>
+    </div>
+    <div class="accordion" id="week7Accordion">
+        <!-- Day 1 -->
+        <div class="day-card">
+            <div class="day-header collapsed" data-bs-toggle="collapse" data-bs-target="#week7-day1-content">
+                Day 1: SOLID Principles and Design Patterns (19-06-2025)
+            </div>
+            <div id="week7-day1-content" class="collapse" data-bs-parent="#week7Accordion">
+                <div class="topic-list">
+                    <div class="topic-item">
+                        <input type="checkbox" class="topic-checkbox" id="week7-day1-topic1">
+                        <label for="week7-day1-topic1" class="topic-text">Introduction to SOLID Principles</label>
+                    </div>
+                    <div class="topic-item">
+                        <input type="checkbox" class="topic-checkbox" id="week7-day1-topic2">
+                        <label for="week7-day1-topic2" class="topic-text">Types of Design Patterns: Creational, Behavioral, Structural</label>
+                    </div>
+                    <div class="topic-item">
+                        <input type="checkbox" class="topic-checkbox" id="week7-day1-topic3">
+                        <label for="week7-day1-topic3" class="topic-text">Single Responsibility Principle</label>
+                    </div>
+                    <div class="topic-item">
+                        <input type="checkbox" class="topic-checkbox" id="week7-day1-topic4">
+                        <label for="week7-day1-topic4" class="topic-text">Open/Closed Principle</label>
+                    </div>
+                    <div class="topic-item">
+                        <input type="checkbox" class="topic-checkbox" id="week7-day1-topic5">
+                        <label for="week7-day1-topic5" class="topic-text">Liskov Substitution Principle</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Day 2 -->
+        <div class="day-card">
+            <div class="day-header collapsed" data-bs-toggle="collapse" data-bs-target="#week7-day2-content">
+                Day 2: SOLID Principles (20-06-2025)
+            </div>
+            <div id="week7-day2-content" class="collapse" data-bs-parent="#week7Accordion">
+                <div class="topic-list">
+                    <div class="topic-item">
+                        <input type="checkbox" class="topic-checkbox" id="week7-day2-topic1">
+                        <label for="week7-day2-topic1" class="topic-text">Interface Segregation Principle</label>
+                    </div>
+                    <div class="topic-item">
+                        <input type="checkbox" class="topic-checkbox" id="week7-day2-topic2">
+                        <label for="week7-day2-topic2" class="topic-text">Dependency Inversion Principle</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Day 3 -->
+        <div class="day-card">
+            <div class="day-header collapsed" data-bs-toggle="collapse" data-bs-target="#week7-day3-content">
+                Day 3: Creational Design Patterns (23-06-2025)
+            </div>
+            <div id="week7-day3-content" class="collapse" data-bs-parent="#week7Accordion">
+                <div class="topic-list">
+                    <div class="topic-item">
+                        <input type="checkbox" class="topic-checkbox" id="week7-day3-topic1">
+                        <label for="week7-day3-topic1" class="topic-text">Singleton Design Pattern</label>
+                    </div>
+                    <div class="topic-item">
+                        <input type="checkbox" class="topic-checkbox" id="week7-day3-topic2">
+                        <label for="week7-day3-topic2" class="topic-text">Factory Design Pattern</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Day 4 -->
+        <div class="day-card">
+            <div class="day-header collapsed" data-bs-toggle="collapse" data-bs-target="#week7-day4-content">
+                Day 4: Behavioral Design Patterns (24-06-2025)
+            </div>
+            <div id="week7-day4-content" class="collapse" data-bs-parent="#week7Accordion">
+                <div class="topic-list">
+                    <div class="topic-item">
+                        <input type="checkbox" class="topic-checkbox" id="week7-day4-topic1">
+                        <label for="week7-day4-topic1" class="topic-text">Observer Design Pattern</label>
+                    </div>
+                    <div class="topic-item">
+                        <input type="checkbox" class="topic-checkbox" id="week7-day4-topic2">
+                        <label for="week7-day4-topic2" class="topic-text">Strategy Design Pattern</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Day 5 -->
+        <div class="day-card">
+            <div class="day-header collapsed" data-bs-toggle="collapse" data-bs-target="#week7-day5-content">
+                Day 5: Architectures (25-06-2025)
+            </div>
+            <div id="week7-day5-content" class="collapse" data-bs-parent="#week7Accordion">
+                <div class="topic-list">
+                    <div class="topic-item">
+                        <input type="checkbox" class="topic-checkbox" id="week7-day5-topic1">
+                        <label for="week7-day5-topic1" class="topic-text">Architectural Styles: Monolithic, Microservices, Layered</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Test Day -->
+        <div class="day-card test-day">
+            <div class="day-header test-header collapsed" data-bs-toggle="collapse" data-bs-target="#week7-test-content">
+                Week 7 Test (26-06-2025)
+            </div>
+            <div id="week7-test-content" class="collapse" data-bs-parent="#week7Accordion">
+                <div class="topic-list">
+                    <div class="topic-item">
+                        <input type="checkbox" class="topic-checkbox" id="week7-test-topic1">
+                        <label for="week7-test-topic1" class="topic-text">SOLID Principles</label>
+                    </div>
+                    <div class="topic-item">
+                        <input type="checkbox" class="topic-checkbox" id="week7-test-topic2">
+                        <label for="week7-test-topic2" class="topic-text">Design Patterns: Creational, Behavioral</label>
+                    </div>
+                    <div class="topic-item">
+                        <input type="checkbox" class="topic-checkbox" id="week7-test-topic3">
+                        <label for="week7-test-topic3" class="topic-text">Architectural Styles</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Week 8 -->
+<div class="week-container" id="week8">
+    <div class="week-header">
+        <h2 class="mb-0">Week 8: Java Programming</h2>
+        <div class="progress-container">
+            <div class="progress-text" id="week8-progress">0%</div>
+        </div>
+    </div>
+    <div class="accordion" id="week8Accordion">
+        <!-- Day 1 -->
+        <div class="day-card">
+            <div class="day-header collapsed" data-bs-toggle="collapse" data-bs-target="#week8-day1-content">
+                Day 1: Core Java Fundamentals
+            </div>
+            <div id="week8-day1-content" class="collapse" data-bs-parent="#week8Accordion">
+                <div class="topic-list">
+                    <div class="topic-item">
+                        <input type="checkbox" class="topic-checkbox" id="week8-day1-topic1">
+                        <label for="week8-day1-topic1" class="topic-text">What is a Class? What is an Object?</label>
+                    </div>
+                    <div class="topic-item">
+                        <input type="checkbox" class="topic-checkbox" id="week8-day1-topic2">
+                        <label for="week8-day1-topic2" class="topic-text">Constructors</label>
+                    </div>
+                    <div class="topic-item">
+                        <input type="checkbox" class="topic-checkbox" id="week8-day1-topic3">
+                        <label for="week8-day1-topic3" class="topic-text">this and super Keyword</label>
+                    </div>
+                    <div class="topic-item">
+                        <input type="checkbox" class="topic-checkbox" id="week8-day1-topic4">
+                        <label for="week8-day1-topic4" class="topic-text">Abstract Class and Abstract Methods</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Day 2 -->
+        <div class="day-card">
+            <div class="day-header collapsed" data-bs-toggle="collapse" data-bs-target="#week8-day2-content">
+                Day 2: Core Java Fundamentals
+            </div>
+            <div id="week8-day2-content" class="collapse" data-bs-parent="#week8Accordion">
+                <div class="topic-list">
+                    <div class="topic-item">
+                        <input type="checkbox" class="topic-checkbox" id="week8-day2-topic1">
+                        <label for="week8-day2-topic1" class="topic-text">What is an Inner Class?</label>
+                    </div>
+                    <div class="topic-item">
+                        <input type="checkbox" class="topic-checkbox" id="week8-day2-topic2">
+                        <label for="week8-day2-topic2" class="topic-text">Anonymous Inner Class</label>
+                    </div>
+                    <div class="topic-item">
+                        <input type="checkbox" class="topic-checkbox" id="week8-day2-topic3">
+                        <label for="week8-day2-topic3" class="topic-text">Static Inner Class</label>
+                    </div>
+                    <div class="topic-item">
+                        <input type="checkbox" class="topic-checkbox" id="week8-day2-topic4">
+                        <label for="week8-day2 topic4" class="topic-text">Non-static Inner Class</label>
+                    </div>
+                    <div class="topic-item">
+                        <input type="checkbox" class="topic-checkbox" id="week8-day2-topic5">
+                        <label for="week8-day2-topic5" class="topic-text">Implementing Singleton Class</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Day 3 -->
+        <div class="day-card">
+            <div class="day-header collapsed" data-bs-toggle="collapse" data-bs-target="#week8-day3-content">
+                Day 3: Core Java Fundamentals
+            </div>
+            <div id="week8-day3-content" class="collapse" data-bs-parent="#week8Accordion">
+                <div class="topic-list">
+                    <div class="topic-item">
+                        <input type="checkbox" class="topic-checkbox" id="week8-day3-topic1">
+                        <label for="week8-day3-topic1" class="topic-text">Interfaces</label>
+                    </div>
+                    <div class="topic-item">
+                        <input type="checkbox" class="topic-checkbox" id="week8-day3-topic2">
+                        <label for="week8-day3-topic2" class="topic-text">Data Class</label>
+                    </div>
+                    <div class="topic-item">
+                        <input type="checkbox" class="topic-checkbox" id="week8-day3-topic3">
+                        <label for="week8-day3-topic3" class="topic-text">Methods: Static, Non-static, Final</label>
+                    </div>
+                    <div class="topic-item">
+                        <input type="checkbox" class="topic-checkbox" id="week8-day3-topic4">
+                        <label for="week8-day3-topic4" class="topic-text">Lambda Expressions (Java 8+)</label>
+                    </div>
+                    <div class="topic-item">
+                        <input type="checkbox" class="topic-checkbox" id="week8-day3-topic5">
+                        <label for="week8-day3-topic5" class="topic-text">Types of Inheritance</label>
+                    </div>
+                    <div class="topic-item">
+                        <input type="checkbox" class="topic-checkbox" id="week8-day3-topic6">
+                        <label for="week8-day3-topic6" class="topic-text">Method Overriding</label>
+                    </div>
+                    <div class="topic-item">
+                        <input type="checkbox" class="topic-checkbox" id="week8-day3-topic7">
+                        <label for="week8-day3-topic7" class="topic-text">Method Overloading</label>
+                    </div>
+                    <div class="topic-item">
+                        <input type="checkbox" class="topic-checkbox" id="week8-day3-topic8">
+                        <label for="week8-day3-topic8" class="topic-text">Enum</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Day 4 -->
+        <div class="day-card">
+            <div class="day-header collapsed" data-bs-toggle="collapse" data-bs-target="#week8-day4-content">
+                Day 4: Exception Handling
+            </div>
+            <div id="week8-day4-content" class="collapse" data-bs-parent="#week8Accordion">
+                <div class="topic-list">
+                    <div class="topic-item">
+                        <input type="checkbox" class="topic-checkbox" id="week8-day4-topic1">
+                        <label for="week8-day4-topic1" class="topic-text">Introduction to Exceptions</label>
+                    </div>
+                    <div class="topic-item">
+                        <input type="checkbox" class="topic-checkbox" id="week8-day4-topic2">
+                        <label for="week8-day4-topic2" class="topic-text">Try-Catch Block</label>
+                    </div>
+                    <div class="topic-item">
+                        <input type="checkbox" class="topic-checkbox" id="week8-day4-topic3">
+                        <label for="week8-day4-topic3" class="topic-text">Finally Block</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Day 5 -->
+        <div class="day-card">
+            <div class="day-header collapsed" data-bs-toggle="collapse" data-bs-target="#week8-day5-content">
+                Day 5: Exception Handling
+            </div>
+            <div id="week8-day5-content" class="collapse" data-bs-parent="#week8Accordion">
+                <div class="topic-list">
+                    <div class="topic-item">
+                        <input type="checkbox" class="topic-checkbox" id="week8-day5-topic1">
+                        <label for="week8-day5-topic1" class="topic-text">Throw and Throws</label>
+                    </div>
+                    <div class="topic-item">
+                        <input type="checkbox" class="topic-checkbox" id="week8-day5-topic2">
+                        <label for="week8-day5-topic2" class="topic-text">Custom Exceptions</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Test Day -->
+        <div class="day-card test-day">
+            <div class="day-header test-header collapsed" data-bs-toggle="collapse" data-bs-target="#week8-test-content">
+                Week 8 Test
+            </div>
+            <div id="week8-test-content" class="collapse" data-bs-parent="#week8Accordion">
+                <div class="topic-list">
+                    <div class="topic-item">
+                        <input type="checkbox" class="topic-checkbox" id="week8-test-topic1">
+                        <label for="week8-test-topic1" class="topic-text">Test on Java Programming Concepts</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Function to calculate and update progress for each week
+        function updateProgress() {
+            // Get all weeks
+            const weeks = document.querySelectorAll('.week-container');
+            
+            weeks.forEach(week => {
+                const weekId = week.id;
+                const checkboxes = week.querySelectorAll('input[type="checkbox"]');
+                const progressText = document.querySelector(`#${weekId}-progress`);
+                
+                let checkedCount = 0;
+                checkboxes.forEach(checkbox => {
+                    if (checkbox.checked) {
+                        checkedCount++;
+                    }
+                });
+                
+                const progress = checkboxes.length > 0 ? Math.round((checkedCount / checkboxes.length) * 100) : 0;
+                progressText.textContent = `${progress}%`;
+                
+                // Update progress text color based on completion
+                if (progress === 100) {
+                    progressText.style.color = 'var(--success-color)';
+                } else {
+                    progressText.style.color = 'white';
+                }
+            });
+        }
+        
+        // Add event listeners to all checkboxes
+        document.querySelectorAll('.topic-checkbox').forEach(checkbox => {
+            checkbox.addEventListener('change', updateProgress);
+        });
+        
+        // Initialize progress on page load
+        document.addEventListener('DOMContentLoaded', updateProgress);
+    </script>
+</body>
+</html>

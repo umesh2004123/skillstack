@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Cluster Dashboard</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #121212;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+        
+        .dashboard-container {
+            width: 800px;
+            height: 500px;
+            background: linear-gradient(145deg, #1a1a1a, #222222);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 30px;
+        }
+        
+        .dashboard-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, transparent 60%, rgba(0, 100, 255, 0.1));
+            pointer-events: none;
+        }
+        
+        .speedometer {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background-color: rgba(0, 0, 0, 0.3);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .speed-value {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 60px;
+            font-weight: bold;
+            color: #4fc3f7;
+            text-shadow: 0 0 10px rgba(79, 195, 247, 0.5);
+        }
+        
+        .speed-unit {
+            position: absolute;
+            top: 60%;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 20px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .indicator {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            opacity: 0.3;
+            transition: all 0.3s ease;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+        
+        .indicator.active {
+            opacity: 1;
+            box-shadow: 0 0 15px currentColor;
+        }
+        
+        .left-indicator {
+            top: 40%;
+            left: 100px;
+            color: orange;
+        }
+        
+        .right-indicator {
+            top: 40%;
+            right: 100px;
+            color: orange;
+        }
+        
+        .high-beam {
+            top: 30%;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #4fc3f7;
+            width: 40px;
+            height: 40px;
+            font-size: 18px;
+        }
+        
+        .battery {
+            bottom: 30%;
+            left: 100px;
+            color: red;
+        }
+        
+        .oil {
+            bottom: 30%;
+            right: 100px;
+            color: red;
+        }
+        
+        .fuel-gauge {
+            position: absolute;
+            bottom: 20%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px;
+            height: 20px;
+            background-color: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .fuel-level {
+            height: 100%;
+            width: 70%;
+            background: linear-gradient(90deg, #ff9800, #ff5722);
+            border-radius: 10px;
+            transition: width 0.5s ease;
+        }
+        
+        .fuel-label {
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .rpm-meter {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 300px;
+            height: 10px;
+            background-color: rgba(0, 0, 0, 0.3);
+            border-radius: 5px;
+        }
+        
+        .rpm-level {
+            height: 100%;
+            width: 40%;
+            background: linear-gradient(90deg, #4caf50, #8bc34a);
+            border-radius: 5px;
+            transition: width 0.3s ease;
+        }
+        
+        .controls {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+            width: 800px;
+        }
+        
+        .control-btn {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            background: linear-gradient(145deg, #333333, #444444);
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        
+        .control-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+        }
+        
+        .control-btn:active {
+            transform: translateY(1px);
+        }
+        
+        .left-indicator-btn {
+            background: linear-gradient(145deg, #ff9800, #ff5722);
+        }
+        
+        .right-indicator-btn {
+            background: linear-gradient(145deg, #ff9800, #ff5722);
+        }
+        
+        .high-beam-btn {
+            background: linear-gradient(145deg, #2196f3, #1976d2);
+        }
+        
+        .battery-btn {
+            background: linear-gradient(145deg, #f44336, #d32f2f);
+        }
+        
+        .oil-btn {
+            background: linear-gradient(145deg, #f44336, #d32f2f);
+        }
+        
+        .speed-up-btn {
+            background: linear-gradient(145deg, #4caf50, #388e3c);
+        }
+        
+        .speed-down-btn {
+            background: linear-gradient(145deg, #f44336, #d32f2f);
+        }
+        
+        .fuel-up-btn {
+            background: linear-gradient(145deg, #ff9800, #f57c00);
+        }
+        
+        .fuel-down-btn {
+            background: linear-gradient(145deg, #ff9800, #f57c00);
+        }
+        
+        .rpm-up-btn {
+            background: linear-gradient(145deg, #8bc34a, #689f38);
+        }
+        
+        .rpm-down-btn {
+            background: linear-gradient(145deg, #8bc34a, #689f38);
+        }
+        
+        .gear-display {
+            position: absolute;
+            top: 70%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 60px;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            font-weight: bold;
+            color: #4fc3f7;
+            border: 2px solid rgba(79, 195, 247, 0.3);
+        }
+        
+        .digital-time {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .temperature {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .speed-markers {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .marker {
+            position: absolute;
+            width: 2px;
+            height: 15px;
+            background-color: rgba(255, 255, 255, 0.5);
+            transform-origin: bottom center;
+        }
+        
+        .marker-label {
+            position: absolute;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 12px;
+            transform-origin: bottom center;
+        }
+        
+        /* Indicator icons */
+        .indicator-icon {
+            width: 30px;
+            height: 30px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+        
+        .left-indicator-icon {
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="orange"><path d="M10 5H7l5-5 5 5h-3v5h-4V5zm0 14h3l-5 5-5-5h3v-5h4v5z"/></svg>');
+        }
+        
+        .right-indicator-icon {
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="orange"><path d="M14 5h3l-5 5-5-5h3V0h4v5zm0 14h-3l5-5 5 5h-3v5h-4v-5z"/></svg>');
+        }
+        
+        .high-beam-icon {
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%234fc3f7"><path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zm0-5l-3 3h2v4h2V5h2l-3-3zm0 22l3-3h-2v-4h-2v4h-2l3 3zm9-12h-4v-2h4v2zM5 12H1v2h4v-2zm14.25-5.75l-1.41-1.41L16 7.34l1.83-1.83-1.41-1.41L14.59 5.9 12.76 4.07l-1.41 1.41L14.17 7.2l-2.82 2.82 1.41 1.41L16 8.66l1.83 1.83 1.41-1.41L17.41 7.1l1.83-1.83z"/></svg>');
+        }
+        
+        .battery-icon {
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="red"><path d="M7 4v16h10V4H7zm2 2h6v12H9V6zm3 3v6h2V9h-2z"/></svg>');
+        }
+        
+        .oil-icon {
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="red"><path d="M12 3L4 9v12h16V9l-8-6zm0 2.5L18 10v8H6v-8l6-4.5zM12 11c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg>');
+        }
+        
+        .fuel-icon {
+            position: absolute;
+            bottom: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 24px;
+            height: 24px;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23ff9800"><path d="M18 10h-2v4h-4v-4h-2l6-6 6 6zm-2 6v4h-4v-4H8l6-6 6 6h-4z"/></svg>');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+        
+        .rpm-icon {
+            position: absolute;
+            bottom: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 24px;
+            height: 24px;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%234caf50"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.31-8.86c-1.77-.45-2.34-.94-2.34-1.67 0-.84.79-1.43 2.1-1.43 1.38 0 1.9.66 1.94 1.64h1.71c-.05-1.34-.87-2.57-2.49-2.97V5H10.9v1.69c-1.51.32-2.72 1.3-2.72 2.81 0 1.79 1.49 2.69 3.66 3.21 1.95.46 2.34 1.15 2.34 1.87 0 .53-.39 1.39-2.1 1.39-1.6 0-2.23-.72-2.32-1.64H8.04c.1 1.7 1.36 2.66 2.86 2.97V19h2.34v-1.67c1.52-.29 2.72-1.16 2.73-2.77-.01-2.2-1.9-2.96-3.66-3.42z"/></svg>');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+        
+        .door-icon {
+            position: absolute;
+            bottom: 30%;
+            left: 150px;
+            width: 24px;
+            height: 24px;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23ffffff"><path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9-4.03-9-9-9zm0 16c-3.86 0-7-3.14-7-7s3.14-7 7-7 7 3.14 7 7-3.14 7-7 7zm1-11h-2v6h2V8zm0 8h-2v2h2v-2z"/></svg>');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            opacity: 0.3;
+        }
+        
+        .seatbelt-icon {
+            position: absolute;
+            bottom: 30%;
+            right: 150px;
+            width: 24px;
+            height: 24px;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23ffffff"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/></svg>');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            opacity: 0.3;
+        }
+        
+        .check-engine-icon {
+            position: absolute;
+            top: 30%;
+            left: 150px;
+            width: 24px;
+            height: 24px;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="red"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/></svg>');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            opacity: 0.3;
+        }
+        
+        .abs-icon {
+            position: absolute;
+            top: 30%;
+            right: 150px;
+            width: 24px;
+            height: 24px;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="red"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/></svg>');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            opacity: 0.3;
+        }
+        
+        .active {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <div class="dashboard-overlay"></div>
+        <div class="speedometer">
+            <div class="speed-value">0</div>
+            <div class="speed-unit">km/h</div>
+            <div class="speed-markers" id="speed-markers"></div>
+        </div>
+        <div class="indicator left-indicator"><div class="indicator-icon left-indicator-icon"></div></div>
+        <div class="indicator right-indicator"><div class="indicator-icon right-indicator-icon"></div></div>
+        <div class="indicator high-beam"><div class="indicator-icon high-beam-icon"></div></div>
+        <div class="indicator battery"><div class="indicator-icon battery-icon"></div></div>
+        <div class="indicator oil"><div class="indicator-icon oil-icon"></div></div>
+        <div class="fuel-icon"></div>
+        <div class="rpm-icon"></div>
+        <div class="door-icon"></div>
+        <div class="seatbelt-icon"></div>
+        <div class="check-engine-icon"></div>
+        <div class="abs-icon"></div>
+        <div class="fuel-gauge">
+            <div class="fuel-label">FUEL</div>
+            <div class="fuel-level"></div>
+        </div>
+        <div class="rpm-meter">
+            <div class="rpm-level"></div>
+        </div>
+        <div class="gear-display">D</div>
+        <div class="digital-time" id="time-display">12:00 PM</div>
+        <div class="temperature">24°C</div>
+    </div>
+    
+    <div class="controls">
+        <button class="control-btn left-indicator-btn" id="left-indicator-btn">Left Indicator</button>
+        <button class="control-btn right-indicator-btn" id="right-indicator-btn">Right Indicator</button>
+        <button class="control-btn high-beam-btn" id="high-beam-btn">High Beam</button>
+        <button class="control-btn battery-btn" id="battery-btn">Battery Warning</button>
+        <button class="control-btn oil-btn" id="oil-btn">Oil Warning</button>
+        <button class="control-btn speed-up-btn" id="speed-up-btn">Speed +</button>
+        <button class="control-btn speed-down-btn" id="speed-down-btn">Speed -</button>
+        <button class="control-btn fuel-up-btn" id="fuel-up-btn">Fuel +</button>
+        <button class="control-btn fuel-down-btn" id="fuel-down-btn">Fuel -</button>
+        <button class="control-btn rpm-up-btn" id="rpm-up-btn">RPM +</button>
+        <button class="control-btn rpm-down-btn" id="rpm-down-btn">RPM -</button>
+        <button class="control-btn" id="door-btn">Door Open</button>
+        <button class="control-btn" id="seatbelt-btn">Seatbelt</button>
+        <button class="control-btn" id="check-engine-btn">Check Engine</button>
+        <button class="control-btn" id="abs-btn">ABS</button>
+    </div>
+
+    <script>
+        // DOM elements
+        const leftIndicator = document.querySelector('.left-indicator');
+        const rightIndicator = document.querySelector('.right-indicator');
+        const highBeam = document.querySelector('.high-beam');
+        const battery = document.querySelector('.battery');
+        const oil = document.querySelector('.oil');
+        const speedValue = document.querySelector('.speed-value');
+        const fuelLevel = document.querySelector('.fuel-level');
+        const rpmLevel = document.querySelector('.rpm-level');
+        const timeDisplay = document.getElementById('time-display');
+        const speedMarkers = document.getElementById('speed-markers');
+        const doorIcon = document.querySelector('.door-icon');
+        const seatbeltIcon = document.querySelector('.seatbelt-icon');
+        const checkEngineIcon = document.querySelector('.check-engine-icon');
+        const absIcon = document.querySelector('.abs-icon');
+        
+        // State variables
+        let speed = 0;
+        let fuel = 70;
+        let rpm = 40;
+        let leftIndicatorOn = false;
+        let rightIndicatorOn = false;
+        let highBeamOn = false;
+        let batteryOn = false;
+        let oilOn = false;
+        let doorOpen = false;
+        let seatbeltOn = false;
+        let checkEngineOn = false;
+        let absOn = false;
+        
+        // Initialize speed markers
+        function createSpeedMarkers() {
+            const centerX = 150;
+            const centerY = 150;
+            const radius = 120;
+            
+            for (let i = 0; i <= 240; i += 20) {
+                const angle = (i / 240) * 270 - 225;
+                const radian = angle * Math.PI / 180;
+                
+                const marker = document.createElement('div');
+                marker.className = 'marker';
+                marker.style.left = `${centerX + Math.cos(radian) * radius}px`;
+                marker.style.top = `${centerY + Math.sin(radian) * radius}px`;
+                marker.style.transform = `rotate(${angle + 90}deg)`;
+                
+                speedMarkers.appendChild(marker);
+                
+                if (i % 40 === 0) {
+                    const label = document.createElement('div');
+                    label.className = 'marker-label';
+                    label.textContent = i;
+                    label.style.left = `${centerX + Math.cos(radian) * (radius - 25)}px`;
+                    label.style.top = `${centerY + Math.sin(radian) * (radius - 25)}px`;
+                    label.style.transform = `rotate(${angle + 90}deg)`;
+                    speedMarkers.appendChild(label);
+                }
+            }
+        }
+        
+        createSpeedMarkers();
+        
+        // Update time display
+        function updateTime() {
+            const now = new Date();
+            let hours = now.getHours();
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            const ampm = hours >= 12 ? 'PM' : 'AM';
+            hours = hours % 12;
+            hours = hours ? hours : 12;
+            timeDisplay.textContent = `${hours}:${minutes} ${ampm}`;
+        }
+        
+        setInterval(updateTime, 1000);
+        updateTime();
+        
+        // Button event listeners
+        document.getElementById('left-indicator-btn').addEventListener('click', () => {
+            leftIndicatorOn = !leftIndicatorOn;
+            rightIndicatorOn = false;
+            leftIndicator.classList.toggle('active', leftIndicatorOn);
+            rightIndicator.classList.remove('active');
+        });
+        
+        document.getElementById('right-indicator-btn').addEventListener('click', () => {
+            rightIndicatorOn = !rightIndicatorOn;
+            leftIndicatorOn = false;
+            rightIndicator.classList.toggle('active', rightIndicatorOn);
+            leftIndicator.classList.remove('active');
+        });
+        
+        document.getElementById('high-beam-btn').addEventListener('click', () => {
+            highBeamOn = !highBeamOn;
+            highBeam.classList.toggle('active', highBeamOn);
+        });
+        
+        document.getElementById('battery-btn').addEventListener('click', () => {
+            batteryOn = !batteryOn;
+            battery.classList.toggle('active', batteryOn);
+        });
+        
+        document.getElementById('oil-btn').addEventListener('click', () => {
+            oilOn = !oilOn;
+            oil.classList.toggle('active', oilOn);
+        });
+        
+        document.getElementById('speed-up-btn').addEventListener('click', () => {
+            speed = Math.min(speed + 5, 240);
+            speedValue.textContent = speed;
+            updateRpmBasedOnSpeed();
+        });
+        
+        document.getElementById('speed-down-btn').addEventListener('click', () => {
+            speed = Math.max(speed - 5, 0);
+            speedValue.textContent = speed;
+            updateRpmBasedOnSpeed();
+        });
+        
+        document.getElementById('fuel-up-btn').addEventListener('click', () => {
+            fuel = Math.min(fuel + 10, 100);
+            fuelLevel.style.width = `${fuel}%`;
+        });
+        
+        document.getElementById('fuel-down-btn').addEventListener('click', () => {
+            fuel = Math.max(fuel - 10, 0);
+            fuelLevel.style.width = `${fuel}%`;
+        });
+        
+        document.getElementById('rpm-up-btn').addEventListener('click', () => {
+            rpm = Math.min(rpm + 10, 100);
+            rpmLevel.style.width = `${rpm}%`;
+        });
+        
+        document.getElementById('rpm-down-btn').addEventListener('click', () => {
+            rpm = Math.max(rpm - 10, 0);
+            rpmLevel.style.width = `${rpm}%`;
+        });
+        
+        document.getElementById('door-btn').addEventListener('click', () => {
+            doorOpen = !doorOpen;
+            doorIcon.classList.toggle('active', doorOpen);
+        });
+        
+        document.getElementById('seatbelt-btn').addEventListener('click', () => {
+            seatbeltOn = !seatbeltOn;
+            seatbeltIcon.classList.toggle('active', seatbeltOn);
+        });
+        
+        document.getElementById('check-engine-btn').addEventListener('click', () => {
+            checkEngineOn = !checkEngineOn;
+            checkEngineIcon.classList.toggle('active', checkEngineOn);
+        });
+        
+        document.getElementById('abs-btn').addEventListener('click', () => {
+            absOn = !absOn;
+            absIcon.classList.toggle('active', absOn);
+        });
+        
+        // Helper function to update RPM based on speed
+        function updateRpmBasedOnSpeed() {
+            if (speed === 0) {
+                rpm = 0;
+            } else {
+                rpm = Math.min(30 + Math.floor(speed / 2) + Math.floor(Math.random() * 10), 100);
+            }
+            rpmLevel.style.width = `${rpm}%`;
+        }
+        
+        // Blink indicators
+        setInterval(() => {
+            if (leftIndicatorOn) {
+                leftIndicator.style.opacity = leftIndicator.style.opacity === '1' ? '0.3' : '1';
+            }
+            if (rightIndicatorOn) {
+                rightIndicator.style.opacity = rightIndicator.style.opacity === '1' ? '0.3' : '1';
+            }
+        }, 500);
+    </script>
+</body>
+</html>

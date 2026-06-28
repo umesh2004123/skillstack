@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="SkillStack">
+  <defs>
+    <linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ff4597"/>
+      <stop offset="100%" stop-color="#ff7eb3"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="14" fill="url(#g)"/>
+  <path fill="#fff" d="M18 42V22h8.2c5.4 0 8.8 2.8 8.8 7.4 0 3.1-1.6 5.4-4.3 6.5l6.3 6.1H32l-5.8-5.6H26V42H18zm8-10.2h.4c2.6 0 4-1.1 4-3s-1.4-3-4-3H26v6zM38 42l9.8-20h8.4L46 42h-8z"/>
+</svg>

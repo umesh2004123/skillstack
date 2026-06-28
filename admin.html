@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard — SkillStack</title>
+    <meta name="theme-color" content="#ff4597">
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/skillstack.css">
+    <link rel="stylesheet" href="css/admin.css">
+</head>
+
+<body class="admin-page">
+    <header class="topbar">
+        <div class="container nav">
+            <a class="logo brand" href="admin.html">
+                <span class="logo-mark brand-mark"><i class="fas fa-shield-halved"></i></span>
+                <span>SkillStack Admin</span>
+            </a>
+            <div class="nav-actions">
+                <button id="btnRefresh" class="btn" type="button"><i class="fas fa-rotate"></i> Refresh</button>
+                <a href="index.html" class="btn"><i class="fas fa-arrow-left"></i> Back to site</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="page">
+        <div class="container">
+            <section class="hero">
+                <article class="hero-panel">
+                    <p class="eyebrow">Premium access control</p>
+                    <h1>Admin Dashboard</h1>
+                    <p class="lead">Review premium requests, approve learners, and monitor registered users from one clean workspace.</p>
+                </article>
+                <aside class="metrics">
+                    <div class="metric-card">
+                        <span class="metric-icon"><i class="fas fa-hourglass-half"></i></span>
+                        <strong id="pendingMetric">0</strong>
+                        <span>Pending requests</span>
+                    </div>
+                    <div class="metric-card">
+                        <span class="metric-icon"><i class="fas fa-users"></i></span>
+                        <strong id="usersMetric">0</strong>
+                        <span>Total users</span>
+                    </div>
+                    <div class="metric-card">
+                        <span class="metric-icon"><i class="fas fa-crown"></i></span>
+                        <strong id="premiumMetric">0</strong>
+                        <span>Premium members</span>
+                    </div>
+                    <div class="metric-card">
+                        <span class="metric-icon"><i class="fas fa-user"></i></span>
+                        <strong id="freeMetric">0</strong>
+                        <span>Free members</span>
+                    </div>
+                </aside>
+            </section>
+
+            <section class="dashboard-grid">
+                <article class="section-card">
+                    <div class="section-head">
+                        <div>
+                            <h2>Pending Requests</h2>
+                            <p>Approve users to give them premium access.</p>
+                        </div>
+                        <span id="pendingPill" class="section-pill">Loading</span>
+                    </div>
+                    <div id="requestList" class="list">
+                        <div class="loading-state"><i class="fas fa-spinner fa-spin"></i> Loading requests...</div>
+                    </div>
+                </article>
+
+                <article class="section-card">
+                    <div class="section-head">
+                        <div>
+                            <h2>All Registered Users</h2>
+                            <p>Review account status and membership access.</p>
+                        </div>
+                        <span id="usersPill" class="section-pill">Loading</span>
+                    </div>
+                    <div id="allUsersList" class="list">
+                        <div class="loading-state"><i class="fas fa-spinner fa-spin"></i> Loading users...</div>
+                    </div>
+                </article>
+            </section>
+
+            <section class="section-card" style="margin-top: 22px;">
+                <div class="section-head">
+                    <div>
+                        <h2>User Messages</h2>
+                        <p>Review messages sent from the profile page and respond from the admin portal.</p>
+                    </div>
+                    <span id="messagesPill" class="section-pill">Loading</span>
+                </div>
+                <div id="messageList" class="list">
+                    <div class="loading-state"><i class="fas fa-spinner fa-spin"></i> Loading messages...</div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+    <script type="module">
+        import { getPendingRequests, approvePremium, rejectPremium, getAllUsers, getAdminMessages, respondToAdminMessage } from './js/db.js';
+        import { initAuthStateListener } from './js/auth.js';
+
+        const ADMIN_EMAIL = "umeshvalavala2004@gmail.com";
+        const requestList = document.getElementById('requestList');
+        const allUsersList = document.getElementById('allUsersList');
+        const messageList = document.getElementById('messageList');
+        const btnRefresh = document.getElementById('btnRefresh');
+        const toast = document.getElementById('toast');
+
+        const metrics = {
+            pending: document.getElementById('pendingMetric'),
+            users: document.getElementById('usersMetric'),
+            premium: document.getElementById('premiumMetric'),
+            free: document.getElementById('freeMetric'),
+            pendingPill: document.getElementById('pendingPill'),
+            usersPill: document.getElementById('usersPill')
+            ,
+            messagesPill: document.getElementById('messagesPill')
+        };
+
+        function showToast(message) {
+            toast.textContent = message;
+            toast.classList.add('show');
+            window.clearTimeout(showToast.timer);
+            showToast.timer = window.setTimeout(() => toast.classList.remove('show'), 3200);
+        }
+
+        function escapeHtml(value = '') {
+            return String(value)
+                .replaceAll('&', '&amp;')
+                .replaceAll('<', '&lt;')
+                .replaceAll('>', '&gt;')
+                .replaceAll('"', '&quot;')
+                .replaceAll("'", '&#039;');
+        }
+
+        function avatarFor(user, size = 80) {
+            const name = user.displayName || user.email || 'SkillStack User';
+            return user.photoURL || `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=0f766e&color=fff&size=${size}`;
+        }
+
+        function setLoading() {
+            requestList.innerHTML = '<div class="loading-state"><i class="fas fa-spinner fa-spin"></i> Loading requests...</div>';
+            allUsersList.innerHTML = '<div class="loading-state"><i class="fas fa-spinner fa-spin"></i> Loading users...</div>';
+            messageList.innerHTML = '<div class="loading-state"><i class="fas fa-spinner fa-spin"></i> Loading messages...</div>';
+            btnRefresh.disabled = true;
+        }
+
+        function renderRequest(user) {
+            const safeUid = escapeHtml(user.uid);
+            return `
+                <div class="user-row">
+                    <div class="user-main">
+                        <img class="avatar" src="${escapeHtml(avatarFor(user))}" alt="${escapeHtml(user.displayName || 'User')}">
+                        <div>
+                            <h3 class="user-name">${escapeHtml(user.displayName || 'Unnamed learner')}</h3>
+                            <p class="user-email">${escapeHtml(user.email || 'No email')}</p>
+                        </div>
+                    </div>
+                    <div class="row-actions">
+                        <span class="badge"><i class="fas fa-clock"></i> Requested</span>
+                        <button class="btn btn-primary" data-approve="${safeUid}" type="button">
+                            <i class="fas fa-check"></i> Approve
+                        </button>
+                        <button class="btn" data-reject="${safeUid}" type="button">
+                            <i class="fas fa-xmark"></i> Reject
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderUser(user) {
+            const isPremium = !!user.isPremium;
+            const badge = isPremium
+                ? '<span class="badge badge-premium"><i class="fas fa-crown"></i> Premium</span>'
+                : '<span class="badge badge-free"><i class="fas fa-user"></i> Free</span>';
+
+            return `
+                <div class="user-row">
+                    <div class="user-main">
+                        <img class="avatar" src="${escapeHtml(avatarFor(user))}" alt="${escapeHtml(user.displayName || 'User')}">
+                        <div>
+                            <h3 class="user-name">${escapeHtml(user.displayName || 'No Name')}</h3>
+                            <p class="user-email">${escapeHtml(user.email || 'No email')}</p>
+                        </div>
+                    </div>
+                    <div class="row-actions">${badge}</div>
+                </div>
+            `;
+        }
+
+        function renderMessage(item) {
+            const safeId = escapeHtml(item.id);
+            const responseValue = escapeHtml(item.adminResponse || '');
+            return `
+                <div class="message-card">
+                    <div class="user-main">
+                        <img class="avatar" src="${escapeHtml(avatarFor(item))}" alt="${escapeHtml(item.displayName || 'User')}">
+                        <div>
+                            <h3 class="user-name">${escapeHtml(item.displayName || 'SkillStack User')}</h3>
+                            <p class="user-email">${escapeHtml(item.email || 'No email')}</p>
+                            <div class="message-meta">${escapeHtml(item.createdAt || '')}</div>
+                        </div>
+                    </div>
+                    <div>
+                        <strong>Message</strong>
+                        <p class="user-email" style="white-space: pre-wrap; max-width: none;">${escapeHtml(item.message || '')}</p>
+                    </div>
+                    <div>
+                        <strong>Admin response</strong>
+                        <textarea data-response-input="${safeId}" placeholder="Write a response for the user">${responseValue}</textarea>
+                    </div>
+                    <div class="row-actions">
+                        <span class="badge ${item.adminResponse ? 'badge-premium' : 'badge-free'}">
+                            <i class="fas ${item.adminResponse ? 'fa-reply' : 'fa-envelope'}"></i>
+                            ${item.adminResponse ? 'Responded' : 'Awaiting reply'}
+                        </span>
+                        <button class="btn btn-primary" data-respond="${safeId}" type="button">
+                            <i class="fas fa-paper-plane"></i> Save response
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        async function loadDashboard() {
+            setLoading();
+
+            try {
+                const [requests, users, messages] = await Promise.all([getPendingRequests(), getAllUsers(), getAdminMessages()]);
+                const premiumUsers = users.filter(user => user.isPremium).length;
+
+                metrics.pending.textContent = requests.length;
+                metrics.users.textContent = users.length;
+                metrics.premium.textContent = premiumUsers;
+                metrics.free.textContent = Math.max(users.length - premiumUsers, 0);
+                metrics.pendingPill.textContent = `${requests.length} pending`;
+                metrics.usersPill.textContent = `${users.length} users`;
+                metrics.messagesPill.textContent = `${messages.length} messages`;
+
+                requestList.innerHTML = requests.length
+                    ? requests.map(renderRequest).join('')
+                    : '<div class="empty-state"><i class="fas fa-check-circle"></i> No pending premium requests.</div>';
+
+                allUsersList.innerHTML = users.length
+                    ? users.map(renderUser).join('')
+                    : '<div class="empty-state">No users found.</div>';
+
+                messageList.innerHTML = messages.length
+                    ? messages.map(renderMessage).join('')
+                    : '<div class="empty-state"><i class="fas fa-envelope-open-text"></i> No user messages yet.</div>';
+            } catch (error) {
+                requestList.innerHTML = `<div class="error-state">Could not load requests: ${escapeHtml(error.message)}</div>`;
+                allUsersList.innerHTML = `<div class="error-state">Could not load users: ${escapeHtml(error.message)}</div>`;
+                messageList.innerHTML = `<div class="error-state">Could not load messages: ${escapeHtml(error.message)}</div>`;
+            } finally {
+                btnRefresh.disabled = false;
+            }
+        }
+
+        requestList.addEventListener('click', async (event) => {
+            const button = event.target.closest('[data-approve]');
+            const rejectButton = event.target.closest('[data-reject]');
+            if (!button && !rejectButton) return;
+
+            if (button) {
+                const uid = button.dataset.approve;
+                const confirmed = confirm("Approve this user for Premium Access?");
+                if (!confirmed) return;
+
+                button.disabled = true;
+                button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Approving...';
+
+                try {
+                    await approvePremium(uid);
+                    showToast("User approved for premium access.");
+                    await loadDashboard();
+                } catch (error) {
+                    showToast("Approval failed: " + error.message);
+                    button.disabled = false;
+                    button.innerHTML = '<i class="fas fa-check"></i> Approve';
+                }
+            }
+
+            if (rejectButton) {
+                const uid = rejectButton.dataset.reject;
+                const reason = prompt("Enter a rejection note for the user:", "Your access request was rejected by the admin.");
+                if (reason === null) return;
+
+                rejectButton.disabled = true;
+                rejectButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Rejecting...';
+
+                try {
+                    await rejectPremium(uid, reason || "Your access request was rejected by the admin.");
+                    showToast("User request rejected.");
+                    await loadDashboard();
+                } catch (error) {
+                    showToast("Rejection failed: " + error.message);
+                    rejectButton.disabled = false;
+                    rejectButton.innerHTML = '<i class="fas fa-xmark"></i> Reject';
+                }
+            }
+        });
+
+        messageList.addEventListener('click', async (event) => {
+            const button = event.target.closest('[data-respond]');
+            if (!button) return;
+
+            const id = button.dataset.respond;
+            const input = messageList.querySelector(`[data-response-input="${id}"]`);
+            const response = input?.value.trim();
+            if (!response) {
+                showToast("Write a response first.");
+                return;
+            }
+
+            button.disabled = true;
+            button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
+
+            try {
+                await respondToAdminMessage(id, response);
+                showToast("Response saved.");
+                await loadDashboard();
+            } catch (error) {
+                showToast("Could not save response: " + error.message);
+                button.disabled = false;
+                button.innerHTML = '<i class="fas fa-paper-plane"></i> Save response';
+            }
+        });
+
+        btnRefresh.addEventListener('click', loadDashboard);
+
+        initAuthStateListener((user) => {
+            if (!user || user.email !== ADMIN_EMAIL) {
+                alert("Access denied. Admin account required.");
+                window.location.href = user ? 'index.html' : 'login.html';
+                return;
+            }
+
+            loadDashboard();
+        }, () => {
+            window.location.href = 'login.html';
+        });
+    </script>
+</body>
+
+</html>
